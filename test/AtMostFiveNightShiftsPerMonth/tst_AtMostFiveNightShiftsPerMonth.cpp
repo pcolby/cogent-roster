@@ -13,7 +13,8 @@ private slots:
 
 void tst_AtMostFiveNightShiftsPerMonth::constrain()
 {
-
+    Cogent::AtMostFiveNightShiftsPerMonth constraint(QStringLiteral("night"));
+    /// @todo
 }
 
 QTEST_APPLESS_MAIN(tst_AtMostFiveNightShiftsPerMonth)

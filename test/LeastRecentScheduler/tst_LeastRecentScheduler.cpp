@@ -13,7 +13,8 @@ private slots:
 
 void tst_LeastRecentScheduler::getNext()
 {
-
+    Cogent::LeastRecentScheduler scheduler;
+    /// @todo
 }
 
 QTEST_APPLESS_MAIN(tst_LeastRecentScheduler)

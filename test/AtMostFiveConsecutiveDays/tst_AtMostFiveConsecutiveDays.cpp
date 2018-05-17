@@ -13,7 +13,8 @@ private slots:
 
 void tst_AtMostFiveConsecutiveDays::constrain()
 {
-
+    Cogent::AtMostFiveConsecutiveDays constraint;
+    /// @todo
 }
 
 QTEST_APPLESS_MAIN(tst_AtMostFiveConsecutiveDays)

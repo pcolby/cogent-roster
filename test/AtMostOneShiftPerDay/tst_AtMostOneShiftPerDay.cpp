@@ -13,7 +13,8 @@ private slots:
 
 void tst_AtMostOneShiftPerDay::constrain()
 {
-
+    Cogent::AtMostOneShiftPerDay constraint;
+    /// @todo
 }
 
 QTEST_APPLESS_MAIN(tst_AtMostOneShiftPerDay)

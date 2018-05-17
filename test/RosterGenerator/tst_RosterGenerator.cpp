@@ -13,7 +13,8 @@ private slots:
 
 void tst_RosterGenerator::generate()
 {
-
+    Cogent::RosterGenerator generator;
+    /// @todo
 }
 
 QTEST_APPLESS_MAIN(tst_RosterGenerator)

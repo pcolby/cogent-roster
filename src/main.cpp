@@ -5,7 +5,7 @@
 #include <QLoggingCategory>
 #include <QVariantList>
 
-#include "LeastRecentScheduler.h" /// @todo Probably move this to a separate Roster file.
+#include "Roster.h"
 
 void configureLogging(const QCommandLineParser &parser);
 
@@ -35,11 +35,10 @@ int main(int argc, char *argv[])
     parser.process(app);
     configureLogging(parser);
 
-    auto roster = QVariantMap(); /// @todo Invoke scheduler.
-
+    Cogent::Roster generator;
+    const QVariantMap roster = generator.generate(2018,5,QStringList()<<QLatin1String("paul"));
     qInfo().noquote() << QJsonDocument::fromVariant(roster).toJson(
         parser.isSet(QStringLiteral("compact")) ? QJsonDocument::Compact : QJsonDocument::Indented);
-
     return EXIT_SUCCESS;
 }
 

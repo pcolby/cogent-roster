@@ -26,7 +26,13 @@ UI_DIR = $$DESTDIR/tmp
 
 # Include resources and source files.
 HEADERS += \
+  AtMostFiveConsecutiveDays.h \
+  AtMostFiveNightShiftsPerMonth.h \
+  AtMostOneShiftPerDay.h \
+  ConstraintInterface.h \
   LeastRecentScheduler.h \
+  NoSingleDaysOff.h \
+  Roster.h \
   SchedulerInterface.h \
 
 SOURCES += \

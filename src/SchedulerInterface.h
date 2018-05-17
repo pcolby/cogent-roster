@@ -23,6 +23,10 @@ public:
      */
     virtual QString chooseNextNurse(const QStringSet &availableNurses) = 0;
 
+    /*!
+     * \brief Virtual destructor for safe polymorphic destruction.
+     */
+    virtual ~SchedulerInterface() { }
 };
 
 } // end Cogent namespace

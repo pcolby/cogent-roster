@@ -1,6 +1,7 @@
 #include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QFile>
 #include <QJsonDocument>
 #include <QLoggingCategory>
 #include <iostream>
@@ -8,6 +9,7 @@
 #include "RosterGenerator.h"
 
 void configureLogging(const QCommandLineParser &parser);
+QStringList readNursesList(const QCommandLineParser &parser);
 
 int main(int argc, char *argv[])
 {
@@ -22,12 +24,13 @@ int main(int argc, char *argv[])
         { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
         {{QStringLiteral("c"), QStringLiteral("compact")}, QStringLiteral("Use compact output")},
         { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
-        {{QStringLiteral("n"), QStringLiteral("nurses")},
+        {{QStringLiteral("i"), QStringLiteral("nurses")},
           QStringLiteral("Read names of available nurses from file (default is stdin)"),
           QStringLiteral("file") },
         {{QStringLiteral("o"), QStringLiteral("output")},
           QStringLiteral("Write output to file (default is stdout)"),
           QStringLiteral("file")},
+        { QStringLiteral("skip-dups"), QStringLiteral("Skip duplicate nurse names")},
     });
     parser.addPositionalArgument(
         QStringLiteral("YYYY-MM"),
@@ -35,10 +38,11 @@ int main(int argc, char *argv[])
     parser.process(app);
     configureLogging(parser);
 
-    // Just some dummy nurses for now.
-    QStringList nurses;
-    while (nurses.length() < 31) {
-        nurses.append(QStringLiteral("%1").arg(nurses.size()));
+    // Read the nurses list.
+    const QStringList nurses = readNursesList(parser);
+    if (nurses.isEmpty()) {
+        qCritical() << "have no nurses to roster";
+        return EXIT_FAILURE;
     }
 
     // Generate the roster.
@@ -74,4 +78,46 @@ void configureLogging(const QCommandLineParser &parser)
     }
 
     qSetMessagePattern(messagePattern);
+}
+
+/*!
+ * Returns a list of nurses read from either a file or stdin, according to the options in \a parser.
+ *
+ * \note This function assumes the file (including stdin) uses the current system's local 8-bit
+ * encoding. Typically, this is UTF-8, but it not guaranteed. In future, we should support BOM
+ * detection for UTF-16, and/or a command line option to specify the encoding manually.
+ */
+QStringList readNursesList(const QCommandLineParser &parser)
+{
+    // Open the input file (or stdin) for reading.
+    QFile file(parser.value(QStringLiteral("nurses")));
+    if (parser.isSet(QStringLiteral("nurses"))) {
+        if (!file.open(QFile::ReadOnly|QFile::Text)) {
+            qCritical() << "failed to open" << parser.value(QStringLiteral("nurses")) << "for reading";
+            return QStringList();
+        }
+    } else {
+        qDebug() << "reading nurses list from stdin";
+        if (!file.open(stdin, QFile::ReadOnly|QFile::Text)) {
+            qCritical() << "failed to open stdin for reading";
+            return QStringList();
+        }
+    }
+
+    // Read all nurses from the input file (or stdin).
+    QSet<QString> nurses;
+    while (!file.atEnd()) {
+        QString nurse = QString::fromLocal8Bit(file.readLine().trimmed());
+        if (!parser.isSet(QStringLiteral("skip-dups"))) {
+            // If (while) we already have a nurse with this name, append the nurse's line number
+            // to their name. Note, the use of 'while' instead of 'if' is rarely necessary, but it
+            // does guarantee uniqueness (in case another nurse's name ends in a number).
+            while (nurses.contains(nurse)) {
+                nurse += QStringLiteral(" (%1)").arg(nurses.size()+1);
+            }
+        }
+        nurses.insert(nurse);
+    }
+    qDebug() << "read" << nurses.size() << "nurses";
+    return nurses.toList();
 }

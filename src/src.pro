@@ -35,6 +35,4 @@ HEADERS += \
   Roster.h \
   SchedulerInterface.h \
 
-SOURCES += \
-  LeastRecentScheduler.cpp \
-  main.cpp \
+SOURCES += main.cpp

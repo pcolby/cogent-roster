@@ -25,5 +25,10 @@ RCC_DIR = $$DESTDIR/tmp
 UI_DIR = $$DESTDIR/tmp
 
 # Include resources and source files.
-#HEADERS += generator.h
-SOURCES += main.cpp
+HEADERS += \
+  LeastRecentScheduler.h \
+  SchedulerInterface.h \
+
+SOURCES += \
+  LeastRecentScheduler.cpp \
+  main.cpp \

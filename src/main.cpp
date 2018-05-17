@@ -5,6 +5,8 @@
 #include <QLoggingCategory>
 #include <QVariantList>
 
+#include "LeastRecentScheduler.h" /// @todo Probably move this to a separate Roster file.
+
 void configureLogging(const QCommandLineParser &parser);
 
 int main(int argc, char *argv[])

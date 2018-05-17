@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QJsonDocument>
 #include <QLoggingCategory>
-#include <QVariantList>
+#include <iostream>
 
 #include "Roster.h"
 
@@ -35,10 +35,20 @@ int main(int argc, char *argv[])
     parser.process(app);
     configureLogging(parser);
 
+    // Just some dummy nurses for now.
+    QStringList nurses;
+    while (nurses.length() < 30) {
+        nurses.append(QStringLiteral("%1").arg(nurses.size()));
+    }
+
+    // Generate the roster.
     Cogent::Roster generator;
-    const QVariantMap roster = generator.generate(2018,5,QStringList()<<QLatin1String("paul"));
-    qInfo().noquote() << QJsonDocument::fromVariant(roster).toJson(
-        parser.isSet(QStringLiteral("compact")) ? QJsonDocument::Compact : QJsonDocument::Indented);
+    const QVariantMap roster = generator.generate(2018,5,nurses);
+
+    // Convert the roster to JSON, and print it to stdout.
+    const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
+        ? QJsonDocument::Compact : QJsonDocument::Indented;
+    std::cout << QJsonDocument::fromVariant(roster).toJson(jsonFormat).toStdString();
     return EXIT_SUCCESS;
 }
 

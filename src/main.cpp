@@ -5,7 +5,7 @@
 #include <QLoggingCategory>
 #include <iostream>
 
-#include "Roster.h"
+#include "RosterGenerator.h"
 
 void configureLogging(const QCommandLineParser &parser);
 
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     }
 
     // Generate the roster.
-    Cogent::Roster generator;
+    Cogent::RosterGenerator generator;
     const QVariantMap roster = generator.generate(2018,5,nurses);
 
     // Convert the roster to JSON, and print it to stdout.

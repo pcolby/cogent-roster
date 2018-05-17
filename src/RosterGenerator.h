@@ -13,11 +13,11 @@
 
 namespace Cogent {
 
-class Roster
+class RosterGenerator
 {
 
 public:
-    Roster(const int nursesPerShift = 5) :
+    RosterGenerator(const int nursesPerShift = 5) :
         constraints{
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveConsecutiveDays()),
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveShiftsPerMonth()),
@@ -28,7 +28,7 @@ public:
 
     QVariantMap generate(const int year, const int month, const QStringList &nurses)
     {
-        const int daysInMonth = Roster::daysInMonth(year, month);
+        const int daysInMonth = RosterGenerator::daysInMonth(year, month);
         const QStringList shiftNames{
             QObject::tr("morning"), QObject::tr("evening"), QObject::tr("night")
         };

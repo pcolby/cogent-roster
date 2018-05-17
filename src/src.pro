@@ -32,7 +32,7 @@ HEADERS += \
   ConstraintInterface.h \
   LeastRecentScheduler.h \
   NoSingleDaysOff.h \
-  Roster.h \
+  RosterGenerator.h \
   SchedulerInterface.h \
 
 SOURCES += main.cpp

@@ -32,7 +32,6 @@ public:
         foreach (const QVariant &day, daysSoFar) {
             foreach (const QVariant &nurse, day.toMap().value(nightShiftLabel).toList()) {
                 if (nurses.contains(nurse.toString())) {
-                    qDebug() << nurse.toString() << nightShiftsPerNurse[nurse.toString()] << "++";
                     nightShiftsPerNurse[nurse.toString()]++;
                 }
             }

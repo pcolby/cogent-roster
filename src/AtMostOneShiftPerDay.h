@@ -20,10 +20,20 @@ public:
      */
     int constrain(QStringSet &nurses, const QString &shift, const QVariantList &daysSoFar) override
     {
-        Q_UNUSED(nurses);
+        Q_ASSERT(!daysSoFar.isEmpty()); // Days so far includes today, even if empty.
         Q_UNUSED(shift);
-        Q_UNUSED(daysSoFar);
-        return 0;
+
+        // Remove any nurses that are already rostered today.
+        int removedCount = 0;
+        foreach (const QVariant &shift, daysSoFar.last().toMap()) {
+            foreach (const QVariant &nurse, shift.toList()) {
+                if (nurses.remove(nurse.toString())) {
+                    removedCount++;
+                }
+            }
+        }
+        qDebug() << "removed" << removedCount << "of" << nurses.size()+removedCount << "nurses";
+        return removedCount;
     }
 
 };

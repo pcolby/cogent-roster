@@ -40,7 +40,7 @@ public:
             // Remove from nursesToRemove, any nurses that are *not* rostored this day.
             nursesToRemove.subtract(nursesToRemove - nursesRosteredThisDay);
         }
-        qDebug() << "Removing" << nursesToRemove.size() << "of" << nurses.size() << "nurses";
+        qDebug() << "removed" << nursesToRemove.size() << "of" << nurses.size() << "nurses";
         nurses.subtract(nursesToRemove);
         return nursesToRemove.size();
     }

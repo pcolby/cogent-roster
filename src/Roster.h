@@ -66,7 +66,7 @@ public:
 
         // Build the final roster, with some metadata.
         QVariantMap roster;
-        roster[QObject::tr("%d-%d").arg(year).arg(month,2,10,QLatin1Char('0'))] = days;
+        roster[QObject::tr("%1-%2").arg(year).arg(month,2,10,QLatin1Char('0'))] = days;
         roster[QObject::tr("created")] = QDateTime::currentDateTime().toString();
         return roster;
     }

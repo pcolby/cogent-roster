@@ -24,6 +24,7 @@ public:
 
         // If we don't have 5 days of history yet, then no need to exclude anyone.
         if (daysSoFar.size() < 6) { // 6 because daysSoFar always include the current day too.
+            qDebug() << "removed 0 of" << nurses.size() << "nurses";
             return 0;
         }
 

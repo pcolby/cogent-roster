@@ -8,11 +8,11 @@ namespace Cogent {
 /*!
  * \brief Ensures that a nurse does not work more than five night shifts per month.
  */
-class AtMostFiveShiftsPerMonth : public ConstraintInterface
+class AtMostFiveNightShiftsPerMonth : public ConstraintInterface
 {
 
 public:
-    AtMostFiveShiftsPerMonth(const QString &nightShiftLabel): nightShiftLabel(nightShiftLabel) { }
+    AtMostFiveNightShiftsPerMonth(const QString &nightShiftLabel): nightShiftLabel(nightShiftLabel) { }
 
     /*!
      * \brief Removes from \a nurses any nurse that would fail this constraint if thery were to be
@@ -24,6 +24,7 @@ public:
     {
         // This constraint does not apply to non-night-shifts.
         if (shift != nightShiftLabel) {
+            qDebug() << "removed 0 of" << nurses.size() << "nurses";
             return 0;
         }
 

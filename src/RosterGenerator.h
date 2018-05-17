@@ -20,7 +20,7 @@ public:
     RosterGenerator(const int nursesPerShift = 5) :
         constraints{
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveConsecutiveDays()),
-            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveShiftsPerMonth(QObject::tr("night"))),
+            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveNightShiftsPerMonth(QObject::tr("night"))),
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostOneShiftPerDay()),
             QSharedPointer<ConstraintInterface>(new Cogent::NoSingleDaysOff()),
         }, scheduler(new LeastRecentScheduler()), nursesPerShift(nursesPerShift)

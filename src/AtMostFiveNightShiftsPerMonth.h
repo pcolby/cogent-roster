@@ -12,6 +12,8 @@ class AtMostFiveShiftsPerMonth : public ConstraintInterface
 {
 
 public:
+    AtMostFiveShiftsPerMonth(const QString &nightShiftLabel): nightShiftLabel(nightShiftLabel) { }
+
     /*!
      * \brief Removes from \a nurses any nurse that would fail this constraint if thery were to be
      * included in \a shift of the day after \a daysSoFar.
@@ -20,12 +22,41 @@ public:
      */
     int constrain(QStringSet &nurses, const QString &shift, const QVariantList &daysSoFar) override
     {
-        Q_UNUSED(nurses);
-        Q_UNUSED(shift);
-        Q_UNUSED(daysSoFar);
-        return 0;
+        // This constraint does not apply to non-night-shifts.
+        if (shift != nightShiftLabel) {
+            return 0;
+        }
 
+        // Count how many times each of the interested nurses are rostered for night shifts already.
+        QMap<QString, int> nightShiftsPerNurse;
+        foreach (const QVariant &day, daysSoFar) {
+            foreach (const QVariant &nurse, day.toMap().value(nightShiftLabel).toList()) {
+                if (nurses.contains(nurse.toString())) {
+                    qDebug() << nurse.toString() << nightShiftsPerNurse[nurse.toString()] << "++";
+                    nightShiftsPerNurse[nurse.toString()]++;
+                }
+            }
+        }
+
+        // Remove all nurses that have five (or more) night shifts already.
+        int removedCount = 0;
+        foreach (const QString &nurse, nurses) {
+            const int nightShiftsCount = nightShiftsPerNurse.value(nurse);
+            if (nightShiftsCount >= 5) {
+                if (nightShiftsCount > 5) {
+                    qWarning() << "roster already violates AtMostFiveShiftsPerMonth constraint for"
+                               << nurse << "with" << nightShiftsCount << "night shifts";
+                }
+                nurses.remove(nurse);
+                removedCount++;
+            }
+        }
+        qDebug() << "removed" << removedCount << "of" << nurses.size()+removedCount << "nurses";
+        return removedCount;
     }
+
+protected:
+    const QString nightShiftLabel;
 
 };
 

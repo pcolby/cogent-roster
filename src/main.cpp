@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     // Just some dummy nurses for now.
     QStringList nurses;
-    while (nurses.length() < 30) {
+    while (nurses.length() < 31) {
         nurses.append(QStringLiteral("%1").arg(nurses.size()));
     }
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
         ? QJsonDocument::Compact : QJsonDocument::Indented;
     std::cout << QJsonDocument::fromVariant(roster).toJson(jsonFormat).toStdString();
-    return EXIT_SUCCESS;
+    return roster.isEmpty() ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
 /*!

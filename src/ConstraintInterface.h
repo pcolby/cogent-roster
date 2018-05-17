@@ -3,6 +3,7 @@
 
 #include <QSet>
 #include <QString>
+#include <QVariantList>
 
 namespace Cogent {
 

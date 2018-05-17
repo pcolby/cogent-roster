@@ -20,7 +20,7 @@ public:
     RosterGenerator(const int nursesPerShift = 5) :
         constraints{
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveConsecutiveDays()),
-            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveShiftsPerMonth()),
+            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveShiftsPerMonth(QObject::tr("night"))),
             QSharedPointer<ConstraintInterface>(new Cogent::AtMostOneShiftPerDay()),
             QSharedPointer<ConstraintInterface>(new Cogent::NoSingleDaysOff()),
         }, scheduler(new LeastRecentScheduler()), nursesPerShift(nursesPerShift)
@@ -38,10 +38,12 @@ public:
         while (days.size() < daysInMonth) {
             QVariantMap day;
             foreach (const QString &shift, shiftNames) {
+                qDebug() << "day" << days.size()+1 << shift;
+
                 // Build a list of candidate nurses by reducing the full list by each constraint.
                 auto candidateNurses = nurses.toSet();
                 foreach(auto &constraint, constraints) {
-                    constraint->constrain(candidateNurses, shift, days);
+                    constraint->constrain(candidateNurses, shift, days + QVariantList{day});
                 }
                 qDebug() << "constrained to" << candidateNurses.size() << "of" << nurses.size() << "nurses";
 
@@ -49,8 +51,9 @@ public:
                 QStringList nursesForThisShift;
                 while (nursesForThisShift.size() < nursesPerShift) {
                     if (candidateNurses.isEmpty()) {
-                        qCritical() << "not enough nurses to satisfy the" << shift
-                                    << "shift of day" << days.size()+1; // This will exit.
+                        qWarning() << "not enough nurses to satisfy the" << shift
+                                   << "shift of day" << days.size()+1;
+                        return QVariantMap();
                     }
                     const QString nurse = scheduler->chooseNextNurse(candidateNurses);
                     nursesForThisShift.append(nurse);

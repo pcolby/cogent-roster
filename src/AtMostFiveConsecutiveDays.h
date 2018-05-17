@@ -20,10 +20,29 @@ public:
      */
     int constrain(QStringSet &nurses, const QString &shift, const QVariantList &daysSoFar) override
     {
-        Q_UNUSED(nurses);
         Q_UNUSED(shift);
-        Q_UNUSED(daysSoFar);
-        return 0;
+
+        // If we don't have 5 days of history yet, then no need to exclude anyone.
+        if (daysSoFar.size() < 6) { // 6 because daysSoFar always include the current day too.
+            return 0;
+        }
+
+        // Find nurses that have been rostered on every day for the past five days.
+        QStringSet nursesToRemove = nurses;
+        for (int day = daysSoFar.size()-6; day < daysSoFar.size()-1; ++day) {
+            QStringSet nursesRosteredThisDay;
+            foreach (const QVariant &shift, daysSoFar.at(day).toMap()) {
+                foreach (const QVariant &nurse, shift.toList()) {
+                    nursesRosteredThisDay.insert(nurse.toString());
+                }
+            }
+
+            // Remove from nursesToRemove, any nurses that are *not* rostored this day.
+            nursesToRemove.subtract(nursesToRemove - nursesRosteredThisDay);
+        }
+        qDebug() << "Removing" << nursesToRemove.size() << "of" << nurses.size() << "nurses";
+        nurses.subtract(nursesToRemove);
+        return nursesToRemove.size();
     }
 
 };

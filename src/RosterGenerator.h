@@ -38,7 +38,7 @@ public:
         // available. And the bumber of night shifts slots we need to fill is the number of nights
         // (aka the number of days) * the number of nurses we need on for each shift. These two
         // totals are easy to compare.
-        if ((daysInMonth*nursesPerShift) < (nurses.size()*5)) {
+        if ((daysInMonth*nursesPerShift) > (nurses.size()*5)) {
             qWarning() << nurses.size() << "nurses is unlikely to be enough for" << daysInMonth << "days";
             // Don't stop though, we'll still give it a try (but expect to fail later).
         }
@@ -80,6 +80,7 @@ public:
         QVariantMap roster;
         roster[QObject::tr("%1-%2").arg(year).arg(month,2,10,QLatin1Char('0'))] = days;
         roster[QObject::tr("created")] = QDateTime::currentDateTime().toString();
+        // Could add plenty of other metadata here in future.
         return roster;
     }
 

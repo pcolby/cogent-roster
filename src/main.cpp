@@ -6,7 +6,13 @@
 #include <QLoggingCategory>
 #include <iostream>
 
+#include "AtMostFiveConsecutiveDays.h"
+#include "AtMostFiveNightShiftsPerMonth.h"
+#include "AtMostOneShiftPerDay.h"
+#include "NoSingleDaysOff.h"
 #include "RosterGenerator.h"
+
+using namespace Cogent;
 
 void configureLogging(const QCommandLineParser &parser);
 QStringList readNursesList(const QCommandLineParser &parser);
@@ -22,6 +28,10 @@ int main(int argc, char *argv[])
     parser.addOptions({
         {{QStringLiteral("d"), QStringLiteral("debug")}, QStringLiteral("Enable debug output")},
         { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
+        { QStringLiteral("no-c1"),    QStringLiteral("Skip constraint 1 (AtMostFiveConsecutiveDays)")},
+        { QStringLiteral("no-c2"),    QStringLiteral("Skip constraint 2 (AtMostFiveNightShiftsPerMonth)")},
+        { QStringLiteral("no-c3"),    QStringLiteral("Skip constraint 3 (AtMostOneShiftPerDay)")},
+        { QStringLiteral("no-c4"),    QStringLiteral("Skip constraint 4 (NoSingleDaysOff)")},
         {{QStringLiteral("c"), QStringLiteral("compact")}, QStringLiteral("Use compact output")},
         { QStringLiteral("no-color"), QStringLiteral("Do not color the output")},
         {{QStringLiteral("i"), QStringLiteral("nurses")},
@@ -47,6 +57,14 @@ int main(int argc, char *argv[])
 
     // Generate the roster.
     Cogent::RosterGenerator generator;
+    if (!parser.isSet(QStringLiteral("no-c1")))
+        generator.addConstraint(new Cogent::AtMostFiveConsecutiveDays());
+    if (!parser.isSet(QStringLiteral("no-c2")))
+        generator.addConstraint(new Cogent::AtMostFiveNightShiftsPerMonth(QObject::tr("night")));
+    if (!parser.isSet(QStringLiteral("no-c3")))
+        generator.addConstraint(new Cogent::AtMostOneShiftPerDay());
+    if (!parser.isSet(QStringLiteral("no-c4")))
+        generator.addConstraint(new Cogent::NoSingleDaysOff());
     const QVariantMap roster = generator.generate(2018,5,nurses);
 
     // Convert the roster to JSON, and print it to stdout.

@@ -1,10 +1,7 @@
-#ifndef __ROSTER_H__
-#define __ROSTER_H__
+#ifndef __ROSTER_GENERATOR_H__
+#define __ROSTER_GENERATOR_H__
 
-#include "AtMostFiveConsecutiveDays.h"
-#include "AtMostFiveNightShiftsPerMonth.h"
-#include "AtMostOneShiftPerDay.h"
-#include "NoSingleDaysOff.h"
+#include "ConstraintInterface.h"
 #include "LeastRecentScheduler.h"
 
 #include <QDate>
@@ -17,15 +14,23 @@ class RosterGenerator
 {
 
 public:
-    RosterGenerator(const int nursesPerShift = 5) :
-        constraints{
-            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveConsecutiveDays()),
-            QSharedPointer<ConstraintInterface>(new Cogent::AtMostFiveNightShiftsPerMonth(QObject::tr("night"))),
-            QSharedPointer<ConstraintInterface>(new Cogent::AtMostOneShiftPerDay()),
-            QSharedPointer<ConstraintInterface>(new Cogent::NoSingleDaysOff()),
-        }, scheduler(new LeastRecentScheduler()), nursesPerShift(nursesPerShift)
+    RosterGenerator(const int nursesPerShift = 5)
+        : scheduler(new LeastRecentScheduler()), nursesPerShift(nursesPerShift)
     { }
 
+    /*!
+     * Register a \a constraint to apply to this roster. This roster will take ownership of the
+     * \a constraint, freeing it on destruction.
+     */
+    void addConstraint(ConstraintInterface * const constraint)
+    {
+        constraints.append(QSharedPointer<ConstraintInterface>(constraint));
+    }
+
+    /*!
+     * Returns a roster using (possbly a subset of) \a nurses for the given \a month in the given
+     * \a year. If any constraints have been set via addConstraint, they will be applied too.
+     */
     QVariantMap generate(const int year, const int month, const QStringList &nurses)
     {
         const int daysInMonth = RosterGenerator::daysInMonth(year, month);
@@ -85,7 +90,7 @@ public:
     }
 
 protected:
-    const QVector<QSharedPointer<ConstraintInterface>> constraints;
+    QVector<QSharedPointer<ConstraintInterface>> constraints;
     const QSharedPointer<SchedulerInterface> scheduler;
     const int nursesPerShift;
 
@@ -101,4 +106,4 @@ protected:
 
 } // end Cogent namespace
 
-#endif // __ROSTER_H__
+#endif // __ROSTER_GENERATOR_H__

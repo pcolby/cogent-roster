@@ -3,6 +3,8 @@
 
 #include "ConstraintInterface.h"
 
+#include <QDebug>
+
 namespace Cogent {
 
 /*!

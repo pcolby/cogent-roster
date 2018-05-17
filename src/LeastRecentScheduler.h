@@ -3,6 +3,7 @@
 
 #include "SchedulerInterface.h"
 
+#include <QDebug>
 
 namespace Cogent {
 

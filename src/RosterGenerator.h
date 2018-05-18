@@ -34,8 +34,14 @@ public:
     QVariantMap generate(const int year, const int month, const QStringList &nurses)
     {
         const int daysInMonth = RosterGenerator::daysInMonth(year, month);
+
+        // Note, the order of shift names here is not reflected in the final output (as JSON Object
+        // property names are explicitly unordered), however, since the "night" shift is subject to
+        // more constraints than the other shifts (AtMostFiveNightShiftsPerMonth), by allocating
+        // the night shift first, we avoid allocating nurses to day shifts, where those nurses may
+        // be the only viable staff for the night shift.
         static const QStringList shiftNames{
-            QObject::tr("morning"), QObject::tr("evening"), QObject::tr("night")
+            QObject::tr("night"), QObject::tr("morning"), QObject::tr("evening")
         };
 
         QVariantList days;

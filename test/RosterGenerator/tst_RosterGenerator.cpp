@@ -35,11 +35,13 @@ void tst_RosterGenerator::generate_data()
     QTest::newRow("30-days-98-nurses") << 2018 << 06 << 30 << nurses;
     QTest::newRow("31-days-98-nurses") << 2018 << 05 << 31 << nurses;
 
-    // Test cases with only just enough nurses.
-    QTest::newRow("28-days-28-nurses") << 2018 << 02 << 28 << QStringList(nurses.mid(0, 34));
-    QTest::newRow("29-days-29-nurses") << 2020 << 02 << 29 << QStringList(nurses.mid(0, 34));
-    QTest::newRow("30-days-30-nurses") << 2018 << 06 << 30 << QStringList(nurses.mid(0, 34));
-    QTest::newRow("31-days-31-nurses") << 2018 << 05 << 31 << QStringList(nurses.mid(0, 34));
+    // Test cases with only just enough nurses (see README.txt for further details). As these are
+    // not business requirements, they can be removed if necessary, but they are here to alert if
+    // code changes unintentionally result in less-efficient nurse utilisation.
+    QTest::newRow("28-days-28-nurses") << 2018 << 02 << 28 << QStringList(nurses.mid(0, 28));
+    QTest::newRow("29-days-29-nurses") << 2020 << 02 << 29 << QStringList(nurses.mid(0, 30));
+    QTest::newRow("30-days-30-nurses") << 2018 << 06 << 30 << QStringList(nurses.mid(0, 30));
+    QTest::newRow("31-days-31-nurses") << 2018 << 05 << 31 << QStringList(nurses.mid(0, 32));
 }
 
 void tst_RosterGenerator::generate()

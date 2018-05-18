@@ -38,16 +38,6 @@ public:
             QObject::tr("morning"), QObject::tr("evening"), QObject::tr("night")
         };
 
-        // A quick sanity check - the harshest constraint is "no more than 5 night shifts per
-        // nurse", so the total number of night shifts we can allocate is 5 * the number of nurses
-        // available. And the bumber of night shifts slots we need to fill is the number of nights
-        // (aka the number of days) * the number of nurses we need on for each shift. These two
-        // totals are easy to compare.
-        if ((daysInMonth*nursesPerShift) > (nurses.size()*5)) {
-            qWarning() << nurses.size() << "nurses is unlikely to be enough for" << daysInMonth << "days";
-            // Don't stop though, we'll still give it a try (but expect to fail later).
-        }
-
         QVariantList days;
         while (days.size() < daysInMonth) {
             QVariantMap day;

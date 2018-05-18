@@ -45,7 +45,7 @@ public:
         // Find which nurses had (at least) two days off.
         QStringSet nursesWithLastTwoDaysOff = nursesWithYesterdayOff;
         if (daysSoFar.size() > 2) { // If we had two (or more) days of history.
-            foreach (const QVariant &shift, daysSoFar.at(daysSoFar.size()-2).toMap()) {
+            foreach (const QVariant &shift, daysSoFar.at(daysSoFar.size()-3).toMap()) {
                 foreach (const QVariant &nurse, shift.toList()) {
                     nursesWithLastTwoDaysOff.remove(nurse.toString());
                 }

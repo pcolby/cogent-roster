@@ -56,6 +56,10 @@ void tst_RosterGenerator::generate()
     generator.addConstraint(new Cogent::AtMostOneShiftPerDay());
     generator.addConstraint(new Cogent::NoSingleDaysOff());
 
+    // Check that insufficient nurses results in a (graceful) empty variant map.
+    // Note we trim the nurses list to just 1, since one nurse can never satisfy any constraints.
+    QCOMPARE(generator.generate(year, month, nurses.mid(0,1)), QVariantMap());
+
     // Generate the roster.
     QVariantMap roster = generator.generate(year, month, nurses);
 

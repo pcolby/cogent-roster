@@ -17,6 +17,7 @@ using namespace Cogent;
 void configureGenerator(Cogent::RosterGenerator &generator, const QCommandLineParser &parser);
 void configureLogging(const QCommandLineParser &parser);
 QStringList readNursesList(const QCommandLineParser &parser);
+bool writeToJson(const QVariantMap &roster, const QCommandLineParser &parser);
 
 int main(int argc, char *argv[])
 {
@@ -71,12 +72,12 @@ int main(int argc, char *argv[])
     Cogent::RosterGenerator generator;
     configureGenerator(generator, parser);
     const QVariantMap roster = generator.generate(year, month, nurses);
+    if (roster.isEmpty()) {
+        return EXIT_FAILURE;
+    }
 
-    // Convert the roster to JSON, and print it to stdout.
-    const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
-        ? QJsonDocument::Compact : QJsonDocument::Indented;
-    std::cout << QJsonDocument::fromVariant(roster).toJson(jsonFormat).toStdString();
-    return roster.isEmpty() ? EXIT_FAILURE : EXIT_SUCCESS;
+    // Output the roster in JSON format.
+    return (writeToJson(roster, parser)) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 /*!
@@ -130,6 +131,7 @@ QStringList readNursesList(const QCommandLineParser &parser)
     // Open the input file (or stdin) for reading.
     QFile file(parser.value(QStringLiteral("nurses")));
     if (parser.isSet(QStringLiteral("nurses"))) {
+        qDebug() << "reading nurses list from" << parser.value(QStringLiteral("nurses"));
         if (!file.open(QFile::ReadOnly|QFile::Text)) {
             qCritical() << "failed to open" << parser.value(QStringLiteral("nurses")) << "for reading";
             return QStringList();
@@ -158,4 +160,40 @@ QStringList readNursesList(const QCommandLineParser &parser)
     }
     qDebug() << "read" << nurses.size() << "nurses";
     return nurses.toList();
+}
+
+/*!
+ * Converts \a roster to JSON, and writes it to file or stdout according to the options in
+ * \a parser.
+ *
+ * Returns \c true on success; \c false otherwise.
+ */
+bool writeToJson(const QVariantMap &roster, const QCommandLineParser &parser)
+{
+    // Open the file (or stdout) for writing.
+    QFile file(parser.value(QStringLiteral("output")));
+    if (parser.isSet(QStringLiteral("output"))) {
+        qDebug() << "writing roster to" << parser.value(QStringLiteral("output"));
+        if (!file.open(QFile::WriteOnly|QFile::Text)) {
+            qCritical() << "failed to open" << parser.value(QStringLiteral("output")) << "for writing";
+            return false;
+        }
+    } else {
+        qDebug() << "writing to roster stdout";
+        if (!file.open(stdout, QFile::WriteOnly|QFile::Text)) {
+            qCritical() << "failed to open stdout for writing";
+            return false;
+        }
+    }
+
+    // Convert the roster to JSON, and write it to file.
+    const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
+        ? QJsonDocument::Compact : QJsonDocument::Indented;
+    const QByteArray json = QJsonDocument::fromVariant(roster).toJson(jsonFormat);
+    const int bytesWritten = file.write(json);
+    if (bytesWritten != json.size()) {
+        qCritical() << "failed to write JSON to file";
+        return false;
+    }
+    return true;
 }

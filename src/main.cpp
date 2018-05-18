@@ -43,10 +43,21 @@ int main(int argc, char *argv[])
         { QStringLiteral("skip-dups"), QStringLiteral("Skip duplicate nurse names")},
     });
     parser.addPositionalArgument(
-        QStringLiteral("YYYY-MM"),
+        QStringLiteral("YYYY MM"),
         QStringLiteral("Month to produce roster for, in either ISO 8601 format such as 'YYYY-MM'"));
     parser.process(app);
     configureLogging(parser);
+
+    // Fetcth the year / month.
+    if (parser.positionalArguments().size() != 2) {
+        parser.showHelp(EXIT_FAILURE);
+    }
+    const int year = parser.positionalArguments().first().toInt();
+    const int month = parser.positionalArguments().last().toInt();
+    if ((month < 1) || (month > 12)) {
+        qCritical() << "month must be between 1 and 12 inclusive";
+        return EXIT_FAILURE;
+    }
 
     // Read the nurses list.
     const QStringList nurses = readNursesList(parser);
@@ -65,7 +76,7 @@ int main(int argc, char *argv[])
         generator.addConstraint(new Cogent::AtMostOneShiftPerDay());
     if (!parser.isSet(QStringLiteral("no-c4")))
         generator.addConstraint(new Cogent::NoSingleDaysOff());
-    const QVariantMap roster = generator.generate(2018,5,nurses);
+    const QVariantMap roster = generator.generate(year, month, nurses);
 
     // Convert the roster to JSON, and print it to stdout.
     const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))

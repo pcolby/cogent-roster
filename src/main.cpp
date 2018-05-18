@@ -14,6 +14,7 @@
 
 using namespace Cogent;
 
+void configureGenerator(Cogent::RosterGenerator &generator, const QCommandLineParser &parser);
 void configureLogging(const QCommandLineParser &parser);
 QStringList readNursesList(const QCommandLineParser &parser);
 
@@ -68,6 +69,21 @@ int main(int argc, char *argv[])
 
     // Generate the roster.
     Cogent::RosterGenerator generator;
+    configureGenerator(generator, parser);
+    const QVariantMap roster = generator.generate(year, month, nurses);
+
+    // Convert the roster to JSON, and print it to stdout.
+    const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
+        ? QJsonDocument::Compact : QJsonDocument::Indented;
+    std::cout << QJsonDocument::fromVariant(roster).toJson(jsonFormat).toStdString();
+    return roster.isEmpty() ? EXIT_FAILURE : EXIT_SUCCESS;
+}
+
+/*!
+ * Configure the given \a generator according the command line \a parser
+ */
+void configureGenerator(Cogent::RosterGenerator &generator, const QCommandLineParser &parser)
+{
     if (!parser.isSet(QStringLiteral("no-c1")))
         generator.addConstraint(new Cogent::AtMostFiveConsecutiveDays());
     if (!parser.isSet(QStringLiteral("no-c2")))
@@ -76,13 +92,6 @@ int main(int argc, char *argv[])
         generator.addConstraint(new Cogent::AtMostOneShiftPerDay());
     if (!parser.isSet(QStringLiteral("no-c4")))
         generator.addConstraint(new Cogent::NoSingleDaysOff());
-    const QVariantMap roster = generator.generate(year, month, nurses);
-
-    // Convert the roster to JSON, and print it to stdout.
-    const QJsonDocument::JsonFormat jsonFormat = parser.isSet(QStringLiteral("compact"))
-        ? QJsonDocument::Compact : QJsonDocument::Indented;
-    std::cout << QJsonDocument::fromVariant(roster).toJson(jsonFormat).toStdString();
-    return roster.isEmpty() ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
 /*!

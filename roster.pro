@@ -8,6 +8,7 @@ $$(ENABLE_COVERAGE) {
                        $$shell_quote(*/test/*) \
                        $$shell_quote(/usr/*) \
                        $$shell_quote(*/QtCore/*) \
+                       $$shell_quote(*/QtTest/*) \
                        --output-file coverage.info &&
   coverage.commands += genhtml --demangle-cpp --output-directory coverage_html coverage.info
   QMAKE_CLEAN += coverage.info coverage_html/*.html

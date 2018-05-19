@@ -1,0 +1,455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - QtCore/qarraydata.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">QtCore</a> - qarraydata.h<span style="font-size: 80%;"> (source / <a href="qarraydata.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">27.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-05-18 14:17:48</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryLo">20.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /****************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2016 The Qt Company Ltd.
+<span class="lineNum">       4 </span>            : ** Contact: https://www.qt.io/licensing/
+<span class="lineNum">       5 </span>            : **
+<span class="lineNum">       6 </span>            : ** This file is part of the QtCore module of the Qt Toolkit.
+<span class="lineNum">       7 </span>            : **
+<span class="lineNum">       8 </span>            : ** $QT_BEGIN_LICENSE:LGPL$
+<span class="lineNum">       9 </span>            : ** Commercial License Usage
+<span class="lineNum">      10 </span>            : ** Licensees holding valid commercial Qt licenses may use this file in
+<span class="lineNum">      11 </span>            : ** accordance with the commercial license agreement provided with the
+<span class="lineNum">      12 </span>            : ** Software or, alternatively, in accordance with the terms contained in
+<span class="lineNum">      13 </span>            : ** a written agreement between you and The Qt Company. For licensing terms
+<span class="lineNum">      14 </span>            : ** and conditions see https://www.qt.io/terms-conditions. For further
+<span class="lineNum">      15 </span>            : ** information use the contact form at https://www.qt.io/contact-us.
+<span class="lineNum">      16 </span>            : **
+<span class="lineNum">      17 </span>            : ** GNU Lesser General Public License Usage
+<span class="lineNum">      18 </span>            : ** Alternatively, this file may be used under the terms of the GNU Lesser
+<span class="lineNum">      19 </span>            : ** General Public License version 3 as published by the Free Software
+<span class="lineNum">      20 </span>            : ** Foundation and appearing in the file LICENSE.LGPL3 included in the
+<span class="lineNum">      21 </span>            : ** packaging of this file. Please review the following information to
+<span class="lineNum">      22 </span>            : ** ensure the GNU Lesser General Public License version 3 requirements
+<span class="lineNum">      23 </span>            : ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+<span class="lineNum">      24 </span>            : **
+<span class="lineNum">      25 </span>            : ** GNU General Public License Usage
+<span class="lineNum">      26 </span>            : ** Alternatively, this file may be used under the terms of the GNU
+<span class="lineNum">      27 </span>            : ** General Public License version 2.0 or (at your option) the GNU General
+<span class="lineNum">      28 </span>            : ** Public license version 3 or any later version approved by the KDE Free
+<span class="lineNum">      29 </span>            : ** Qt Foundation. The licenses are as published by the Free Software
+<span class="lineNum">      30 </span>            : ** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+<span class="lineNum">      31 </span>            : ** included in the packaging of this file. Please review the following
+<span class="lineNum">      32 </span>            : ** information to ensure the GNU General Public License requirements will
+<span class="lineNum">      33 </span>            : ** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+<span class="lineNum">      34 </span>            : ** https://www.gnu.org/licenses/gpl-3.0.html.
+<span class="lineNum">      35 </span>            : **
+<span class="lineNum">      36 </span>            : ** $QT_END_LICENSE$
+<span class="lineNum">      37 </span>            : **
+<span class="lineNum">      38 </span>            : ****************************************************************************/
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : #ifndef QARRAYDATA_H
+<span class="lineNum">      41 </span>            : #define QARRAYDATA_H
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : #include &lt;QtCore/qrefcount.h&gt;
+<span class="lineNum">      44 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : struct Q_CORE_EXPORT QArrayData
+<span class="lineNum">      49 </span>            : {
+<span class="lineNum">      50 </span>            :     QtPrivate::RefCount ref;
+<span class="lineNum">      51 </span>            :     int size;
+<span class="lineNum">      52 </span>            :     uint alloc : 31;
+<span class="lineNum">      53 </span>            :     uint capacityReserved : 1;
+<span class="lineNum">      54 </span>            : 
+<a name="55"><span class="lineNum">      55 </span>            :     qptrdiff offset; // in bytes from beginning of header</a>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineNoCov">          0 :     void *data()</span>
+<span class="lineNum">      58 </span>            :     {
+<span class="lineNum">      59 </span>            :         Q_ASSERT(size == 0
+<span class="lineNum">      60 </span>            :                 || offset &lt; 0 || size_t(offset) &gt;= sizeof(QArrayData));
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :         return reinterpret_cast&lt;char *&gt;(this) + offset;</span>
+<span class="lineNum">      62 </span>            :     }
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            :     const void *data() const
+<span class="lineNum">      65 </span>            :     {
+<span class="lineNum">      66 </span>            :         Q_ASSERT(size == 0
+<span class="lineNum">      67 </span>            :                 || offset &lt; 0 || size_t(offset) &gt;= sizeof(QArrayData));
+<span class="lineNum">      68 </span>            :         return reinterpret_cast&lt;const char *&gt;(this) + offset;
+<span class="lineNum">      69 </span>            :     }
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :     // This refers to array data mutability, not &quot;header data&quot; represented by
+<span class="lineNum">      72 </span>            :     // data members in QArrayData. Shared data (array and header) must still
+<span class="lineNum">      73 </span>            :     // follow COW principles.
+<span class="lineNum">      74 </span>            :     bool isMutable() const
+<span class="lineNum">      75 </span>            :     {
+<span class="lineNum">      76 </span>            :         return alloc != 0;
+<span class="lineNum">      77 </span>            :     }
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            :     enum AllocationOption {
+<span class="lineNum">      80 </span>            :         CapacityReserved    = 0x1,
+<span class="lineNum">      81 </span>            : #if !defined(QT_NO_UNSHARABLE_CONTAINERS)
+<span class="lineNum">      82 </span>            :         Unsharable          = 0x2,
+<span class="lineNum">      83 </span>            : #endif
+<span class="lineNum">      84 </span>            :         RawData             = 0x4,
+<span class="lineNum">      85 </span>            :         Grow                = 0x8,
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :         Default = 0
+<span class="lineNum">      88 </span>            :     };
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            :     Q_DECLARE_FLAGS(AllocationOptions, AllocationOption)
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            :     size_t detachCapacity(size_t newSize) const
+<span class="lineNum">      93 </span>            :     {
+<span class="lineNum">      94 </span>            :         if (capacityReserved &amp;&amp; newSize &lt; alloc)
+<span class="lineNum">      95 </span>            :             return alloc;
+<span class="lineNum">      96 </span>            :         return newSize;
+<span class="lineNum">      97 </span>            :     }
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            :     AllocationOptions detachFlags() const
+<span class="lineNum">     100 </span>            :     {
+<span class="lineNum">     101 </span>            :         AllocationOptions result;
+<span class="lineNum">     102 </span>            :         if (capacityReserved)
+<span class="lineNum">     103 </span>            :             result |= CapacityReserved;
+<span class="lineNum">     104 </span>            :         return result;
+<span class="lineNum">     105 </span>            :     }
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            :     AllocationOptions cloneFlags() const
+<span class="lineNum">     108 </span>            :     {
+<span class="lineNum">     109 </span>            :         AllocationOptions result;
+<span class="lineNum">     110 </span>            :         if (capacityReserved)
+<span class="lineNum">     111 </span>            :             result |= CapacityReserved;
+<span class="lineNum">     112 </span>            :         return result;
+<span class="lineNum">     113 </span>            :     }
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            :     Q_REQUIRED_RESULT static QArrayData *allocate(size_t objectSize, size_t alignment,
+<span class="lineNum">     116 </span>            :             size_t capacity, AllocationOptions options = Default) Q_DECL_NOTHROW;
+<span class="lineNum">     117 </span>            :     Q_REQUIRED_RESULT static QArrayData *reallocateUnaligned(QArrayData *data, size_t objectSize,
+<span class="lineNum">     118 </span>            :             size_t newCapacity, AllocationOptions newOptions = Default) Q_DECL_NOTHROW;
+<span class="lineNum">     119 </span>            :     static void deallocate(QArrayData *data, size_t objectSize,
+<span class="lineNum">     120 </span>            :             size_t alignment) Q_DECL_NOTHROW;
+<a name="121"><span class="lineNum">     121 </span>            : </a>
+<span class="lineNum">     122 </span>            :     static const QArrayData shared_null[2];
+<span class="lineNum">     123 </span><span class="lineCov">          1 :     static QArrayData *sharedNull() Q_DECL_NOTHROW { return const_cast&lt;QArrayData*&gt;(shared_null); }</span>
+<span class="lineNum">     124 </span>            : };
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            : Q_DECLARE_OPERATORS_FOR_FLAGS(QArrayData::AllocationOptions)
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            : template &lt;class T&gt;
+<span class="lineNum">     129 </span>            : struct QTypedArrayData
+<span class="lineNum">     130 </span>            :     : QArrayData
+<span class="lineNum">     131 </span>            : {
+<span class="lineNum">     132 </span>            : #ifdef QT_STRICT_ITERATORS
+<span class="lineNum">     133 </span>            :     class iterator {
+<span class="lineNum">     134 </span>            :     public:
+<span class="lineNum">     135 </span>            :         T *i;
+<span class="lineNum">     136 </span>            :         typedef std::random_access_iterator_tag  iterator_category;
+<span class="lineNum">     137 </span>            :         typedef int difference_type;
+<span class="lineNum">     138 </span>            :         typedef T value_type;
+<span class="lineNum">     139 </span>            :         typedef T *pointer;
+<span class="lineNum">     140 </span>            :         typedef T &amp;reference;
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            :         inline iterator() : i(Q_NULLPTR) {}
+<span class="lineNum">     143 </span>            :         inline iterator(T *n) : i(n) {}
+<span class="lineNum">     144 </span>            :         inline iterator(const iterator &amp;o): i(o.i){} // #### Qt 6: remove, the implicit version is fine
+<span class="lineNum">     145 </span>            :         inline T &amp;operator*() const { return *i; }
+<span class="lineNum">     146 </span>            :         inline T *operator-&gt;() const { return i; }
+<span class="lineNum">     147 </span>            :         inline T &amp;operator[](int j) const { return *(i + j); }
+<span class="lineNum">     148 </span>            :         inline bool operator==(const iterator &amp;o) const { return i == o.i; }
+<span class="lineNum">     149 </span>            :         inline bool operator!=(const iterator &amp;o) const { return i != o.i; }
+<span class="lineNum">     150 </span>            :         inline bool operator&lt;(const iterator&amp; other) const { return i &lt; other.i; }
+<span class="lineNum">     151 </span>            :         inline bool operator&lt;=(const iterator&amp; other) const { return i &lt;= other.i; }
+<span class="lineNum">     152 </span>            :         inline bool operator&gt;(const iterator&amp; other) const { return i &gt; other.i; }
+<span class="lineNum">     153 </span>            :         inline bool operator&gt;=(const iterator&amp; other) const { return i &gt;= other.i; }
+<span class="lineNum">     154 </span>            :         inline iterator &amp;operator++() { ++i; return *this; }
+<span class="lineNum">     155 </span>            :         inline iterator operator++(int) { T *n = i; ++i; return n; }
+<span class="lineNum">     156 </span>            :         inline iterator &amp;operator--() { i--; return *this; }
+<span class="lineNum">     157 </span>            :         inline iterator operator--(int) { T *n = i; i--; return n; }
+<span class="lineNum">     158 </span>            :         inline iterator &amp;operator+=(int j) { i+=j; return *this; }
+<span class="lineNum">     159 </span>            :         inline iterator &amp;operator-=(int j) { i-=j; return *this; }
+<span class="lineNum">     160 </span>            :         inline iterator operator+(int j) const { return iterator(i+j); }
+<span class="lineNum">     161 </span>            :         inline iterator operator-(int j) const { return iterator(i-j); }
+<span class="lineNum">     162 </span>            :         inline int operator-(iterator j) const { return i - j.i; }
+<span class="lineNum">     163 </span>            :         inline operator T*() const { return i; }
+<span class="lineNum">     164 </span>            :     };
+<span class="lineNum">     165 </span>            :     friend class iterator;
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            :     class const_iterator {
+<span class="lineNum">     168 </span>            :     public:
+<span class="lineNum">     169 </span>            :         const T *i;
+<span class="lineNum">     170 </span>            :         typedef std::random_access_iterator_tag  iterator_category;
+<span class="lineNum">     171 </span>            :         typedef int difference_type;
+<span class="lineNum">     172 </span>            :         typedef T value_type;
+<span class="lineNum">     173 </span>            :         typedef const T *pointer;
+<span class="lineNum">     174 </span>            :         typedef const T &amp;reference;
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span>            :         inline const_iterator() : i(Q_NULLPTR) {}
+<span class="lineNum">     177 </span>            :         inline const_iterator(const T *n) : i(n) {}
+<span class="lineNum">     178 </span>            :         inline const_iterator(const const_iterator &amp;o): i(o.i) {} // #### Qt 6: remove, the default version is fine
+<span class="lineNum">     179 </span>            :         inline explicit const_iterator(const iterator &amp;o): i(o.i) {}
+<span class="lineNum">     180 </span>            :         inline const T &amp;operator*() const { return *i; }
+<span class="lineNum">     181 </span>            :         inline const T *operator-&gt;() const { return i; }
+<span class="lineNum">     182 </span>            :         inline const T &amp;operator[](int j) const { return *(i + j); }
+<span class="lineNum">     183 </span>            :         inline bool operator==(const const_iterator &amp;o) const { return i == o.i; }
+<span class="lineNum">     184 </span>            :         inline bool operator!=(const const_iterator &amp;o) const { return i != o.i; }
+<span class="lineNum">     185 </span>            :         inline bool operator&lt;(const const_iterator&amp; other) const { return i &lt; other.i; }
+<span class="lineNum">     186 </span>            :         inline bool operator&lt;=(const const_iterator&amp; other) const { return i &lt;= other.i; }
+<span class="lineNum">     187 </span>            :         inline bool operator&gt;(const const_iterator&amp; other) const { return i &gt; other.i; }
+<span class="lineNum">     188 </span>            :         inline bool operator&gt;=(const const_iterator&amp; other) const { return i &gt;= other.i; }
+<span class="lineNum">     189 </span>            :         inline const_iterator &amp;operator++() { ++i; return *this; }
+<span class="lineNum">     190 </span>            :         inline const_iterator operator++(int) { const T *n = i; ++i; return n; }
+<span class="lineNum">     191 </span>            :         inline const_iterator &amp;operator--() { i--; return *this; }
+<span class="lineNum">     192 </span>            :         inline const_iterator operator--(int) { const T *n = i; i--; return n; }
+<span class="lineNum">     193 </span>            :         inline const_iterator &amp;operator+=(int j) { i+=j; return *this; }
+<span class="lineNum">     194 </span>            :         inline const_iterator &amp;operator-=(int j) { i-=j; return *this; }
+<span class="lineNum">     195 </span>            :         inline const_iterator operator+(int j) const { return const_iterator(i+j); }
+<span class="lineNum">     196 </span>            :         inline const_iterator operator-(int j) const { return const_iterator(i-j); }
+<span class="lineNum">     197 </span>            :         inline int operator-(const_iterator j) const { return i - j.i; }
+<span class="lineNum">     198 </span>            :         inline operator const T*() const { return i; }
+<span class="lineNum">     199 </span>            :     };
+<span class="lineNum">     200 </span>            :     friend class const_iterator;
+<span class="lineNum">     201 </span>            : #else
+<span class="lineNum">     202 </span>            :     typedef T* iterator;
+<span class="lineNum">     203 </span>            :     typedef const T* const_iterator;
+<a name="204"><span class="lineNum">     204 </span>            : #endif</a>
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineNoCov">          0 :     T *data() { return static_cast&lt;T *&gt;(QArrayData::data()); }</span>
+<a name="207"><span class="lineNum">     207 </span>            :     const T *data() const { return static_cast&lt;const T *&gt;(QArrayData::data()); }</a>
+<a name="208"><span class="lineNum">     208 </span>            : </a>
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 :     iterator begin(iterator = iterator()) { return data(); }</span>
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 :     iterator end(iterator = iterator()) { return data() + size; }</span>
+<span class="lineNum">     211 </span>            :     const_iterator begin(const_iterator = const_iterator()) const { return data(); }
+<span class="lineNum">     212 </span>            :     const_iterator end(const_iterator = const_iterator()) const { return data() + size; }
+<span class="lineNum">     213 </span>            :     const_iterator constBegin(const_iterator = const_iterator()) const { return data(); }
+<span class="lineNum">     214 </span>            :     const_iterator constEnd(const_iterator = const_iterator()) const { return data() + size; }
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            :     class AlignmentDummy { QArrayData header; T data; };
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span>            :     Q_REQUIRED_RESULT static QTypedArrayData *allocate(size_t capacity,
+<span class="lineNum">     219 </span>            :             AllocationOptions options = Default)
+<span class="lineNum">     220 </span>            :     {
+<span class="lineNum">     221 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     222 </span>            :         return static_cast&lt;QTypedArrayData *&gt;(QArrayData::allocate(sizeof(T),
+<span class="lineNum">     223 </span>            :                     Q_ALIGNOF(AlignmentDummy), capacity, options));
+<span class="lineNum">     224 </span>            :     }
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            :     static QTypedArrayData *reallocateUnaligned(QTypedArrayData *data, size_t capacity,
+<span class="lineNum">     227 </span>            :             AllocationOptions options = Default)
+<span class="lineNum">     228 </span>            :     {
+<span class="lineNum">     229 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     230 </span>            :         return static_cast&lt;QTypedArrayData *&gt;(QArrayData::reallocateUnaligned(data, sizeof(T),
+<span class="lineNum">     231 </span>            :                     capacity, options));
+<a name="232"><span class="lineNum">     232 </span>            :     }</a>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 :     static void deallocate(QArrayData *data)</span>
+<span class="lineNum">     235 </span>            :     {
+<span class="lineNum">     236 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :         QArrayData::deallocate(data, sizeof(T), Q_ALIGNOF(AlignmentDummy));</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span>            :     static QTypedArrayData *fromRawData(const T *data, size_t n,
+<span class="lineNum">     241 </span>            :             AllocationOptions options = Default)
+<span class="lineNum">     242 </span>            :     {
+<span class="lineNum">     243 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     244 </span>            :         QTypedArrayData *result = allocate(0, options | RawData);
+<span class="lineNum">     245 </span>            :         if (result) {
+<span class="lineNum">     246 </span>            :             Q_ASSERT(!result-&gt;ref.isShared()); // No shared empty, please!
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            :             result-&gt;offset = reinterpret_cast&lt;const char *&gt;(data)
+<span class="lineNum">     249 </span>            :                 - reinterpret_cast&lt;const char *&gt;(result);
+<span class="lineNum">     250 </span>            :             result-&gt;size = int(n);
+<span class="lineNum">     251 </span>            :         }
+<span class="lineNum">     252 </span>            :         return result;
+<a name="253"><span class="lineNum">     253 </span>            :     }</a>
+<span class="lineNum">     254 </span>            : 
+<span class="lineNum">     255 </span><span class="lineCov">          1 :     static QTypedArrayData *sharedNull() Q_DECL_NOTHROW</span>
+<span class="lineNum">     256 </span>            :     {
+<span class="lineNum">     257 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     258 </span><span class="lineCov">          1 :         return static_cast&lt;QTypedArrayData *&gt;(QArrayData::sharedNull());</span>
+<span class="lineNum">     259 </span>            :     }
+<span class="lineNum">     260 </span>            : 
+<span class="lineNum">     261 </span>            :     static QTypedArrayData *sharedEmpty()
+<span class="lineNum">     262 </span>            :     {
+<span class="lineNum">     263 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     264 </span>            :         return allocate(/* capacity */ 0);
+<span class="lineNum">     265 </span>            :     }
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span>            : #if !defined(QT_NO_UNSHARABLE_CONTAINERS)
+<span class="lineNum">     268 </span>            :     static QTypedArrayData *unsharableEmpty()
+<span class="lineNum">     269 </span>            :     {
+<span class="lineNum">     270 </span>            :         Q_STATIC_ASSERT(sizeof(QTypedArrayData) == sizeof(QArrayData));
+<span class="lineNum">     271 </span>            :         return allocate(/* capacity */ 0, Unsharable);
+<span class="lineNum">     272 </span>            :     }
+<span class="lineNum">     273 </span>            : #endif
+<span class="lineNum">     274 </span>            : };
+<span class="lineNum">     275 </span>            : 
+<span class="lineNum">     276 </span>            : template &lt;class T, size_t N&gt;
+<span class="lineNum">     277 </span>            : struct QStaticArrayData
+<span class="lineNum">     278 </span>            : {
+<span class="lineNum">     279 </span>            :     QArrayData header;
+<span class="lineNum">     280 </span>            :     T data[N];
+<span class="lineNum">     281 </span>            : };
+<span class="lineNum">     282 </span>            : 
+<span class="lineNum">     283 </span>            : // Support for returning QArrayDataPointer&lt;T&gt; from functions
+<span class="lineNum">     284 </span>            : template &lt;class T&gt;
+<span class="lineNum">     285 </span>            : struct QArrayDataPointerRef
+<span class="lineNum">     286 </span>            : {
+<span class="lineNum">     287 </span>            :     QTypedArrayData&lt;T&gt; *ptr;
+<span class="lineNum">     288 </span>            : };
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span>            : #define Q_STATIC_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(size, offset) \
+<span class="lineNum">     291 </span>            :     { Q_REFCOUNT_INITIALIZE_STATIC, size, 0, 0, offset } \
+<span class="lineNum">     292 </span>            :     /**/
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span>            : #define Q_STATIC_ARRAY_DATA_HEADER_INITIALIZER(type, size) \
+<span class="lineNum">     295 </span>            :     Q_STATIC_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(size,\
+<span class="lineNum">     296 </span>            :         ((sizeof(QArrayData) + (Q_ALIGNOF(type) - 1)) &amp; ~(Q_ALIGNOF(type) - 1) )) \
+<span class="lineNum">     297 </span>            :     /**/
+<span class="lineNum">     298 </span>            : 
+<span class="lineNum">     299 </span>            : ////////////////////////////////////////////////////////////////////////////////
+<span class="lineNum">     300 </span>            : //  Q_ARRAY_LITERAL
+<span class="lineNum">     301 </span>            : 
+<span class="lineNum">     302 </span>            : // The idea here is to place a (read-only) copy of header and array data in an
+<span class="lineNum">     303 </span>            : // mmappable portion of the executable (typically, .rodata section). This is
+<span class="lineNum">     304 </span>            : // accomplished by hiding a static const instance of QStaticArrayData, which is
+<span class="lineNum">     305 </span>            : // POD.
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            : #if defined(Q_COMPILER_VARIADIC_MACROS)
+<span class="lineNum">     308 </span>            : #if defined(Q_COMPILER_LAMBDA)
+<span class="lineNum">     309 </span>            : // Hide array inside a lambda
+<span class="lineNum">     310 </span>            : #define Q_ARRAY_LITERAL(Type, ...)                                              \
+<span class="lineNum">     311 </span>            :     ([]() -&gt; QArrayDataPointerRef&lt;Type&gt; {                                       \
+<span class="lineNum">     312 </span>            :             /* MSVC 2010 Doesn't support static variables in a lambda, but */   \
+<span class="lineNum">     313 </span>            :             /* happily accepts them in a static function of a lambda-local */   \
+<span class="lineNum">     314 </span>            :             /* struct :-) */                                                    \
+<span class="lineNum">     315 </span>            :             struct StaticWrapper {                                              \
+<span class="lineNum">     316 </span>            :                 static QArrayDataPointerRef&lt;Type&gt; get()                         \
+<span class="lineNum">     317 </span>            :                 {                                                               \
+<span class="lineNum">     318 </span>            :                     Q_ARRAY_LITERAL_IMPL(Type, __VA_ARGS__)                     \
+<span class="lineNum">     319 </span>            :                     return ref;                                                 \
+<span class="lineNum">     320 </span>            :                 }                                                               \
+<span class="lineNum">     321 </span>            :             };                                                                  \
+<span class="lineNum">     322 </span>            :             return StaticWrapper::get();                                        \
+<span class="lineNum">     323 </span>            :         }())                                                                    \
+<span class="lineNum">     324 </span>            :     /**/
+<span class="lineNum">     325 </span>            : #endif
+<span class="lineNum">     326 </span>            : #endif // defined(Q_COMPILER_VARIADIC_MACROS)
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            : #if defined(Q_ARRAY_LITERAL)
+<span class="lineNum">     329 </span>            : #define Q_ARRAY_LITERAL_IMPL(Type, ...)                                         \
+<span class="lineNum">     330 </span>            :     union { Type type_must_be_POD; } dummy; Q_UNUSED(dummy)                     \
+<span class="lineNum">     331 </span>            :                                                                                 \
+<span class="lineNum">     332 </span>            :     /* Portable compile-time array size computation */                          \
+<span class="lineNum">     333 </span>            :     Type data[] = { __VA_ARGS__ }; Q_UNUSED(data)                               \
+<span class="lineNum">     334 </span>            :     enum { Size = sizeof(data) / sizeof(data[0]) };                             \
+<span class="lineNum">     335 </span>            :                                                                                 \
+<span class="lineNum">     336 </span>            :     static const QStaticArrayData&lt;Type, Size&gt; literal = {                       \
+<span class="lineNum">     337 </span>            :         Q_STATIC_ARRAY_DATA_HEADER_INITIALIZER(Type, Size), { __VA_ARGS__ } };  \
+<span class="lineNum">     338 </span>            :                                                                                 \
+<span class="lineNum">     339 </span>            :     QArrayDataPointerRef&lt;Type&gt; ref =                                            \
+<span class="lineNum">     340 </span>            :         { static_cast&lt;QTypedArrayData&lt;Type&gt; *&gt;(                                 \
+<span class="lineNum">     341 </span>            :             const_cast&lt;QArrayData *&gt;(&amp;literal.header)) };                       \
+<span class="lineNum">     342 </span>            :     /**/
+<span class="lineNum">     343 </span>            : #else
+<span class="lineNum">     344 </span>            : // As a fallback, memory is allocated and data copied to the heap.
+<span class="lineNum">     345 </span>            : 
+<span class="lineNum">     346 </span>            : // The fallback macro does NOT use variadic macros and does NOT support
+<span class="lineNum">     347 </span>            : // variable number of arguments. It is suitable for char arrays.
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span>            : namespace QtPrivate {
+<span class="lineNum">     350 </span>            :     template &lt;class T, size_t N&gt;
+<span class="lineNum">     351 </span>            :     inline QArrayDataPointerRef&lt;T&gt; qMakeArrayLiteral(const T (&amp;array)[N])
+<span class="lineNum">     352 </span>            :     {
+<span class="lineNum">     353 </span>            :         union { T type_must_be_POD; } dummy; Q_UNUSED(dummy)
+<span class="lineNum">     354 </span>            : 
+<span class="lineNum">     355 </span>            :         QArrayDataPointerRef&lt;T&gt; result = { QTypedArrayData&lt;T&gt;::allocate(N) };
+<span class="lineNum">     356 </span>            :         Q_CHECK_PTR(result.ptr);
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            :         ::memcpy(result.ptr-&gt;data(), array, N * sizeof(T));
+<span class="lineNum">     359 </span>            :         result.ptr-&gt;size = N;
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            :         return result;
+<span class="lineNum">     362 </span>            :     }
+<span class="lineNum">     363 </span>            : }
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            : #define Q_ARRAY_LITERAL(Type, Array) \
+<span class="lineNum">     366 </span>            :     QT_PREPEND_NAMESPACE(QtPrivate::qMakeArrayLiteral)&lt;Type&gt;( Array )
+<span class="lineNum">     367 </span>            : #endif // !defined(Q_ARRAY_LITERAL)
+<span class="lineNum">     368 </span>            : 
+<span class="lineNum">     369 </span>            : namespace QtPrivate {
+<span class="lineNum">     370 </span>            : struct Q_CORE_EXPORT QContainerImplHelper
+<span class="lineNum">     371 </span>            : {
+<span class="lineNum">     372 </span>            :     enum CutResult { Null, Empty, Full, Subset };
+<span class="lineNum">     373 </span>            :     static CutResult mid(int originalLength, int *position, int *length);
+<span class="lineNum">     374 </span>            : };
+<span class="lineNum">     375 </span>            : }
+<span class="lineNum">     376 </span>            : 
+<span class="lineNum">     377 </span>            : QT_END_NAMESPACE
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            : #endif // include guard
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

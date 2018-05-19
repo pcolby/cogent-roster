@@ -1,0 +1,1176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - QtCore/qlist.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">QtCore</a> - qlist.h<span style="font-size: 80%;"> (source / <a href="qlist.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">143</td>
+            <td class="headerCovTableEntryLo">2.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-05-18 14:17:48</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntryLo">4.3 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /****************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2016 The Qt Company Ltd.
+<span class="lineNum">       4 </span>            : ** Contact: https://www.qt.io/licensing/
+<span class="lineNum">       5 </span>            : **
+<span class="lineNum">       6 </span>            : ** This file is part of the QtCore module of the Qt Toolkit.
+<span class="lineNum">       7 </span>            : **
+<span class="lineNum">       8 </span>            : ** $QT_BEGIN_LICENSE:LGPL$
+<span class="lineNum">       9 </span>            : ** Commercial License Usage
+<span class="lineNum">      10 </span>            : ** Licensees holding valid commercial Qt licenses may use this file in
+<span class="lineNum">      11 </span>            : ** accordance with the commercial license agreement provided with the
+<span class="lineNum">      12 </span>            : ** Software or, alternatively, in accordance with the terms contained in
+<span class="lineNum">      13 </span>            : ** a written agreement between you and The Qt Company. For licensing terms
+<span class="lineNum">      14 </span>            : ** and conditions see https://www.qt.io/terms-conditions. For further
+<span class="lineNum">      15 </span>            : ** information use the contact form at https://www.qt.io/contact-us.
+<span class="lineNum">      16 </span>            : **
+<span class="lineNum">      17 </span>            : ** GNU Lesser General Public License Usage
+<span class="lineNum">      18 </span>            : ** Alternatively, this file may be used under the terms of the GNU Lesser
+<span class="lineNum">      19 </span>            : ** General Public License version 3 as published by the Free Software
+<span class="lineNum">      20 </span>            : ** Foundation and appearing in the file LICENSE.LGPL3 included in the
+<span class="lineNum">      21 </span>            : ** packaging of this file. Please review the following information to
+<span class="lineNum">      22 </span>            : ** ensure the GNU Lesser General Public License version 3 requirements
+<span class="lineNum">      23 </span>            : ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+<span class="lineNum">      24 </span>            : **
+<span class="lineNum">      25 </span>            : ** GNU General Public License Usage
+<span class="lineNum">      26 </span>            : ** Alternatively, this file may be used under the terms of the GNU
+<span class="lineNum">      27 </span>            : ** General Public License version 2.0 or (at your option) the GNU General
+<span class="lineNum">      28 </span>            : ** Public license version 3 or any later version approved by the KDE Free
+<span class="lineNum">      29 </span>            : ** Qt Foundation. The licenses are as published by the Free Software
+<span class="lineNum">      30 </span>            : ** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+<span class="lineNum">      31 </span>            : ** included in the packaging of this file. Please review the following
+<span class="lineNum">      32 </span>            : ** information to ensure the GNU General Public License requirements will
+<span class="lineNum">      33 </span>            : ** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+<span class="lineNum">      34 </span>            : ** https://www.gnu.org/licenses/gpl-3.0.html.
+<span class="lineNum">      35 </span>            : **
+<span class="lineNum">      36 </span>            : ** $QT_END_LICENSE$
+<span class="lineNum">      37 </span>            : **
+<span class="lineNum">      38 </span>            : ****************************************************************************/
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : #ifndef QLIST_H
+<span class="lineNum">      41 </span>            : #define QLIST_H
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : #include &lt;QtCore/qalgorithms.h&gt;
+<span class="lineNum">      44 </span>            : #include &lt;QtCore/qiterator.h&gt;
+<span class="lineNum">      45 </span>            : #include &lt;QtCore/qrefcount.h&gt;
+<span class="lineNum">      46 </span>            : #include &lt;QtCore/qarraydata.h&gt;
+<span class="lineNum">      47 </span>            : #include &lt;QtCore/qhashfunctions.h&gt;
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            : #include &lt;iterator&gt;
+<span class="lineNum">      50 </span>            : #include &lt;list&gt;
+<span class="lineNum">      51 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      52 </span>            : #ifdef Q_COMPILER_INITIALIZER_LISTS
+<span class="lineNum">      53 </span>            : #include &lt;initializer_list&gt;
+<span class="lineNum">      54 </span>            : #endif
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      57 </span>            : #include &lt;new&gt;
+<span class="lineNum">      58 </span>            : #include &lt;limits.h&gt;
+<span class="lineNum">      59 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #ifdef Q_CC_MSVC
+<span class="lineNum">      62 </span>            : #pragma warning( push )
+<span class="lineNum">      63 </span>            : #pragma warning( disable : 4127 ) // &quot;conditional expression is constant&quot;
+<span class="lineNum">      64 </span>            : #endif
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            : template &lt;typename T&gt; class QVector;
+<span class="lineNum">      70 </span>            : template &lt;typename T&gt; class QSet;
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : template &lt;typename T&gt; struct QListSpecialMethods
+<a name="73"><span class="lineNum">      73 </span>            : {</a>
+<span class="lineNum">      74 </span>            : protected:
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :     ~QListSpecialMethods() {}</span>
+<span class="lineNum">      76 </span>            : };
+<span class="lineNum">      77 </span>            : template &lt;&gt; struct QListSpecialMethods&lt;QByteArray&gt;;
+<span class="lineNum">      78 </span>            : template &lt;&gt; struct QListSpecialMethods&lt;QString&gt;;
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            : struct Q_CORE_EXPORT QListData {
+<span class="lineNum">      81 </span>            :     // tags for tag-dispatching of QList implementations,
+<span class="lineNum">      82 </span>            :     // based on QList's three different memory layouts:
+<span class="lineNum">      83 </span>            :     struct NotArrayCompatibleLayout {};
+<span class="lineNum">      84 </span>            :     struct NotIndirectLayout {};
+<span class="lineNum">      85 </span>            :     struct ArrayCompatibleLayout   : NotIndirectLayout {};                           // data laid out like a C array
+<span class="lineNum">      86 </span>            :     struct InlineWithPaddingLayout : NotArrayCompatibleLayout, NotIndirectLayout {}; // data laid out like a C array with padding
+<span class="lineNum">      87 </span>            :     struct IndirectLayout          : NotArrayCompatibleLayout {};                    // data allocated on the heap
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            :     struct Data {
+<span class="lineNum">      90 </span>            :         QtPrivate::RefCount ref;
+<span class="lineNum">      91 </span>            :         int alloc, begin, end;
+<span class="lineNum">      92 </span>            :         void *array[1];
+<span class="lineNum">      93 </span>            :     };
+<span class="lineNum">      94 </span>            :     enum { DataHeaderSize = sizeof(Data) - sizeof(void *) };
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            :     Data *detach(int alloc);
+<span class="lineNum">      97 </span>            :     Data *detach_grow(int *i, int n);
+<a name="98"><span class="lineNum">      98 </span>            :     void realloc(int alloc);</a>
+<span class="lineNum">      99 </span>            :     void realloc_grow(int growth);
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :     inline void dispose() { dispose(d); }</span>
+<span class="lineNum">     101 </span>            :     static void dispose(Data *d);
+<span class="lineNum">     102 </span>            :     static const Data shared_null;
+<span class="lineNum">     103 </span>            :     Data *d;
+<span class="lineNum">     104 </span>            :     void **erase(void **xi);
+<span class="lineNum">     105 </span>            :     void **append(int n);
+<span class="lineNum">     106 </span>            :     void **append();
+<span class="lineNum">     107 </span>            :     void **append(const QListData &amp;l);
+<span class="lineNum">     108 </span>            :     void **prepend();
+<span class="lineNum">     109 </span>            :     void **insert(int i);
+<span class="lineNum">     110 </span>            :     void remove(int i);
+<a name="111"><span class="lineNum">     111 </span>            :     void remove(int i, int n);</a>
+<span class="lineNum">     112 </span>            :     void move(int from, int to);
+<a name="113"><span class="lineNum">     113 </span><span class="lineNoCov">          0 :     inline int size() const Q_DECL_NOTHROW { return d-&gt;end - d-&gt;begin; }</span></a>
+<a name="114"><span class="lineNum">     114 </span>            :     inline bool isEmpty() const Q_DECL_NOTHROW { return d-&gt;end  == d-&gt;begin; }</a>
+<a name="115"><span class="lineNum">     115 </span><span class="lineNoCov">          0 :     inline void **at(int i) const Q_DECL_NOTHROW { return d-&gt;array + d-&gt;begin + i; }</span></a>
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :     inline void **begin() const Q_DECL_NOTHROW { return d-&gt;array + d-&gt;begin; }</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :     inline void **end() const Q_DECL_NOTHROW { return d-&gt;array + d-&gt;end; }</span>
+<span class="lineNum">     118 </span>            : };
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     121 </span>            : class QList
+<span class="lineNum">     122 </span>            : #ifndef Q_QDOC
+<span class="lineNum">     123 </span>            :     : public QListSpecialMethods&lt;T&gt;
+<span class="lineNum">     124 </span>            : #endif
+<span class="lineNum">     125 </span>            : {
+<span class="lineNum">     126 </span>            : public:
+<span class="lineNum">     127 </span>            :     struct MemoryLayout
+<span class="lineNum">     128 </span>            :         : std::conditional&lt;
+<span class="lineNum">     129 </span>            :             // must stay isStatic until ### Qt 6 for BC reasons (don't use !isRelocatable)!
+<span class="lineNum">     130 </span>            :             QTypeInfo&lt;T&gt;::isStatic || QTypeInfo&lt;T&gt;::isLarge,
+<span class="lineNum">     131 </span>            :             QListData::IndirectLayout,
+<span class="lineNum">     132 </span>            :             typename std::conditional&lt;
+<span class="lineNum">     133 </span>            :                 sizeof(T) == sizeof(void*),
+<span class="lineNum">     134 </span>            :                 QListData::ArrayCompatibleLayout,
+<span class="lineNum">     135 </span>            :                 QListData::InlineWithPaddingLayout
+<span class="lineNum">     136 </span>            :              &gt;::type&gt;::type {};
+<span class="lineNum">     137 </span>            : private:
+<span class="lineNum">     138 </span>            :     struct Node { void *v;
+<span class="lineNum">     139 </span>            : #if defined(Q_CC_BOR)
+<a name="140"><span class="lineNum">     140 </span>            :         Q_INLINE_TEMPLATE T &amp;t();</a>
+<span class="lineNum">     141 </span>            : #else
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :         Q_INLINE_TEMPLATE T &amp;t()</span>
+<span class="lineNum">     143 </span>            :         { return *reinterpret_cast&lt;T*&gt;(QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :                                        ? v : this); }</span>
+<span class="lineNum">     145 </span>            : #endif
+<span class="lineNum">     146 </span>            :     };
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span>            :     union { QListData p; QListData::Data *d; };
+<a name="149"><span class="lineNum">     149 </span>            : </a>
+<span class="lineNum">     150 </span>            : public:
+<span class="lineNum">     151 </span><span class="lineCov">          1 :     inline QList() Q_DECL_NOTHROW : d(const_cast&lt;QListData::Data *&gt;(&amp;QListData::shared_null)) { }</span>
+<span class="lineNum">     152 </span>            :     QList(const QList&lt;T&gt; &amp;l);
+<span class="lineNum">     153 </span>            :     ~QList();
+<a name="154"><span class="lineNum">     154 </span>            :     QList&lt;T&gt; &amp;operator=(const QList&lt;T&gt; &amp;l);</a>
+<span class="lineNum">     155 </span>            : #ifdef Q_COMPILER_RVALUE_REFS
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :     inline QList(QList&lt;T&gt; &amp;&amp;other) Q_DECL_NOTHROW</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :         : d(other.d) { other.d = const_cast&lt;QListData::Data *&gt;(&amp;QListData::shared_null); }</span>
+<span class="lineNum">     158 </span>            :     inline QList &amp;operator=(QList&lt;T&gt; &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     159 </span>            :     { QList moved(std::move(other)); swap(moved); return *this; }
+<span class="lineNum">     160 </span>            : #endif
+<span class="lineNum">     161 </span>            :     inline void swap(QList&lt;T&gt; &amp;other) Q_DECL_NOTHROW { qSwap(d, other.d); }
+<span class="lineNum">     162 </span>            : #ifdef Q_COMPILER_INITIALIZER_LISTS
+<span class="lineNum">     163 </span>            :     inline QList(std::initializer_list&lt;T&gt; args)
+<span class="lineNum">     164 </span>            :         : d(const_cast&lt;QListData::Data *&gt;(&amp;QListData::shared_null))
+<span class="lineNum">     165 </span>            :     { reserve(int(args.size())); std::copy(args.begin(), args.end(), std::back_inserter(*this)); }
+<span class="lineNum">     166 </span>            : #endif
+<span class="lineNum">     167 </span>            :     bool operator==(const QList&lt;T&gt; &amp;l) const;
+<a name="168"><span class="lineNum">     168 </span>            :     inline bool operator!=(const QList&lt;T&gt; &amp;l) const { return !(*this == l); }</a>
+<span class="lineNum">     169 </span>            : 
+<a name="170"><span class="lineNum">     170 </span><span class="lineNoCov">          0 :     inline int size() const Q_DECL_NOTHROW { return p.size(); }</span></a>
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :     inline void detach() { if (d-&gt;ref.isShared()) detach_helper(); }</span>
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            :     inline void detachShared()
+<span class="lineNum">     175 </span>            :     {
+<span class="lineNum">     176 </span>            :         // The &quot;this-&gt;&quot; qualification is needed for GCCE.
+<span class="lineNum">     177 </span>            :         if (d-&gt;ref.isShared() &amp;&amp; this-&gt;d != &amp;QListData::shared_null)
+<span class="lineNum">     178 </span>            :             detach_helper();
+<span class="lineNum">     179 </span>            :     }
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            :     inline bool isDetached() const { return !d-&gt;ref.isShared(); }
+<span class="lineNum">     182 </span>            : #if !defined(QT_NO_UNSHARABLE_CONTAINERS)
+<span class="lineNum">     183 </span>            :     inline void setSharable(bool sharable)
+<span class="lineNum">     184 </span>            :     {
+<span class="lineNum">     185 </span>            :         if (sharable == d-&gt;ref.isSharable())
+<span class="lineNum">     186 </span>            :             return;
+<span class="lineNum">     187 </span>            :         if (!sharable)
+<span class="lineNum">     188 </span>            :             detach();
+<span class="lineNum">     189 </span>            :         if (d != &amp;QListData::shared_null)
+<span class="lineNum">     190 </span>            :             d-&gt;ref.setSharable(sharable);
+<span class="lineNum">     191 </span>            :     }
+<span class="lineNum">     192 </span>            : #endif
+<span class="lineNum">     193 </span>            :     inline bool isSharedWith(const QList&lt;T&gt; &amp;other) const Q_DECL_NOTHROW { return d == other.d; }
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span>            :     inline bool isEmpty() const Q_DECL_NOTHROW { return p.isEmpty(); }
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span>            :     void clear();
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            :     const T &amp;at(int i) const;
+<span class="lineNum">     200 </span>            :     const T &amp;operator[](int i) const;
+<span class="lineNum">     201 </span>            :     T &amp;operator[](int i);
+<span class="lineNum">     202 </span>            : 
+<span class="lineNum">     203 </span>            :     void reserve(int size);
+<span class="lineNum">     204 </span>            :     void append(const T &amp;t);
+<span class="lineNum">     205 </span>            :     void append(const QList&lt;T&gt; &amp;t);
+<span class="lineNum">     206 </span>            :     void prepend(const T &amp;t);
+<span class="lineNum">     207 </span>            :     void insert(int i, const T &amp;t);
+<span class="lineNum">     208 </span>            :     void replace(int i, const T &amp;t);
+<span class="lineNum">     209 </span>            :     void removeAt(int i);
+<span class="lineNum">     210 </span>            :     int removeAll(const T &amp;t);
+<span class="lineNum">     211 </span>            :     bool removeOne(const T &amp;t);
+<span class="lineNum">     212 </span>            :     T takeAt(int i);
+<span class="lineNum">     213 </span>            :     T takeFirst();
+<span class="lineNum">     214 </span>            :     T takeLast();
+<span class="lineNum">     215 </span>            :     void move(int from, int to);
+<span class="lineNum">     216 </span>            :     void swap(int i, int j);
+<span class="lineNum">     217 </span>            :     int indexOf(const T &amp;t, int from = 0) const;
+<span class="lineNum">     218 </span>            :     int lastIndexOf(const T &amp;t, int from = -1) const;
+<span class="lineNum">     219 </span>            :     bool contains(const T &amp;t) const;
+<span class="lineNum">     220 </span>            :     int count(const T &amp;t) const;
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            :     class const_iterator;
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span>            :     class iterator {
+<span class="lineNum">     225 </span>            :     public:
+<span class="lineNum">     226 </span>            :         Node *i;
+<span class="lineNum">     227 </span>            :         typedef std::random_access_iterator_tag  iterator_category;
+<span class="lineNum">     228 </span>            :         // ### Qt6: use int
+<span class="lineNum">     229 </span>            :         typedef qptrdiff difference_type;
+<span class="lineNum">     230 </span>            :         typedef T value_type;
+<span class="lineNum">     231 </span>            :         typedef T *pointer;
+<span class="lineNum">     232 </span>            :         typedef T &amp;reference;
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span>            :         inline iterator() Q_DECL_NOTHROW : i(Q_NULLPTR) {}
+<span class="lineNum">     235 </span>            :         inline iterator(Node *n) Q_DECL_NOTHROW : i(n) {}
+<span class="lineNum">     236 </span>            : #if QT_VERSION &lt; QT_VERSION_CHECK(6,0,0)
+<span class="lineNum">     237 </span>            :         // can't remove it in Qt 5, since doing so would make the type trivial,
+<span class="lineNum">     238 </span>            :         // which changes the way it's passed to functions by value.
+<span class="lineNum">     239 </span>            :         inline iterator(const iterator &amp;o) Q_DECL_NOTHROW : i(o.i){}
+<span class="lineNum">     240 </span>            : #endif
+<span class="lineNum">     241 </span>            :         inline T &amp;operator*() const { return i-&gt;t(); }
+<span class="lineNum">     242 </span>            :         inline T *operator-&gt;() const { return &amp;i-&gt;t(); }
+<span class="lineNum">     243 </span>            :         inline T &amp;operator[](difference_type j) const { return i[j].t(); }
+<span class="lineNum">     244 </span>            :         inline bool operator==(const iterator &amp;o) const Q_DECL_NOTHROW { return i == o.i; }
+<span class="lineNum">     245 </span>            :         inline bool operator!=(const iterator &amp;o) const Q_DECL_NOTHROW { return i != o.i; }
+<span class="lineNum">     246 </span>            :         inline bool operator&lt;(const iterator&amp; other) const Q_DECL_NOTHROW { return i &lt; other.i; }
+<span class="lineNum">     247 </span>            :         inline bool operator&lt;=(const iterator&amp; other) const Q_DECL_NOTHROW { return i &lt;= other.i; }
+<span class="lineNum">     248 </span>            :         inline bool operator&gt;(const iterator&amp; other) const Q_DECL_NOTHROW { return i &gt; other.i; }
+<span class="lineNum">     249 </span>            :         inline bool operator&gt;=(const iterator&amp; other) const Q_DECL_NOTHROW { return i &gt;= other.i; }
+<span class="lineNum">     250 </span>            : #ifndef QT_STRICT_ITERATORS
+<span class="lineNum">     251 </span>            :         inline bool operator==(const const_iterator &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     252 </span>            :             { return i == o.i; }
+<span class="lineNum">     253 </span>            :         inline bool operator!=(const const_iterator &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     254 </span>            :             { return i != o.i; }
+<span class="lineNum">     255 </span>            :         inline bool operator&lt;(const const_iterator&amp; other) const Q_DECL_NOTHROW
+<span class="lineNum">     256 </span>            :             { return i &lt; other.i; }
+<span class="lineNum">     257 </span>            :         inline bool operator&lt;=(const const_iterator&amp; other) const Q_DECL_NOTHROW
+<span class="lineNum">     258 </span>            :             { return i &lt;= other.i; }
+<span class="lineNum">     259 </span>            :         inline bool operator&gt;(const const_iterator&amp; other) const Q_DECL_NOTHROW
+<span class="lineNum">     260 </span>            :             { return i &gt; other.i; }
+<span class="lineNum">     261 </span>            :         inline bool operator&gt;=(const const_iterator&amp; other) const Q_DECL_NOTHROW
+<span class="lineNum">     262 </span>            :             { return i &gt;= other.i; }
+<span class="lineNum">     263 </span>            : #endif
+<span class="lineNum">     264 </span>            :         inline iterator &amp;operator++() { ++i; return *this; }
+<span class="lineNum">     265 </span>            :         inline iterator operator++(int) { Node *n = i; ++i; return n; }
+<span class="lineNum">     266 </span>            :         inline iterator &amp;operator--() { i--; return *this; }
+<span class="lineNum">     267 </span>            :         inline iterator operator--(int) { Node *n = i; i--; return n; }
+<span class="lineNum">     268 </span>            :         inline iterator &amp;operator+=(difference_type j) { i+=j; return *this; }
+<span class="lineNum">     269 </span>            :         inline iterator &amp;operator-=(difference_type j) { i-=j; return *this; }
+<span class="lineNum">     270 </span>            :         inline iterator operator+(difference_type j) const { return iterator(i+j); }
+<span class="lineNum">     271 </span>            :         inline iterator operator-(difference_type j) const { return iterator(i-j); }
+<span class="lineNum">     272 </span>            :         inline int operator-(iterator j) const { return int(i - j.i); }
+<span class="lineNum">     273 </span>            :     };
+<span class="lineNum">     274 </span>            :     friend class iterator;
+<span class="lineNum">     275 </span>            : 
+<span class="lineNum">     276 </span>            :     class const_iterator {
+<span class="lineNum">     277 </span>            :     public:
+<span class="lineNum">     278 </span>            :         Node *i;
+<span class="lineNum">     279 </span>            :         typedef std::random_access_iterator_tag  iterator_category;
+<span class="lineNum">     280 </span>            :         // ### Qt6: use int
+<span class="lineNum">     281 </span>            :         typedef qptrdiff difference_type;
+<span class="lineNum">     282 </span>            :         typedef T value_type;
+<span class="lineNum">     283 </span>            :         typedef const T *pointer;
+<span class="lineNum">     284 </span>            :         typedef const T &amp;reference;
+<a name="285"><span class="lineNum">     285 </span>            : </a>
+<span class="lineNum">     286 </span>            :         inline const_iterator() Q_DECL_NOTHROW : i(Q_NULLPTR) {}
+<span class="lineNum">     287 </span><span class="lineNoCov">          0 :         inline const_iterator(Node *n) Q_DECL_NOTHROW : i(n) {}</span>
+<span class="lineNum">     288 </span>            : #if QT_VERSION &lt; QT_VERSION_CHECK(6,0,0)
+<span class="lineNum">     289 </span>            :         // can't remove it in Qt 5, since doing so would make the type trivial,
+<span class="lineNum">     290 </span>            :         // which changes the way it's passed to functions by value.
+<span class="lineNum">     291 </span>            :         inline const_iterator(const const_iterator &amp;o) Q_DECL_NOTHROW : i(o.i) {}
+<span class="lineNum">     292 </span>            : #endif
+<span class="lineNum">     293 </span>            : #ifdef QT_STRICT_ITERATORS
+<span class="lineNum">     294 </span>            :         inline explicit const_iterator(const iterator &amp;o) Q_DECL_NOTHROW : i(o.i) {}
+<span class="lineNum">     295 </span>            : #else
+<a name="296"><span class="lineNum">     296 </span>            :         inline const_iterator(const iterator &amp;o) Q_DECL_NOTHROW : i(o.i) {}</a>
+<span class="lineNum">     297 </span>            : #endif
+<span class="lineNum">     298 </span><span class="lineNoCov">          0 :         inline const T &amp;operator*() const { return i-&gt;t(); }</span>
+<span class="lineNum">     299 </span>            :         inline const T *operator-&gt;() const { return &amp;i-&gt;t(); }
+<a name="300"><span class="lineNum">     300 </span>            :         inline const T &amp;operator[](difference_type j) const { return i[j].t(); }</a>
+<span class="lineNum">     301 </span>            :         inline bool operator==(const const_iterator &amp;o) const Q_DECL_NOTHROW { return i == o.i; }
+<span class="lineNum">     302 </span><span class="lineNoCov">          0 :         inline bool operator!=(const const_iterator &amp;o) const Q_DECL_NOTHROW { return i != o.i; }</span>
+<span class="lineNum">     303 </span>            :         inline bool operator&lt;(const const_iterator&amp; other) const Q_DECL_NOTHROW { return i &lt; other.i; }
+<span class="lineNum">     304 </span>            :         inline bool operator&lt;=(const const_iterator&amp; other) const Q_DECL_NOTHROW { return i &lt;= other.i; }
+<a name="305"><span class="lineNum">     305 </span>            :         inline bool operator&gt;(const const_iterator&amp; other) const Q_DECL_NOTHROW { return i &gt; other.i; }</a>
+<span class="lineNum">     306 </span>            :         inline bool operator&gt;=(const const_iterator&amp; other) const Q_DECL_NOTHROW { return i &gt;= other.i; }
+<span class="lineNum">     307 </span><span class="lineNoCov">          0 :         inline const_iterator &amp;operator++() { ++i; return *this; }</span>
+<span class="lineNum">     308 </span>            :         inline const_iterator operator++(int) { Node *n = i; ++i; return n; }
+<span class="lineNum">     309 </span>            :         inline const_iterator &amp;operator--() { i--; return *this; }
+<span class="lineNum">     310 </span>            :         inline const_iterator operator--(int) { Node *n = i; i--; return n; }
+<span class="lineNum">     311 </span>            :         inline const_iterator &amp;operator+=(difference_type j) { i+=j; return *this; }
+<span class="lineNum">     312 </span>            :         inline const_iterator &amp;operator-=(difference_type j) { i-=j; return *this; }
+<span class="lineNum">     313 </span>            :         inline const_iterator operator+(difference_type j) const { return const_iterator(i+j); }
+<span class="lineNum">     314 </span>            :         inline const_iterator operator-(difference_type j) const { return const_iterator(i-j); }
+<span class="lineNum">     315 </span>            :         inline int operator-(const_iterator j) const { return int(i - j.i); }
+<span class="lineNum">     316 </span>            :     };
+<span class="lineNum">     317 </span>            :     friend class const_iterator;
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span>            :     // stl style
+<span class="lineNum">     320 </span>            :     typedef std::reverse_iterator&lt;iterator&gt; reverse_iterator;
+<a name="321"><span class="lineNum">     321 </span>            :     typedef std::reverse_iterator&lt;const_iterator&gt; const_reverse_iterator;</a>
+<span class="lineNum">     322 </span>            :     inline iterator begin() { detach(); return reinterpret_cast&lt;Node *&gt;(p.begin()); }
+<span class="lineNum">     323 </span><span class="lineNoCov">          0 :     inline const_iterator begin() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.begin()); }</span>
+<span class="lineNum">     324 </span>            :     inline const_iterator cbegin() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.begin()); }
+<a name="325"><span class="lineNum">     325 </span>            :     inline const_iterator constBegin() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.begin()); }</a>
+<span class="lineNum">     326 </span>            :     inline iterator end() { detach(); return reinterpret_cast&lt;Node *&gt;(p.end()); }
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :     inline const_iterator end() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.end()); }</span>
+<span class="lineNum">     328 </span>            :     inline const_iterator cend() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.end()); }
+<span class="lineNum">     329 </span>            :     inline const_iterator constEnd() const Q_DECL_NOTHROW { return reinterpret_cast&lt;Node *&gt;(p.end()); }
+<span class="lineNum">     330 </span>            :     reverse_iterator rbegin() { return reverse_iterator(end()); }
+<span class="lineNum">     331 </span>            :     reverse_iterator rend() { return reverse_iterator(begin()); }
+<span class="lineNum">     332 </span>            :     const_reverse_iterator rbegin() const Q_DECL_NOTHROW { return const_reverse_iterator(end()); }
+<span class="lineNum">     333 </span>            :     const_reverse_iterator rend() const Q_DECL_NOTHROW { return const_reverse_iterator(begin()); }
+<span class="lineNum">     334 </span>            :     const_reverse_iterator crbegin() const Q_DECL_NOTHROW { return const_reverse_iterator(end()); }
+<span class="lineNum">     335 </span>            :     const_reverse_iterator crend() const Q_DECL_NOTHROW { return const_reverse_iterator(begin()); }
+<span class="lineNum">     336 </span>            :     iterator insert(iterator before, const T &amp;t);
+<span class="lineNum">     337 </span>            :     iterator erase(iterator pos);
+<span class="lineNum">     338 </span>            :     iterator erase(iterator first, iterator last);
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span>            :     // more Qt
+<a name="341"><span class="lineNum">     341 </span>            :     typedef iterator Iterator;</a>
+<span class="lineNum">     342 </span>            :     typedef const_iterator ConstIterator;
+<span class="lineNum">     343 </span><span class="lineNoCov">          0 :     inline int count() const { return p.size(); }</span>
+<span class="lineNum">     344 </span>            :     inline int length() const { return p.size(); } // Same as count()
+<span class="lineNum">     345 </span>            :     inline T&amp; first() { Q_ASSERT(!isEmpty()); return *begin(); }
+<span class="lineNum">     346 </span>            :     inline const T&amp; constFirst() const { return first(); }
+<a name="347"><span class="lineNum">     347 </span>            :     inline const T&amp; first() const { Q_ASSERT(!isEmpty()); return at(0); }</a>
+<span class="lineNum">     348 </span>            :     T&amp; last() { Q_ASSERT(!isEmpty()); return *(--end()); }
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 :     const T&amp; last() const { Q_ASSERT(!isEmpty()); return at(count() - 1); }</span>
+<span class="lineNum">     350 </span>            :     inline const T&amp; constLast() const { return last(); }
+<span class="lineNum">     351 </span>            :     inline void removeFirst() { Q_ASSERT(!isEmpty()); erase(begin()); }
+<span class="lineNum">     352 </span>            :     inline void removeLast() { Q_ASSERT(!isEmpty()); erase(--end()); }
+<span class="lineNum">     353 </span>            :     inline bool startsWith(const T &amp;t) const { return !isEmpty() &amp;&amp; first() == t; }
+<span class="lineNum">     354 </span>            :     inline bool endsWith(const T &amp;t) const { return !isEmpty() &amp;&amp; last() == t; }
+<span class="lineNum">     355 </span>            :     QList&lt;T&gt; mid(int pos, int length = -1) const;
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span>            :     T value(int i) const;
+<span class="lineNum">     358 </span>            :     T value(int i, const T &amp;defaultValue) const;
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span>            :     // stl compatibility
+<span class="lineNum">     361 </span>            :     inline void push_back(const T &amp;t) { append(t); }
+<span class="lineNum">     362 </span>            :     inline void push_front(const T &amp;t) { prepend(t); }
+<span class="lineNum">     363 </span>            :     inline T&amp; front() { return first(); }
+<span class="lineNum">     364 </span>            :     inline const T&amp; front() const { return first(); }
+<span class="lineNum">     365 </span>            :     inline T&amp; back() { return last(); }
+<span class="lineNum">     366 </span>            :     inline const T&amp; back() const { return last(); }
+<span class="lineNum">     367 </span>            :     inline void pop_front() { removeFirst(); }
+<span class="lineNum">     368 </span>            :     inline void pop_back() { removeLast(); }
+<span class="lineNum">     369 </span>            :     inline bool empty() const { return isEmpty(); }
+<span class="lineNum">     370 </span>            :     typedef int size_type;
+<span class="lineNum">     371 </span>            :     typedef T value_type;
+<span class="lineNum">     372 </span>            :     typedef value_type *pointer;
+<span class="lineNum">     373 </span>            :     typedef const value_type *const_pointer;
+<span class="lineNum">     374 </span>            :     typedef value_type &amp;reference;
+<span class="lineNum">     375 </span>            :     typedef const value_type &amp;const_reference;
+<span class="lineNum">     376 </span>            :     // ### Qt6: use int
+<span class="lineNum">     377 </span>            :     typedef qptrdiff difference_type;
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            :     // comfort
+<span class="lineNum">     380 </span>            :     QList&lt;T&gt; &amp;operator+=(const QList&lt;T&gt; &amp;l);
+<span class="lineNum">     381 </span>            :     inline QList&lt;T&gt; operator+(const QList&lt;T&gt; &amp;l) const
+<span class="lineNum">     382 </span>            :     { QList n = *this; n += l; return n; }
+<span class="lineNum">     383 </span>            :     inline QList&lt;T&gt; &amp;operator+=(const T &amp;t)
+<span class="lineNum">     384 </span>            :     { append(t); return *this; }
+<span class="lineNum">     385 </span>            :     inline QList&lt;T&gt; &amp;operator&lt;&lt; (const T &amp;t)
+<span class="lineNum">     386 </span>            :     { append(t); return *this; }
+<span class="lineNum">     387 </span>            :     inline QList&lt;T&gt; &amp;operator&lt;&lt;(const QList&lt;T&gt; &amp;l)
+<span class="lineNum">     388 </span>            :     { *this += l; return *this; }
+<span class="lineNum">     389 </span>            : 
+<span class="lineNum">     390 </span>            :     QVector&lt;T&gt; toVector() const;
+<span class="lineNum">     391 </span>            :     QSet&lt;T&gt; toSet() const;
+<span class="lineNum">     392 </span>            : 
+<span class="lineNum">     393 </span>            :     static QList&lt;T&gt; fromVector(const QVector&lt;T&gt; &amp;vector);
+<span class="lineNum">     394 </span>            :     static QList&lt;T&gt; fromSet(const QSet&lt;T&gt; &amp;set);
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            :     static inline QList&lt;T&gt; fromStdList(const std::list&lt;T&gt; &amp;list)
+<span class="lineNum">     397 </span>            :     { QList&lt;T&gt; tmp; std::copy(list.begin(), list.end(), std::back_inserter(tmp)); return tmp; }
+<span class="lineNum">     398 </span>            :     inline std::list&lt;T&gt; toStdList() const
+<span class="lineNum">     399 </span>            :     { std::list&lt;T&gt; tmp; std::copy(constBegin(), constEnd(), std::back_inserter(tmp)); return tmp; }
+<span class="lineNum">     400 </span>            : 
+<span class="lineNum">     401 </span>            : private:
+<span class="lineNum">     402 </span>            :     Node *detach_helper_grow(int i, int n);
+<span class="lineNum">     403 </span>            :     void detach_helper(int alloc);
+<span class="lineNum">     404 </span>            :     void detach_helper();
+<span class="lineNum">     405 </span>            :     void dealloc(QListData::Data *d);
+<span class="lineNum">     406 </span>            : 
+<span class="lineNum">     407 </span>            :     void node_construct(Node *n, const T &amp;t);
+<span class="lineNum">     408 </span>            :     void node_destruct(Node *n);
+<span class="lineNum">     409 </span>            :     void node_copy(Node *from, Node *to, Node *src);
+<span class="lineNum">     410 </span>            :     void node_destruct(Node *from, Node *to);
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span>            :     bool isValidIterator(const iterator &amp;i) const Q_DECL_NOTHROW
+<span class="lineNum">     413 </span>            :     {
+<span class="lineNum">     414 </span>            :         return (constBegin().i &lt;= i.i) &amp;&amp; (i.i &lt;= constEnd().i);
+<span class="lineNum">     415 </span>            :     }
+<span class="lineNum">     416 </span>            : 
+<span class="lineNum">     417 </span>            : private:
+<span class="lineNum">     418 </span>            :     inline bool op_eq_impl(const QList &amp;other, QListData::NotArrayCompatibleLayout) const;
+<span class="lineNum">     419 </span>            :     inline bool op_eq_impl(const QList &amp;other, QListData::ArrayCompatibleLayout) const;
+<span class="lineNum">     420 </span>            :     inline bool contains_impl(const T &amp;, QListData::NotArrayCompatibleLayout) const;
+<span class="lineNum">     421 </span>            :     inline bool contains_impl(const T &amp;, QListData::ArrayCompatibleLayout) const;
+<span class="lineNum">     422 </span>            :     inline int count_impl(const T &amp;, QListData::NotArrayCompatibleLayout) const;
+<span class="lineNum">     423 </span>            :     inline int count_impl(const T &amp;, QListData::ArrayCompatibleLayout) const;
+<span class="lineNum">     424 </span>            : };
+<span class="lineNum">     425 </span>            : 
+<span class="lineNum">     426 </span>            : #if defined(Q_CC_BOR)
+<span class="lineNum">     427 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     428 </span>            : Q_INLINE_TEMPLATE T &amp;QList&lt;T&gt;::Node::t()
+<span class="lineNum">     429 </span>            : { return QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic ? *(T*)v:*(T*)this; }
+<span class="lineNum">     430 </span>            : #endif
+<a name="431"><span class="lineNum">     431 </span>            : </a>
+<span class="lineNum">     432 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     433 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QList&lt;T&gt;::node_construct(Node *n, const T &amp;t)</span>
+<span class="lineNum">     434 </span>            : {
+<span class="lineNum">     435 </span>            :     if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) n-&gt;v = new T(t);
+<span class="lineNum">     436 </span><span class="lineNoCov">          0 :     else if (QTypeInfo&lt;T&gt;::isComplex) new (n) T(t);</span>
+<span class="lineNum">     437 </span>            : #if (defined(__GNUC__) || defined(__INTEL_COMPILER) || defined(__IBMCPP__)) &amp;&amp; !defined(__OPTIMIZE__)
+<span class="lineNum">     438 </span>            :     // This violates pointer aliasing rules, but it is known to be safe (and silent)
+<span class="lineNum">     439 </span>            :     // in unoptimized GCC builds (-fno-strict-aliasing). The other compilers which
+<span class="lineNum">     440 </span>            :     // set the same define are assumed to be safe.
+<span class="lineNum">     441 </span>            :     else *reinterpret_cast&lt;T*&gt;(n) = t;
+<span class="lineNum">     442 </span>            : #else
+<span class="lineNum">     443 </span>            :     // This is always safe, but penaltizes unoptimized builds a lot.
+<span class="lineNum">     444 </span>            :     else ::memcpy(n, static_cast&lt;const void *&gt;(&amp;t), sizeof(T));
+<span class="lineNum">     445 </span>            : #endif
+<span class="lineNum">     446 </span><span class="lineNoCov">          0 : }</span>
+<a name="447"><span class="lineNum">     447 </span>            : </a>
+<span class="lineNum">     448 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     449 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QList&lt;T&gt;::node_destruct(Node *n)</span>
+<span class="lineNum">     450 </span>            : {
+<span class="lineNum">     451 </span>            :     if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) delete reinterpret_cast&lt;T*&gt;(n-&gt;v);
+<span class="lineNum">     452 </span><span class="lineNoCov">          0 :     else if (QTypeInfo&lt;T&gt;::isComplex) reinterpret_cast&lt;T*&gt;(n)-&gt;~T();</span>
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 : }</span>
+<a name="454"><span class="lineNum">     454 </span>            : </a>
+<span class="lineNum">     455 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     456 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QList&lt;T&gt;::node_copy(Node *from, Node *to, Node *src)</span>
+<span class="lineNum">     457 </span>            : {
+<span class="lineNum">     458 </span><span class="lineNoCov">          0 :     Node *current = from;</span>
+<span class="lineNum">     459 </span>            :     if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) {
+<span class="lineNum">     460 </span>            :         QT_TRY {
+<span class="lineNum">     461 </span><span class="lineNoCov">          0 :             while(current != to) {</span>
+<span class="lineNum">     462 </span><span class="lineNoCov">          0 :                 current-&gt;v = new T(*reinterpret_cast&lt;T*&gt;(src-&gt;v));</span>
+<span class="lineNum">     463 </span><span class="lineNoCov">          0 :                 ++current;</span>
+<span class="lineNum">     464 </span><span class="lineNoCov">          0 :                 ++src;</span>
+<span class="lineNum">     465 </span>            :             }
+<span class="lineNum">     466 </span><span class="lineNoCov">          0 :         } QT_CATCH(...) {</span>
+<span class="lineNum">     467 </span><span class="lineNoCov">          0 :             while (current-- != from)</span>
+<span class="lineNum">     468 </span><span class="lineNoCov">          0 :                 delete reinterpret_cast&lt;T*&gt;(current-&gt;v);</span>
+<span class="lineNum">     469 </span><span class="lineNoCov">          0 :             QT_RETHROW;</span>
+<span class="lineNum">     470 </span>            :         }
+<span class="lineNum">     471 </span>            : 
+<span class="lineNum">     472 </span>            :     } else if (QTypeInfo&lt;T&gt;::isComplex) {
+<span class="lineNum">     473 </span>            :         QT_TRY {
+<span class="lineNum">     474 </span><span class="lineNoCov">          0 :             while(current != to) {</span>
+<span class="lineNum">     475 </span><span class="lineNoCov">          0 :                 new (current) T(*reinterpret_cast&lt;T*&gt;(src));</span>
+<span class="lineNum">     476 </span><span class="lineNoCov">          0 :                 ++current;</span>
+<span class="lineNum">     477 </span><span class="lineNoCov">          0 :                 ++src;</span>
+<span class="lineNum">     478 </span>            :             }
+<span class="lineNum">     479 </span>            :         } QT_CATCH(...) {
+<span class="lineNum">     480 </span>            :             while (current-- != from)
+<span class="lineNum">     481 </span>            :                 (reinterpret_cast&lt;T*&gt;(current))-&gt;~T();
+<span class="lineNum">     482 </span>            :             QT_RETHROW;
+<span class="lineNum">     483 </span>            :         }
+<span class="lineNum">     484 </span>            :     } else {
+<span class="lineNum">     485 </span>            :         if (src != from &amp;&amp; to - from &gt; 0)
+<span class="lineNum">     486 </span>            :             memcpy(from, src, (to - from) * sizeof(Node));
+<span class="lineNum">     487 </span>            :     }
+<span class="lineNum">     488 </span><span class="lineNoCov">          0 : }</span>
+<a name="489"><span class="lineNum">     489 </span>            : </a>
+<span class="lineNum">     490 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     491 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QList&lt;T&gt;::node_destruct(Node *from, Node *to)</span>
+<span class="lineNum">     492 </span>            : {
+<span class="lineNum">     493 </span>            :     if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic)
+<span class="lineNum">     494 </span><span class="lineNoCov">          0 :         while(from != to) --to, delete reinterpret_cast&lt;T*&gt;(to-&gt;v);</span>
+<span class="lineNum">     495 </span>            :     else if (QTypeInfo&lt;T&gt;::isComplex)
+<span class="lineNum">     496 </span><span class="lineNoCov">          0 :         while (from != to) --to, reinterpret_cast&lt;T*&gt;(to)-&gt;~T();</span>
+<span class="lineNum">     497 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     498 </span>            : 
+<span class="lineNum">     499 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     500 </span>            : Q_INLINE_TEMPLATE QList&lt;T&gt; &amp;QList&lt;T&gt;::operator=(const QList&lt;T&gt; &amp;l)
+<span class="lineNum">     501 </span>            : {
+<span class="lineNum">     502 </span>            :     if (d != l.d) {
+<span class="lineNum">     503 </span>            :         QList&lt;T&gt; tmp(l);
+<span class="lineNum">     504 </span>            :         tmp.swap(*this);
+<span class="lineNum">     505 </span>            :     }
+<span class="lineNum">     506 </span>            :     return *this;
+<span class="lineNum">     507 </span>            : }
+<span class="lineNum">     508 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     509 </span>            : inline typename QList&lt;T&gt;::iterator QList&lt;T&gt;::insert(iterator before, const T &amp;t)
+<span class="lineNum">     510 </span>            : {
+<span class="lineNum">     511 </span>            :     Q_ASSERT_X(isValidIterator(before), &quot;QList::insert&quot;, &quot;The specified iterator argument 'before' is invalid&quot;);
+<span class="lineNum">     512 </span>            : 
+<span class="lineNum">     513 </span>            :     int iBefore = int(before.i - reinterpret_cast&lt;Node *&gt;(p.begin()));
+<span class="lineNum">     514 </span>            :     Node *n = 0;
+<span class="lineNum">     515 </span>            :     if (d-&gt;ref.isShared())
+<span class="lineNum">     516 </span>            :         n = detach_helper_grow(iBefore, 1);
+<span class="lineNum">     517 </span>            :     else
+<span class="lineNum">     518 </span>            :         n = reinterpret_cast&lt;Node *&gt;(p.insert(iBefore));
+<span class="lineNum">     519 </span>            :     QT_TRY {
+<span class="lineNum">     520 </span>            :         node_construct(n, t);
+<span class="lineNum">     521 </span>            :     } QT_CATCH(...) {
+<span class="lineNum">     522 </span>            :         p.remove(iBefore);
+<span class="lineNum">     523 </span>            :         QT_RETHROW;
+<span class="lineNum">     524 </span>            :     }
+<span class="lineNum">     525 </span>            :     return n;
+<span class="lineNum">     526 </span>            : }
+<span class="lineNum">     527 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     528 </span>            : inline typename QList&lt;T&gt;::iterator QList&lt;T&gt;::erase(iterator it)
+<span class="lineNum">     529 </span>            : {
+<span class="lineNum">     530 </span>            :     Q_ASSERT_X(isValidIterator(it), &quot;QList::erase&quot;, &quot;The specified iterator argument 'it' is invalid&quot;);
+<span class="lineNum">     531 </span>            :     if (d-&gt;ref.isShared()) {
+<span class="lineNum">     532 </span>            :         int offset = int(it.i - reinterpret_cast&lt;Node *&gt;(p.begin()));
+<span class="lineNum">     533 </span>            :         it = begin(); // implies detach()
+<span class="lineNum">     534 </span>            :         it += offset;
+<span class="lineNum">     535 </span>            :     }
+<span class="lineNum">     536 </span>            :     node_destruct(it.i);
+<span class="lineNum">     537 </span>            :     return reinterpret_cast&lt;Node *&gt;(p.erase(reinterpret_cast&lt;void**&gt;(it.i)));
+<a name="538"><span class="lineNum">     538 </span>            : }</a>
+<span class="lineNum">     539 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     540 </span><span class="lineNoCov">          0 : inline const T &amp;QList&lt;T&gt;::at(int i) const</span>
+<span class="lineNum">     541 </span>            : { Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size(), &quot;QList&lt;T&gt;::at&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     542 </span><span class="lineNoCov">          0 :  return reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t(); }</span>
+<span class="lineNum">     543 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     544 </span>            : inline const T &amp;QList&lt;T&gt;::operator[](int i) const
+<span class="lineNum">     545 </span>            : { Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size(), &quot;QList&lt;T&gt;::operator[]&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     546 </span>            :  return reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t(); }
+<span class="lineNum">     547 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     548 </span>            : inline T &amp;QList&lt;T&gt;::operator[](int i)
+<span class="lineNum">     549 </span>            : { Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size(), &quot;QList&lt;T&gt;::operator[]&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     550 </span>            :   detach(); return reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t(); }
+<span class="lineNum">     551 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     552 </span>            : inline void QList&lt;T&gt;::removeAt(int i)
+<span class="lineNum">     553 </span>            : { if(i &gt;= 0 &amp;&amp; i &lt; p.size()) { detach();
+<span class="lineNum">     554 </span>            :  node_destruct(reinterpret_cast&lt;Node *&gt;(p.at(i))); p.remove(i); } }
+<span class="lineNum">     555 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     556 </span>            : inline T QList&lt;T&gt;::takeAt(int i)
+<span class="lineNum">     557 </span>            : { Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size(), &quot;QList&lt;T&gt;::take&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     558 </span>            :  detach(); Node *n = reinterpret_cast&lt;Node *&gt;(p.at(i)); T t = std::move(n-&gt;t()); node_destruct(n);
+<span class="lineNum">     559 </span>            :  p.remove(i); return t; }
+<span class="lineNum">     560 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     561 </span>            : inline T QList&lt;T&gt;::takeFirst()
+<span class="lineNum">     562 </span>            : { T t = std::move(first()); removeFirst(); return t; }
+<span class="lineNum">     563 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     564 </span>            : inline T QList&lt;T&gt;::takeLast()
+<span class="lineNum">     565 </span>            : { T t = std::move(last()); removeLast(); return t; }
+<span class="lineNum">     566 </span>            : 
+<span class="lineNum">     567 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     568 </span>            : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::reserve(int alloc)
+<span class="lineNum">     569 </span>            : {
+<span class="lineNum">     570 </span>            :     if (d-&gt;alloc &lt; alloc) {
+<span class="lineNum">     571 </span>            :         if (d-&gt;ref.isShared())
+<span class="lineNum">     572 </span>            :             detach_helper(alloc);
+<span class="lineNum">     573 </span>            :         else
+<span class="lineNum">     574 </span>            :             p.realloc(alloc);
+<span class="lineNum">     575 </span>            :     }
+<span class="lineNum">     576 </span>            : }
+<a name="577"><span class="lineNum">     577 </span>            : </a>
+<span class="lineNum">     578 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     579 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::append(const T &amp;t)</span>
+<span class="lineNum">     580 </span>            : {
+<span class="lineNum">     581 </span><span class="lineNoCov">          0 :     if (d-&gt;ref.isShared()) {</span>
+<span class="lineNum">     582 </span><span class="lineNoCov">          0 :         Node *n = detach_helper_grow(INT_MAX, 1);</span>
+<span class="lineNum">     583 </span>            :         QT_TRY {
+<span class="lineNum">     584 </span><span class="lineNoCov">          0 :             node_construct(n, t);</span>
+<span class="lineNum">     585 </span><span class="lineNoCov">          0 :         } QT_CATCH(...) {</span>
+<span class="lineNum">     586 </span><span class="lineNoCov">          0 :             --d-&gt;end;</span>
+<span class="lineNum">     587 </span><span class="lineNoCov">          0 :             QT_RETHROW;</span>
+<span class="lineNum">     588 </span>            :         }
+<span class="lineNum">     589 </span>            :     } else {
+<span class="lineNum">     590 </span>            :         if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) {
+<span class="lineNum">     591 </span>            :             Node *n = reinterpret_cast&lt;Node *&gt;(p.append());
+<span class="lineNum">     592 </span>            :             QT_TRY {
+<span class="lineNum">     593 </span>            :                 node_construct(n, t);
+<span class="lineNum">     594 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     595 </span>            :                 --d-&gt;end;
+<span class="lineNum">     596 </span>            :                 QT_RETHROW;
+<span class="lineNum">     597 </span>            :             }
+<span class="lineNum">     598 </span>            :         } else {
+<span class="lineNum">     599 </span>            :             Node *n, copy;
+<span class="lineNum">     600 </span><span class="lineNoCov">          0 :             node_construct(&amp;copy, t); // t might be a reference to an object in the array</span>
+<span class="lineNum">     601 </span>            :             QT_TRY {
+<span class="lineNum">     602 </span><span class="lineNoCov">          0 :                 n = reinterpret_cast&lt;Node *&gt;(p.append());;</span>
+<span class="lineNum">     603 </span><span class="lineNoCov">          0 :             } QT_CATCH(...) {</span>
+<span class="lineNum">     604 </span><span class="lineNoCov">          0 :                 node_destruct(&amp;copy);</span>
+<span class="lineNum">     605 </span><span class="lineNoCov">          0 :                 QT_RETHROW;</span>
+<span class="lineNum">     606 </span>            :             }
+<span class="lineNum">     607 </span><span class="lineNoCov">          0 :             *n = copy;</span>
+<span class="lineNum">     608 </span>            :         }
+<span class="lineNum">     609 </span>            :     }
+<span class="lineNum">     610 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     611 </span>            : 
+<span class="lineNum">     612 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     613 </span>            : inline void QList&lt;T&gt;::prepend(const T &amp;t)
+<span class="lineNum">     614 </span>            : {
+<span class="lineNum">     615 </span>            :     if (d-&gt;ref.isShared()) {
+<span class="lineNum">     616 </span>            :         Node *n = detach_helper_grow(0, 1);
+<span class="lineNum">     617 </span>            :         QT_TRY {
+<span class="lineNum">     618 </span>            :             node_construct(n, t);
+<span class="lineNum">     619 </span>            :         } QT_CATCH(...) {
+<span class="lineNum">     620 </span>            :             ++d-&gt;begin;
+<span class="lineNum">     621 </span>            :             QT_RETHROW;
+<span class="lineNum">     622 </span>            :         }
+<span class="lineNum">     623 </span>            :     } else {
+<span class="lineNum">     624 </span>            :         if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) {
+<span class="lineNum">     625 </span>            :             Node *n = reinterpret_cast&lt;Node *&gt;(p.prepend());
+<span class="lineNum">     626 </span>            :             QT_TRY {
+<span class="lineNum">     627 </span>            :                 node_construct(n, t);
+<span class="lineNum">     628 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     629 </span>            :                 ++d-&gt;begin;
+<span class="lineNum">     630 </span>            :                 QT_RETHROW;
+<span class="lineNum">     631 </span>            :             }
+<span class="lineNum">     632 </span>            :         } else {
+<span class="lineNum">     633 </span>            :             Node *n, copy;
+<span class="lineNum">     634 </span>            :             node_construct(&amp;copy, t); // t might be a reference to an object in the array
+<span class="lineNum">     635 </span>            :             QT_TRY {
+<span class="lineNum">     636 </span>            :                 n = reinterpret_cast&lt;Node *&gt;(p.prepend());;
+<span class="lineNum">     637 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     638 </span>            :                 node_destruct(&amp;copy);
+<span class="lineNum">     639 </span>            :                 QT_RETHROW;
+<span class="lineNum">     640 </span>            :             }
+<span class="lineNum">     641 </span>            :             *n = copy;
+<span class="lineNum">     642 </span>            :         }
+<span class="lineNum">     643 </span>            :     }
+<span class="lineNum">     644 </span>            : }
+<span class="lineNum">     645 </span>            : 
+<span class="lineNum">     646 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     647 </span>            : inline void QList&lt;T&gt;::insert(int i, const T &amp;t)
+<span class="lineNum">     648 </span>            : {
+<span class="lineNum">     649 </span>            :     if (d-&gt;ref.isShared()) {
+<span class="lineNum">     650 </span>            :         Node *n = detach_helper_grow(i, 1);
+<span class="lineNum">     651 </span>            :         QT_TRY {
+<span class="lineNum">     652 </span>            :             node_construct(n, t);
+<span class="lineNum">     653 </span>            :         } QT_CATCH(...) {
+<span class="lineNum">     654 </span>            :             p.remove(i);
+<span class="lineNum">     655 </span>            :             QT_RETHROW;
+<span class="lineNum">     656 </span>            :         }
+<span class="lineNum">     657 </span>            :     } else {
+<span class="lineNum">     658 </span>            :         if (QTypeInfo&lt;T&gt;::isLarge || QTypeInfo&lt;T&gt;::isStatic) {
+<span class="lineNum">     659 </span>            :             Node *n = reinterpret_cast&lt;Node *&gt;(p.insert(i));
+<span class="lineNum">     660 </span>            :             QT_TRY {
+<span class="lineNum">     661 </span>            :                 node_construct(n, t);
+<span class="lineNum">     662 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     663 </span>            :                 p.remove(i);
+<span class="lineNum">     664 </span>            :                 QT_RETHROW;
+<span class="lineNum">     665 </span>            :             }
+<span class="lineNum">     666 </span>            :         } else {
+<span class="lineNum">     667 </span>            :             Node *n, copy;
+<span class="lineNum">     668 </span>            :             node_construct(&amp;copy, t); // t might be a reference to an object in the array
+<span class="lineNum">     669 </span>            :             QT_TRY {
+<span class="lineNum">     670 </span>            :                 n = reinterpret_cast&lt;Node *&gt;(p.insert(i));;
+<span class="lineNum">     671 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     672 </span>            :                 node_destruct(&amp;copy);
+<span class="lineNum">     673 </span>            :                 QT_RETHROW;
+<span class="lineNum">     674 </span>            :             }
+<span class="lineNum">     675 </span>            :             *n = copy;
+<span class="lineNum">     676 </span>            :         }
+<span class="lineNum">     677 </span>            :     }
+<span class="lineNum">     678 </span>            : }
+<span class="lineNum">     679 </span>            : 
+<span class="lineNum">     680 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     681 </span>            : inline void QList&lt;T&gt;::replace(int i, const T &amp;t)
+<span class="lineNum">     682 </span>            : {
+<span class="lineNum">     683 </span>            :     Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size(), &quot;QList&lt;T&gt;::replace&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     684 </span>            :     detach();
+<span class="lineNum">     685 </span>            :     reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t() = t;
+<span class="lineNum">     686 </span>            : }
+<span class="lineNum">     687 </span>            : 
+<span class="lineNum">     688 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     689 </span>            : inline void QList&lt;T&gt;::swap(int i, int j)
+<span class="lineNum">     690 </span>            : {
+<span class="lineNum">     691 </span>            :     Q_ASSERT_X(i &gt;= 0 &amp;&amp; i &lt; p.size() &amp;&amp; j &gt;= 0 &amp;&amp; j &lt; p.size(),
+<span class="lineNum">     692 </span>            :                 &quot;QList&lt;T&gt;::swap&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     693 </span>            :     detach();
+<span class="lineNum">     694 </span>            :     std::swap(d-&gt;array[d-&gt;begin + i], d-&gt;array[d-&gt;begin + j]);
+<span class="lineNum">     695 </span>            : }
+<span class="lineNum">     696 </span>            : 
+<span class="lineNum">     697 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     698 </span>            : inline void QList&lt;T&gt;::move(int from, int to)
+<span class="lineNum">     699 </span>            : {
+<span class="lineNum">     700 </span>            :     Q_ASSERT_X(from &gt;= 0 &amp;&amp; from &lt; p.size() &amp;&amp; to &gt;= 0 &amp;&amp; to &lt; p.size(),
+<span class="lineNum">     701 </span>            :                &quot;QList&lt;T&gt;::move&quot;, &quot;index out of range&quot;);
+<span class="lineNum">     702 </span>            :     detach();
+<span class="lineNum">     703 </span>            :     p.move(from, to);
+<span class="lineNum">     704 </span>            : }
+<span class="lineNum">     705 </span>            : 
+<span class="lineNum">     706 </span>            : template&lt;typename T&gt;
+<span class="lineNum">     707 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt; QList&lt;T&gt;::mid(int pos, int alength) const
+<span class="lineNum">     708 </span>            : {
+<span class="lineNum">     709 </span>            :     using namespace QtPrivate;
+<span class="lineNum">     710 </span>            :     switch (QContainerImplHelper::mid(size(), &amp;pos, &amp;alength)) {
+<span class="lineNum">     711 </span>            :     case QContainerImplHelper::Null:
+<span class="lineNum">     712 </span>            :     case QContainerImplHelper::Empty:
+<span class="lineNum">     713 </span>            :         return QList&lt;T&gt;();
+<span class="lineNum">     714 </span>            :     case QContainerImplHelper::Full:
+<span class="lineNum">     715 </span>            :         return *this;
+<span class="lineNum">     716 </span>            :     case QContainerImplHelper::Subset:
+<span class="lineNum">     717 </span>            :         break;
+<span class="lineNum">     718 </span>            :     }
+<span class="lineNum">     719 </span>            : 
+<span class="lineNum">     720 </span>            :     QList&lt;T&gt; cpy;
+<span class="lineNum">     721 </span>            :     if (alength &lt;= 0)
+<span class="lineNum">     722 </span>            :         return cpy;
+<span class="lineNum">     723 </span>            :     cpy.reserve(alength);
+<span class="lineNum">     724 </span>            :     cpy.d-&gt;end = alength;
+<span class="lineNum">     725 </span>            :     QT_TRY {
+<span class="lineNum">     726 </span>            :         cpy.node_copy(reinterpret_cast&lt;Node *&gt;(cpy.p.begin()),
+<span class="lineNum">     727 </span>            :                       reinterpret_cast&lt;Node *&gt;(cpy.p.end()),
+<span class="lineNum">     728 </span>            :                       reinterpret_cast&lt;Node *&gt;(p.begin() + pos));
+<span class="lineNum">     729 </span>            :     } QT_CATCH(...) {
+<span class="lineNum">     730 </span>            :         // restore the old end
+<span class="lineNum">     731 </span>            :         cpy.d-&gt;end = 0;
+<span class="lineNum">     732 </span>            :         QT_RETHROW;
+<span class="lineNum">     733 </span>            :     }
+<span class="lineNum">     734 </span>            :     return cpy;
+<span class="lineNum">     735 </span>            : }
+<span class="lineNum">     736 </span>            : 
+<span class="lineNum">     737 </span>            : template&lt;typename T&gt;
+<span class="lineNum">     738 </span>            : Q_OUTOFLINE_TEMPLATE T QList&lt;T&gt;::value(int i) const
+<span class="lineNum">     739 </span>            : {
+<span class="lineNum">     740 </span>            :     if (i &lt; 0 || i &gt;= p.size()) {
+<span class="lineNum">     741 </span>            :         return T();
+<span class="lineNum">     742 </span>            :     }
+<span class="lineNum">     743 </span>            :     return reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t();
+<span class="lineNum">     744 </span>            : }
+<span class="lineNum">     745 </span>            : 
+<span class="lineNum">     746 </span>            : template&lt;typename T&gt;
+<span class="lineNum">     747 </span>            : Q_OUTOFLINE_TEMPLATE T QList&lt;T&gt;::value(int i, const T&amp; defaultValue) const
+<span class="lineNum">     748 </span>            : {
+<span class="lineNum">     749 </span>            :     return ((i &lt; 0 || i &gt;= p.size()) ? defaultValue : reinterpret_cast&lt;Node *&gt;(p.at(i))-&gt;t());
+<span class="lineNum">     750 </span>            : }
+<a name="751"><span class="lineNum">     751 </span>            : </a>
+<span class="lineNum">     752 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     753 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE typename QList&lt;T&gt;::Node *QList&lt;T&gt;::detach_helper_grow(int i, int c)</span>
+<span class="lineNum">     754 </span>            : {
+<span class="lineNum">     755 </span><span class="lineNoCov">          0 :     Node *n = reinterpret_cast&lt;Node *&gt;(p.begin());</span>
+<span class="lineNum">     756 </span><span class="lineNoCov">          0 :     QListData::Data *x = p.detach_grow(&amp;i, c);</span>
+<span class="lineNum">     757 </span>            :     QT_TRY {
+<span class="lineNum">     758 </span><span class="lineNoCov">          0 :         node_copy(reinterpret_cast&lt;Node *&gt;(p.begin()),</span>
+<span class="lineNum">     759 </span><span class="lineNoCov">          0 :                   reinterpret_cast&lt;Node *&gt;(p.begin() + i), n);</span>
+<span class="lineNum">     760 </span><span class="lineNoCov">          0 :     } QT_CATCH(...) {</span>
+<span class="lineNum">     761 </span><span class="lineNoCov">          0 :         p.dispose();</span>
+<span class="lineNum">     762 </span><span class="lineNoCov">          0 :         d = x;</span>
+<span class="lineNum">     763 </span><span class="lineNoCov">          0 :         QT_RETHROW;</span>
+<span class="lineNum">     764 </span>            :     }
+<span class="lineNum">     765 </span>            :     QT_TRY {
+<span class="lineNum">     766 </span><span class="lineNoCov">          0 :         node_copy(reinterpret_cast&lt;Node *&gt;(p.begin() + i + c),</span>
+<span class="lineNum">     767 </span><span class="lineNoCov">          0 :                   reinterpret_cast&lt;Node *&gt;(p.end()), n + i);</span>
+<span class="lineNum">     768 </span><span class="lineNoCov">          0 :     } QT_CATCH(...) {</span>
+<span class="lineNum">     769 </span><span class="lineNoCov">          0 :         node_destruct(reinterpret_cast&lt;Node *&gt;(p.begin()),</span>
+<span class="lineNum">     770 </span><span class="lineNoCov">          0 :                       reinterpret_cast&lt;Node *&gt;(p.begin() + i));</span>
+<span class="lineNum">     771 </span><span class="lineNoCov">          0 :         p.dispose();</span>
+<span class="lineNum">     772 </span><span class="lineNoCov">          0 :         d = x;</span>
+<span class="lineNum">     773 </span><span class="lineNoCov">          0 :         QT_RETHROW;</span>
+<span class="lineNum">     774 </span>            :     }
+<span class="lineNum">     775 </span>            : 
+<span class="lineNum">     776 </span><span class="lineNoCov">          0 :     if (!x-&gt;ref.deref())</span>
+<span class="lineNum">     777 </span><span class="lineNoCov">          0 :         dealloc(x);</span>
+<span class="lineNum">     778 </span>            : 
+<span class="lineNum">     779 </span><span class="lineNoCov">          0 :     return reinterpret_cast&lt;Node *&gt;(p.begin() + i);</span>
+<span class="lineNum">     780 </span>            : }
+<a name="781"><span class="lineNum">     781 </span>            : </a>
+<span class="lineNum">     782 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     783 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::detach_helper(int alloc)</span>
+<span class="lineNum">     784 </span>            : {
+<span class="lineNum">     785 </span><span class="lineNoCov">          0 :     Node *n = reinterpret_cast&lt;Node *&gt;(p.begin());</span>
+<span class="lineNum">     786 </span><span class="lineNoCov">          0 :     QListData::Data *x = p.detach(alloc);</span>
+<span class="lineNum">     787 </span>            :     QT_TRY {
+<span class="lineNum">     788 </span><span class="lineNoCov">          0 :         node_copy(reinterpret_cast&lt;Node *&gt;(p.begin()), reinterpret_cast&lt;Node *&gt;(p.end()), n);</span>
+<span class="lineNum">     789 </span><span class="lineNoCov">          0 :     } QT_CATCH(...) {</span>
+<span class="lineNum">     790 </span><span class="lineNoCov">          0 :         p.dispose();</span>
+<span class="lineNum">     791 </span><span class="lineNoCov">          0 :         d = x;</span>
+<span class="lineNum">     792 </span><span class="lineNoCov">          0 :         QT_RETHROW;</span>
+<span class="lineNum">     793 </span>            :     }
+<span class="lineNum">     794 </span>            : 
+<span class="lineNum">     795 </span><span class="lineNoCov">          0 :     if (!x-&gt;ref.deref())</span>
+<span class="lineNum">     796 </span><span class="lineNoCov">          0 :         dealloc(x);</span>
+<span class="lineNum">     797 </span><span class="lineNoCov">          0 : }</span>
+<a name="798"><span class="lineNum">     798 </span>            : </a>
+<span class="lineNum">     799 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     800 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::detach_helper()</span>
+<span class="lineNum">     801 </span>            : {
+<span class="lineNum">     802 </span><span class="lineNoCov">          0 :     detach_helper(d-&gt;alloc);</span>
+<span class="lineNum">     803 </span><span class="lineNoCov">          0 : }</span>
+<a name="804"><span class="lineNum">     804 </span>            : </a>
+<span class="lineNum">     805 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     806 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt;::QList(const QList&lt;T&gt; &amp;l)</span>
+<span class="lineNum">     807 </span><span class="lineNoCov">          0 :     : QListSpecialMethods&lt;T&gt;(l), d(l.d)</span>
+<span class="lineNum">     808 </span>            : {
+<span class="lineNum">     809 </span><span class="lineNoCov">          0 :     if (!d-&gt;ref.ref()) {</span>
+<span class="lineNum">     810 </span><span class="lineNoCov">          0 :         p.detach(d-&gt;alloc);</span>
+<span class="lineNum">     811 </span>            : 
+<span class="lineNum">     812 </span>            :         QT_TRY {
+<span class="lineNum">     813 </span><span class="lineNoCov">          0 :             node_copy(reinterpret_cast&lt;Node *&gt;(p.begin()),</span>
+<span class="lineNum">     814 </span><span class="lineNoCov">          0 :                     reinterpret_cast&lt;Node *&gt;(p.end()),</span>
+<span class="lineNum">     815 </span><span class="lineNoCov">          0 :                     reinterpret_cast&lt;Node *&gt;(l.p.begin()));</span>
+<span class="lineNum">     816 </span><span class="lineNoCov">          0 :         } QT_CATCH(...) {</span>
+<span class="lineNum">     817 </span><span class="lineNoCov">          0 :             QListData::dispose(d);</span>
+<span class="lineNum">     818 </span><span class="lineNoCov">          0 :             QT_RETHROW;</span>
+<span class="lineNum">     819 </span>            :         }
+<span class="lineNum">     820 </span>            :     }
+<span class="lineNum">     821 </span><span class="lineNoCov">          0 : }</span>
+<a name="822"><span class="lineNum">     822 </span>            : </a>
+<span class="lineNum">     823 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     824 </span><span class="lineCov">          1 : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt;::~QList()</span>
+<span class="lineNum">     825 </span>            : {
+<span class="lineNum">     826 </span><span class="lineCov">          1 :     if (!d-&gt;ref.deref())</span>
+<span class="lineNum">     827 </span><span class="lineNoCov">          0 :         dealloc(d);</span>
+<span class="lineNum">     828 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     829 </span>            : 
+<span class="lineNum">     830 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     831 </span>            : Q_OUTOFLINE_TEMPLATE bool QList&lt;T&gt;::operator==(const QList&lt;T&gt; &amp;l) const
+<span class="lineNum">     832 </span>            : {
+<span class="lineNum">     833 </span>            :     if (d == l.d)
+<span class="lineNum">     834 </span>            :         return true;
+<span class="lineNum">     835 </span>            :     if (p.size() != l.p.size())
+<span class="lineNum">     836 </span>            :         return false;
+<span class="lineNum">     837 </span>            :     return this-&gt;op_eq_impl(l, MemoryLayout());
+<span class="lineNum">     838 </span>            : }
+<span class="lineNum">     839 </span>            : 
+<span class="lineNum">     840 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     841 </span>            : inline bool QList&lt;T&gt;::op_eq_impl(const QList &amp;l, QListData::NotArrayCompatibleLayout) const
+<span class="lineNum">     842 </span>            : {
+<span class="lineNum">     843 </span>            :     Node *i = reinterpret_cast&lt;Node *&gt;(p.begin());
+<span class="lineNum">     844 </span>            :     Node *e = reinterpret_cast&lt;Node *&gt;(p.end());
+<span class="lineNum">     845 </span>            :     Node *li = reinterpret_cast&lt;Node *&gt;(l.p.begin());
+<span class="lineNum">     846 </span>            :     for (; i != e; ++i, ++li) {
+<span class="lineNum">     847 </span>            :         if (!(i-&gt;t() == li-&gt;t()))
+<span class="lineNum">     848 </span>            :             return false;
+<span class="lineNum">     849 </span>            :     }
+<span class="lineNum">     850 </span>            :     return true;
+<span class="lineNum">     851 </span>            : }
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     854 </span>            : inline bool QList&lt;T&gt;::op_eq_impl(const QList &amp;l, QListData::ArrayCompatibleLayout) const
+<span class="lineNum">     855 </span>            : {
+<span class="lineNum">     856 </span>            :     const T *lb = reinterpret_cast&lt;const T*&gt;(l.p.begin());
+<span class="lineNum">     857 </span>            :     const T *b  = reinterpret_cast&lt;const T*&gt;(p.begin());
+<span class="lineNum">     858 </span>            :     const T *e  = reinterpret_cast&lt;const T*&gt;(p.end());
+<span class="lineNum">     859 </span>            :     return std::equal(b, e, QT_MAKE_CHECKED_ARRAY_ITERATOR(lb, l.p.size()));
+<span class="lineNum">     860 </span>            : }
+<a name="861"><span class="lineNum">     861 </span>            : </a>
+<span class="lineNum">     862 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     863 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::dealloc(QListData::Data *data)</span>
+<span class="lineNum">     864 </span>            : {
+<span class="lineNum">     865 </span><span class="lineNoCov">          0 :     node_destruct(reinterpret_cast&lt;Node *&gt;(data-&gt;array + data-&gt;begin),</span>
+<span class="lineNum">     866 </span><span class="lineNoCov">          0 :                   reinterpret_cast&lt;Node *&gt;(data-&gt;array + data-&gt;end));</span>
+<span class="lineNum">     867 </span><span class="lineNoCov">          0 :     QListData::dispose(data);</span>
+<span class="lineNum">     868 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     869 </span>            : 
+<span class="lineNum">     870 </span>            : 
+<span class="lineNum">     871 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     872 </span>            : Q_OUTOFLINE_TEMPLATE void QList&lt;T&gt;::clear()
+<span class="lineNum">     873 </span>            : {
+<span class="lineNum">     874 </span>            :     *this = QList&lt;T&gt;();
+<span class="lineNum">     875 </span>            : }
+<a name="876"><span class="lineNum">     876 </span>            : </a>
+<span class="lineNum">     877 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     878 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE int QList&lt;T&gt;::removeAll(const T &amp;_t)</span>
+<span class="lineNum">     879 </span>            : {
+<span class="lineNum">     880 </span><span class="lineNoCov">          0 :     int index = indexOf(_t);</span>
+<span class="lineNum">     881 </span><span class="lineNoCov">          0 :     if (index == -1)</span>
+<span class="lineNum">     882 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">     883 </span>            : 
+<span class="lineNum">     884 </span><span class="lineNoCov">          0 :     const T t = _t;</span>
+<span class="lineNum">     885 </span><span class="lineNoCov">          0 :     detach();</span>
+<span class="lineNum">     886 </span>            : 
+<span class="lineNum">     887 </span><span class="lineNoCov">          0 :     Node *i = reinterpret_cast&lt;Node *&gt;(p.at(index));</span>
+<span class="lineNum">     888 </span><span class="lineNoCov">          0 :     Node *e = reinterpret_cast&lt;Node *&gt;(p.end());</span>
+<span class="lineNum">     889 </span><span class="lineNoCov">          0 :     Node *n = i;</span>
+<span class="lineNum">     890 </span><span class="lineNoCov">          0 :     node_destruct(i);</span>
+<span class="lineNum">     891 </span><span class="lineNoCov">          0 :     while (++i != e) {</span>
+<span class="lineNum">     892 </span><span class="lineNoCov">          0 :         if (i-&gt;t() == t)</span>
+<span class="lineNum">     893 </span><span class="lineNoCov">          0 :             node_destruct(i);</span>
+<span class="lineNum">     894 </span>            :         else
+<span class="lineNum">     895 </span><span class="lineNoCov">          0 :             *n++ = *i;</span>
+<span class="lineNum">     896 </span>            :     }
+<span class="lineNum">     897 </span>            : 
+<span class="lineNum">     898 </span><span class="lineNoCov">          0 :     int removedCount = int(e - n);</span>
+<span class="lineNum">     899 </span><span class="lineNoCov">          0 :     d-&gt;end -= removedCount;</span>
+<span class="lineNum">     900 </span><span class="lineNoCov">          0 :     return removedCount;</span>
+<span class="lineNum">     901 </span>            : }
+<span class="lineNum">     902 </span>            : 
+<span class="lineNum">     903 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     904 </span>            : Q_OUTOFLINE_TEMPLATE bool QList&lt;T&gt;::removeOne(const T &amp;_t)
+<span class="lineNum">     905 </span>            : {
+<span class="lineNum">     906 </span>            :     int index = indexOf(_t);
+<span class="lineNum">     907 </span>            :     if (index != -1) {
+<span class="lineNum">     908 </span>            :         removeAt(index);
+<span class="lineNum">     909 </span>            :         return true;
+<span class="lineNum">     910 </span>            :     }
+<span class="lineNum">     911 </span>            :     return false;
+<span class="lineNum">     912 </span>            : }
+<span class="lineNum">     913 </span>            : 
+<span class="lineNum">     914 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     915 </span>            : Q_OUTOFLINE_TEMPLATE typename QList&lt;T&gt;::iterator QList&lt;T&gt;::erase(typename QList&lt;T&gt;::iterator afirst,
+<span class="lineNum">     916 </span>            :                                                                  typename QList&lt;T&gt;::iterator alast)
+<span class="lineNum">     917 </span>            : {
+<span class="lineNum">     918 </span>            :     Q_ASSERT_X(isValidIterator(afirst), &quot;QList::erase&quot;, &quot;The specified iterator argument 'afirst' is invalid&quot;);
+<span class="lineNum">     919 </span>            :     Q_ASSERT_X(isValidIterator(alast), &quot;QList::erase&quot;, &quot;The specified iterator argument 'alast' is invalid&quot;);
+<span class="lineNum">     920 </span>            : 
+<span class="lineNum">     921 </span>            :     if (d-&gt;ref.isShared()) {
+<span class="lineNum">     922 </span>            :         // ### A block is erased and a detach is needed. We should shrink and only copy relevant items.
+<span class="lineNum">     923 </span>            :         int offsetfirst = int(afirst.i - reinterpret_cast&lt;Node *&gt;(p.begin()));
+<span class="lineNum">     924 </span>            :         int offsetlast = int(alast.i - reinterpret_cast&lt;Node *&gt;(p.begin()));
+<span class="lineNum">     925 </span>            :         afirst = begin(); // implies detach()
+<span class="lineNum">     926 </span>            :         alast = afirst;
+<span class="lineNum">     927 </span>            :         afirst += offsetfirst;
+<span class="lineNum">     928 </span>            :         alast += offsetlast;
+<span class="lineNum">     929 </span>            :     }
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span>            :     for (Node *n = afirst.i; n &lt; alast.i; ++n)
+<span class="lineNum">     932 </span>            :         node_destruct(n);
+<span class="lineNum">     933 </span>            :     int idx = afirst - begin();
+<span class="lineNum">     934 </span>            :     p.remove(idx, alast - afirst);
+<span class="lineNum">     935 </span>            :     return begin() + idx;
+<span class="lineNum">     936 </span>            : }
+<span class="lineNum">     937 </span>            : 
+<span class="lineNum">     938 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     939 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt; &amp;QList&lt;T&gt;::operator+=(const QList&lt;T&gt; &amp;l)
+<span class="lineNum">     940 </span>            : {
+<span class="lineNum">     941 </span>            :     if (!l.isEmpty()) {
+<span class="lineNum">     942 </span>            :         if (d == &amp;QListData::shared_null) {
+<span class="lineNum">     943 </span>            :             *this = l;
+<span class="lineNum">     944 </span>            :         } else {
+<span class="lineNum">     945 </span>            :             Node *n = (d-&gt;ref.isShared())
+<span class="lineNum">     946 </span>            :                       ? detach_helper_grow(INT_MAX, l.size())
+<span class="lineNum">     947 </span>            :                       : reinterpret_cast&lt;Node *&gt;(p.append(l.p));
+<span class="lineNum">     948 </span>            :             QT_TRY {
+<span class="lineNum">     949 </span>            :                 node_copy(n, reinterpret_cast&lt;Node *&gt;(p.end()),
+<span class="lineNum">     950 </span>            :                           reinterpret_cast&lt;Node *&gt;(l.p.begin()));
+<span class="lineNum">     951 </span>            :             } QT_CATCH(...) {
+<span class="lineNum">     952 </span>            :                 // restore the old end
+<span class="lineNum">     953 </span>            :                 d-&gt;end -= int(reinterpret_cast&lt;Node *&gt;(p.end()) - n);
+<span class="lineNum">     954 </span>            :                 QT_RETHROW;
+<span class="lineNum">     955 </span>            :             }
+<span class="lineNum">     956 </span>            :         }
+<span class="lineNum">     957 </span>            :     }
+<span class="lineNum">     958 </span>            :     return *this;
+<span class="lineNum">     959 </span>            : }
+<span class="lineNum">     960 </span>            : 
+<span class="lineNum">     961 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     962 </span>            : inline void QList&lt;T&gt;::append(const QList&lt;T&gt; &amp;t)
+<span class="lineNum">     963 </span>            : {
+<span class="lineNum">     964 </span>            :     *this += t;
+<span class="lineNum">     965 </span>            : }
+<a name="966"><span class="lineNum">     966 </span>            : </a>
+<span class="lineNum">     967 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     968 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE int QList&lt;T&gt;::indexOf(const T &amp;t, int from) const</span>
+<span class="lineNum">     969 </span>            : {
+<span class="lineNum">     970 </span><span class="lineNoCov">          0 :     if (from &lt; 0)</span>
+<span class="lineNum">     971 </span><span class="lineNoCov">          0 :         from = qMax(from + p.size(), 0);</span>
+<span class="lineNum">     972 </span><span class="lineNoCov">          0 :     if (from &lt; p.size()) {</span>
+<span class="lineNum">     973 </span><span class="lineNoCov">          0 :         Node *n = reinterpret_cast&lt;Node *&gt;(p.at(from -1));</span>
+<span class="lineNum">     974 </span><span class="lineNoCov">          0 :         Node *e = reinterpret_cast&lt;Node *&gt;(p.end());</span>
+<span class="lineNum">     975 </span><span class="lineNoCov">          0 :         while (++n != e)</span>
+<span class="lineNum">     976 </span><span class="lineNoCov">          0 :             if (n-&gt;t() == t)</span>
+<span class="lineNum">     977 </span><span class="lineNoCov">          0 :                 return int(n - reinterpret_cast&lt;Node *&gt;(p.begin()));</span>
+<span class="lineNum">     978 </span>            :     }
+<span class="lineNum">     979 </span><span class="lineNoCov">          0 :     return -1;</span>
+<span class="lineNum">     980 </span>            : }
+<span class="lineNum">     981 </span>            : 
+<span class="lineNum">     982 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     983 </span>            : Q_OUTOFLINE_TEMPLATE int QList&lt;T&gt;::lastIndexOf(const T &amp;t, int from) const
+<span class="lineNum">     984 </span>            : {
+<span class="lineNum">     985 </span>            :     if (from &lt; 0)
+<span class="lineNum">     986 </span>            :         from += p.size();
+<span class="lineNum">     987 </span>            :     else if (from &gt;= p.size())
+<span class="lineNum">     988 </span>            :         from = p.size()-1;
+<span class="lineNum">     989 </span>            :     if (from &gt;= 0) {
+<span class="lineNum">     990 </span>            :         Node *b = reinterpret_cast&lt;Node *&gt;(p.begin());
+<span class="lineNum">     991 </span>            :         Node *n = reinterpret_cast&lt;Node *&gt;(p.at(from + 1));
+<span class="lineNum">     992 </span>            :         while (n-- != b) {
+<span class="lineNum">     993 </span>            :             if (n-&gt;t() == t)
+<span class="lineNum">     994 </span>            :                 return n - b;
+<span class="lineNum">     995 </span>            :         }
+<span class="lineNum">     996 </span>            :     }
+<span class="lineNum">     997 </span>            :     return -1;
+<span class="lineNum">     998 </span>            : }
+<span class="lineNum">     999 </span>            : 
+<span class="lineNum">    1000 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1001 </span>            : Q_OUTOFLINE_TEMPLATE bool QList&lt;T&gt;::contains(const T &amp;t) const
+<span class="lineNum">    1002 </span>            : {
+<span class="lineNum">    1003 </span>            :     return contains_impl(t, MemoryLayout());
+<span class="lineNum">    1004 </span>            : }
+<span class="lineNum">    1005 </span>            : 
+<span class="lineNum">    1006 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1007 </span>            : inline bool QList&lt;T&gt;::contains_impl(const T &amp;t, QListData::NotArrayCompatibleLayout) const
+<span class="lineNum">    1008 </span>            : {
+<span class="lineNum">    1009 </span>            :     Node *e = reinterpret_cast&lt;Node *&gt;(p.end());
+<span class="lineNum">    1010 </span>            :     Node *i = reinterpret_cast&lt;Node *&gt;(p.begin());
+<span class="lineNum">    1011 </span>            :     for (; i != e; ++i)
+<span class="lineNum">    1012 </span>            :         if (i-&gt;t() == t)
+<span class="lineNum">    1013 </span>            :             return true;
+<span class="lineNum">    1014 </span>            :     return false;
+<span class="lineNum">    1015 </span>            : }
+<span class="lineNum">    1016 </span>            : 
+<span class="lineNum">    1017 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1018 </span>            : inline bool QList&lt;T&gt;::contains_impl(const T &amp;t, QListData::ArrayCompatibleLayout) const
+<span class="lineNum">    1019 </span>            : {
+<span class="lineNum">    1020 </span>            :     const T *b = reinterpret_cast&lt;const T*&gt;(p.begin());
+<span class="lineNum">    1021 </span>            :     const T *e = reinterpret_cast&lt;const T*&gt;(p.end());
+<span class="lineNum">    1022 </span>            :     return std::find(b, e, t) != e;
+<span class="lineNum">    1023 </span>            : }
+<span class="lineNum">    1024 </span>            : 
+<span class="lineNum">    1025 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1026 </span>            : Q_OUTOFLINE_TEMPLATE int QList&lt;T&gt;::count(const T &amp;t) const
+<span class="lineNum">    1027 </span>            : {
+<span class="lineNum">    1028 </span>            :     return this-&gt;count_impl(t, MemoryLayout());
+<span class="lineNum">    1029 </span>            : }
+<span class="lineNum">    1030 </span>            : 
+<span class="lineNum">    1031 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1032 </span>            : inline int QList&lt;T&gt;::count_impl(const T &amp;t, QListData::NotArrayCompatibleLayout) const
+<span class="lineNum">    1033 </span>            : {
+<span class="lineNum">    1034 </span>            :     int c = 0;
+<span class="lineNum">    1035 </span>            :     Node *e = reinterpret_cast&lt;Node *&gt;(p.end());
+<span class="lineNum">    1036 </span>            :     Node *i = reinterpret_cast&lt;Node *&gt;(p.begin());
+<span class="lineNum">    1037 </span>            :     for (; i != e; ++i)
+<span class="lineNum">    1038 </span>            :         if (i-&gt;t() == t)
+<span class="lineNum">    1039 </span>            :             ++c;
+<span class="lineNum">    1040 </span>            :     return c;
+<span class="lineNum">    1041 </span>            : }
+<span class="lineNum">    1042 </span>            : 
+<span class="lineNum">    1043 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1044 </span>            : inline int QList&lt;T&gt;::count_impl(const T &amp;t, QListData::ArrayCompatibleLayout) const
+<span class="lineNum">    1045 </span>            : {
+<span class="lineNum">    1046 </span>            :     return int(std::count(reinterpret_cast&lt;const T*&gt;(p.begin()),
+<span class="lineNum">    1047 </span>            :                           reinterpret_cast&lt;const T*&gt;(p.end()),
+<span class="lineNum">    1048 </span>            :                           t));
+<span class="lineNum">    1049 </span>            : }
+<span class="lineNum">    1050 </span>            : 
+<span class="lineNum">    1051 </span>            : Q_DECLARE_SEQUENTIAL_ITERATOR(List)
+<span class="lineNum">    1052 </span>            : Q_DECLARE_MUTABLE_SEQUENTIAL_ITERATOR(List)
+<span class="lineNum">    1053 </span>            : 
+<span class="lineNum">    1054 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1055 </span>            : uint qHash(const QList&lt;T&gt; &amp;key, uint seed = 0)
+<span class="lineNum">    1056 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(qHashRange(key.cbegin(), key.cend(), seed)))
+<span class="lineNum">    1057 </span>            : {
+<span class="lineNum">    1058 </span>            :     return qHashRange(key.cbegin(), key.cend(), seed);
+<span class="lineNum">    1059 </span>            : }
+<span class="lineNum">    1060 </span>            : 
+<span class="lineNum">    1061 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1062 </span>            : bool operator&lt;(const QList&lt;T&gt; &amp;lhs, const QList&lt;T&gt; &amp;rhs)
+<span class="lineNum">    1063 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(std::lexicographical_compare(lhs.begin(), lhs.end(),
+<span class="lineNum">    1064 </span>            :                                                                rhs.begin(), rhs.end())))
+<span class="lineNum">    1065 </span>            : {
+<span class="lineNum">    1066 </span>            :     return std::lexicographical_compare(lhs.begin(), lhs.end(),
+<span class="lineNum">    1067 </span>            :                                         rhs.begin(), rhs.end());
+<span class="lineNum">    1068 </span>            : }
+<span class="lineNum">    1069 </span>            : 
+<span class="lineNum">    1070 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1071 </span>            : inline bool operator&gt;(const QList&lt;T&gt; &amp;lhs, const QList&lt;T&gt; &amp;rhs)
+<span class="lineNum">    1072 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(lhs &lt; rhs))
+<span class="lineNum">    1073 </span>            : {
+<span class="lineNum">    1074 </span>            :     return rhs &lt; lhs;
+<span class="lineNum">    1075 </span>            : }
+<span class="lineNum">    1076 </span>            : 
+<span class="lineNum">    1077 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1078 </span>            : inline bool operator&lt;=(const QList&lt;T&gt; &amp;lhs, const QList&lt;T&gt; &amp;rhs)
+<span class="lineNum">    1079 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(lhs &lt; rhs))
+<span class="lineNum">    1080 </span>            : {
+<span class="lineNum">    1081 </span>            :     return !(lhs &gt; rhs);
+<span class="lineNum">    1082 </span>            : }
+<span class="lineNum">    1083 </span>            : 
+<span class="lineNum">    1084 </span>            : template &lt;typename T&gt;
+<span class="lineNum">    1085 </span>            : inline bool operator&gt;=(const QList&lt;T&gt; &amp;lhs, const QList&lt;T&gt; &amp;rhs)
+<span class="lineNum">    1086 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(lhs &lt; rhs))
+<span class="lineNum">    1087 </span>            : {
+<span class="lineNum">    1088 </span>            :     return !(lhs &lt; rhs);
+<span class="lineNum">    1089 </span>            : }
+<span class="lineNum">    1090 </span>            : 
+<span class="lineNum">    1091 </span>            : QT_END_NAMESPACE
+<span class="lineNum">    1092 </span>            : 
+<span class="lineNum">    1093 </span>            : #include &lt;QtCore/qbytearraylist.h&gt;
+<span class="lineNum">    1094 </span>            : #include &lt;QtCore/qstringlist.h&gt;
+<span class="lineNum">    1095 </span>            : 
+<span class="lineNum">    1096 </span>            : #ifdef Q_CC_MSVC
+<span class="lineNum">    1097 </span>            : #pragma warning( pop )
+<span class="lineNum">    1098 </span>            : #endif
+<span class="lineNum">    1099 </span>            : 
+<span class="lineNum">    1100 </span>            : #endif // QLIST_H
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

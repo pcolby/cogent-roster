@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - /home/paul/src/cogent/src/NoSingleDaysOff.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">home/paul/src/cogent/src</a> - NoSingleDaysOff.h<span style="font-size: 80%;"> (source / <a href="NoSingleDaysOff.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryLo">5.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-05-18 14:21:23</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryLo">33.3 %</td>
+          </tr>
+          <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef __NO_SINGLE_DAYS_OFF_H__</a>
+<span class="lineNum">       2 </span>            : #define __NO_SINGLE_DAYS_OFF_H__
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : #include &quot;ConstraintInterface.h&quot;
+<span class="lineNum">       5 </span>            : 
+<span class="lineNum">       6 </span>            : #include &lt;QDebug&gt;
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : namespace Cogent {
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : /*!
+<span class="lineNum">      11 </span>            :  * \brief Ensures that a nurse's days off occur in groups of two or more.
+<span class="lineNum">      12 </span>            :  *
+<span class="lineNum">      13 </span>            :  * Note, a nurse could still have just one day off a month bounday. This can be covered quite easily
+<a name="14"><span class="lineNum">      14 </span>            :  * if we supported loading previous-month data (ot least the last day).</a>
+<span class="lineNum">      15 </span>            :  */
+<span class="lineNum">      16 </span><span class="lineCov">          2 : class NoSingleDaysOff : public ConstraintInterface</span>
+<span class="lineNum">      17 </span>            : {
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            : public:
+<span class="lineNum">      20 </span>            :     /*!
+<span class="lineNum">      21 </span>            :      * \brief Removes from \a nurses any nurse that would fail this constraint if thery were to be
+<span class="lineNum">      22 </span>            :      * included in \a shift of the day after \a daysSoFar.
+<span class="lineNum">      23 </span>            :      *
+<a name="24"><span class="lineNum">      24 </span>            :      * Returns the number of nurses removed, if any, otherwise 0.</a>
+<span class="lineNum">      25 </span>            :      */
+<span class="lineNum">      26 </span><span class="lineNoCov">          0 :     int constrain(QStringSet &amp;nurses, const QString &amp;shift, const QVariantList &amp;daysSoFar) override</span>
+<span class="lineNum">      27 </span>            :     {
+<span class="lineNum">      28 </span>            :         Q_UNUSED(shift);
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            :         // If we don't have 1 day of history yet, then no need to exclude anyone.
+<span class="lineNum">      31 </span><span class="lineNoCov">          0 :         if (daysSoFar.size() &lt; 2) { // 2 because daysSoFar always include the current day too.</span>
+<span class="lineNum">      32 </span><span class="lineNoCov">          0 :             qDebug() &lt;&lt; &quot;removed 0 of&quot; &lt;&lt; nurses.size() &lt;&lt; &quot;nurses&quot;;</span>
+<span class="lineNum">      33 </span><span class="lineNoCov">          0 :             return 0;</span>
+<span class="lineNum">      34 </span>            :         }
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            :         // Find which nurses had yesterday off.
+<span class="lineNum">      37 </span><span class="lineNoCov">          0 :         QStringSet nursesWithYesterdayOff = nurses;</span>
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 :         foreach (const QVariant &amp;shift, daysSoFar.at(daysSoFar.size()-2).toMap()) {</span>
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :             foreach (const QVariant &amp;nurse, shift.toList()) {</span>
+<span class="lineNum">      40 </span><span class="lineNoCov">          0 :                 nursesWithYesterdayOff.remove(nurse.toString());</span>
+<span class="lineNum">      41 </span>            :             }
+<span class="lineNum">      42 </span>            :         }
+<span class="lineNum">      43 </span><span class="lineNoCov">          0 :         qDebug() &lt;&lt; nursesWithYesterdayOff.size() &lt;&lt; &quot;of&quot; &lt;&lt; nurses.size() &lt;&lt; &quot;nurses had yesterday off&quot;;</span>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            :         // Find which nurses had (at least) two days off.
+<span class="lineNum">      46 </span><span class="lineNoCov">          0 :         QStringSet nursesWithLastTwoDaysOff = nursesWithYesterdayOff;</span>
+<span class="lineNum">      47 </span><span class="lineNoCov">          0 :         if (daysSoFar.size() &gt; 2) { // If we had two (or more) days of history.</span>
+<span class="lineNum">      48 </span><span class="lineNoCov">          0 :             foreach (const QVariant &amp;shift, daysSoFar.at(daysSoFar.size()-2).toMap()) {</span>
+<span class="lineNum">      49 </span><span class="lineNoCov">          0 :                 foreach (const QVariant &amp;nurse, shift.toList()) {</span>
+<span class="lineNum">      50 </span><span class="lineNoCov">          0 :                     nursesWithLastTwoDaysOff.remove(nurse.toString());</span>
+<span class="lineNum">      51 </span>            :                 }
+<span class="lineNum">      52 </span>            :             }
+<span class="lineNum">      53 </span>            :         }
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :         qDebug() &lt;&lt; nursesWithLastTwoDaysOff.size() &lt;&lt; &quot;of&quot; &lt;&lt; nurses.size() &lt;&lt; &quot;nurses had two days off&quot;;</span>
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :         // Remove all nurses with yesterday off, but not two (or more) days off yet (they need to
+<span class="lineNum">      57 </span>            :         // have today off to allow for their days off to be grouped in two or more days).
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 :         const int originalSize = nurses.size();</span>
+<span class="lineNum">      59 </span><span class="lineNoCov">          0 :         nurses.subtract(nursesWithYesterdayOff - nursesWithLastTwoDaysOff);</span>
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 :         qDebug() &lt;&lt; &quot;removed&quot; &lt;&lt; (originalSize-nurses.size()) &lt;&lt; &quot;of&quot; &lt;&lt; originalSize &lt;&lt; &quot;nurses&quot;;</span>
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :         return originalSize-nurses.size();</span>
+<span class="lineNum">      62 </span>            :     }
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            : };
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            : } // end Cogent namespace
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            : #endif // __NO_SINGLE_DAYS_OFF_H__
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

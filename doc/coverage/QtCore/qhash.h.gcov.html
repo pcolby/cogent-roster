@@ -1,0 +1,1232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - QtCore/qhash.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">QtCore</a> - qhash.h<span style="font-size: 80%;"> (source / <a href="qhash.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">123</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-05-18 14:17:48</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /****************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2016 The Qt Company Ltd.
+<span class="lineNum">       4 </span>            : ** Copyright (C) 2015 Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com, author Marc Mutz &lt;marc.mutz@kdab.com&gt;
+<span class="lineNum">       5 </span>            : ** Contact: https://www.qt.io/licensing/
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of the QtCore module of the Qt Toolkit.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : ** $QT_BEGIN_LICENSE:LGPL$
+<span class="lineNum">      10 </span>            : ** Commercial License Usage
+<span class="lineNum">      11 </span>            : ** Licensees holding valid commercial Qt licenses may use this file in
+<span class="lineNum">      12 </span>            : ** accordance with the commercial license agreement provided with the
+<span class="lineNum">      13 </span>            : ** Software or, alternatively, in accordance with the terms contained in
+<span class="lineNum">      14 </span>            : ** a written agreement between you and The Qt Company. For licensing terms
+<span class="lineNum">      15 </span>            : ** and conditions see https://www.qt.io/terms-conditions. For further
+<span class="lineNum">      16 </span>            : ** information use the contact form at https://www.qt.io/contact-us.
+<span class="lineNum">      17 </span>            : **
+<span class="lineNum">      18 </span>            : ** GNU Lesser General Public License Usage
+<span class="lineNum">      19 </span>            : ** Alternatively, this file may be used under the terms of the GNU Lesser
+<span class="lineNum">      20 </span>            : ** General Public License version 3 as published by the Free Software
+<span class="lineNum">      21 </span>            : ** Foundation and appearing in the file LICENSE.LGPL3 included in the
+<span class="lineNum">      22 </span>            : ** packaging of this file. Please review the following information to
+<span class="lineNum">      23 </span>            : ** ensure the GNU Lesser General Public License version 3 requirements
+<span class="lineNum">      24 </span>            : ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+<span class="lineNum">      25 </span>            : **
+<span class="lineNum">      26 </span>            : ** GNU General Public License Usage
+<span class="lineNum">      27 </span>            : ** Alternatively, this file may be used under the terms of the GNU
+<span class="lineNum">      28 </span>            : ** General Public License version 2.0 or (at your option) the GNU General
+<span class="lineNum">      29 </span>            : ** Public license version 3 or any later version approved by the KDE Free
+<span class="lineNum">      30 </span>            : ** Qt Foundation. The licenses are as published by the Free Software
+<span class="lineNum">      31 </span>            : ** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+<span class="lineNum">      32 </span>            : ** included in the packaging of this file. Please review the following
+<span class="lineNum">      33 </span>            : ** information to ensure the GNU General Public License requirements will
+<span class="lineNum">      34 </span>            : ** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+<span class="lineNum">      35 </span>            : ** https://www.gnu.org/licenses/gpl-3.0.html.
+<span class="lineNum">      36 </span>            : **
+<span class="lineNum">      37 </span>            : ** $QT_END_LICENSE$
+<span class="lineNum">      38 </span>            : **
+<span class="lineNum">      39 </span>            : ****************************************************************************/
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : #ifndef QHASH_H
+<span class="lineNum">      42 </span>            : #define QHASH_H
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            : #include &lt;QtCore/qchar.h&gt;
+<span class="lineNum">      45 </span>            : #include &lt;QtCore/qiterator.h&gt;
+<span class="lineNum">      46 </span>            : #include &lt;QtCore/qlist.h&gt;
+<span class="lineNum">      47 </span>            : #include &lt;QtCore/qrefcount.h&gt;
+<span class="lineNum">      48 </span>            : #include &lt;QtCore/qhashfunctions.h&gt;
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : #ifdef Q_COMPILER_INITIALIZER_LISTS
+<span class="lineNum">      51 </span>            : #include &lt;initializer_list&gt;
+<span class="lineNum">      52 </span>            : #endif
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : #if defined(Q_CC_MSVC)
+<span class="lineNum">      57 </span>            : #pragma warning( push )
+<span class="lineNum">      58 </span>            : #pragma warning( disable : 4311 ) // disable pointer truncation warning
+<span class="lineNum">      59 </span>            : #pragma warning( disable : 4127 ) // conditional expression is constant
+<span class="lineNum">      60 </span>            : #endif
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            : struct Q_CORE_EXPORT QHashData
+<span class="lineNum">      65 </span>            : {
+<span class="lineNum">      66 </span>            :     struct Node {
+<span class="lineNum">      67 </span>            :         Node *next;
+<span class="lineNum">      68 </span>            :         uint h;
+<span class="lineNum">      69 </span>            :     };
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :     Node *fakeNext;
+<span class="lineNum">      72 </span>            :     Node **buckets;
+<span class="lineNum">      73 </span>            :     QtPrivate::RefCount ref;
+<span class="lineNum">      74 </span>            :     int size;
+<span class="lineNum">      75 </span>            :     int nodeSize;
+<span class="lineNum">      76 </span>            :     short userNumBits;
+<span class="lineNum">      77 </span>            :     short numBits;
+<span class="lineNum">      78 </span>            :     int numBuckets;
+<span class="lineNum">      79 </span>            :     uint seed;
+<span class="lineNum">      80 </span>            :     uint sharable : 1;
+<span class="lineNum">      81 </span>            :     uint strictAlignment : 1;
+<span class="lineNum">      82 </span>            :     uint reserved : 30;
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :     void *allocateNode(int nodeAlign);
+<span class="lineNum">      85 </span>            :     void freeNode(void *node);
+<span class="lineNum">      86 </span>            :     QHashData *detach_helper(void (*node_duplicate)(Node *, void *), void (*node_delete)(Node *),
+<span class="lineNum">      87 </span>            :                              int nodeSize, int nodeAlign);
+<span class="lineNum">      88 </span>            :     bool willGrow();
+<span class="lineNum">      89 </span>            :     void hasShrunk();
+<span class="lineNum">      90 </span>            :     void rehash(int hint);
+<span class="lineNum">      91 </span>            :     void free_helper(void (*node_delete)(Node *));
+<span class="lineNum">      92 </span>            :     Node *firstNode();
+<span class="lineNum">      93 </span>            : #ifdef QT_QHASH_DEBUG
+<span class="lineNum">      94 </span>            :     void dump();
+<span class="lineNum">      95 </span>            :     void checkSanity();
+<span class="lineNum">      96 </span>            : #endif
+<span class="lineNum">      97 </span>            :     static Node *nextNode(Node *node);
+<span class="lineNum">      98 </span>            :     static Node *previousNode(Node *node);
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            :     static const QHashData shared_null;
+<a name="101"><span class="lineNum">     101 </span>            : };</a>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 : inline bool QHashData::willGrow()</span>
+<span class="lineNum">     104 </span>            : {
+<span class="lineNum">     105 </span><span class="lineNoCov">          0 :     if (size &gt;= numBuckets) {</span>
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 :         rehash(numBits + 1);</span>
+<span class="lineNum">     107 </span><span class="lineNoCov">          0 :         return true;</span>
+<span class="lineNum">     108 </span>            :     } else {
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :         return false;</span>
+<span class="lineNum">     110 </span>            :     }
+<a name="111"><span class="lineNum">     111 </span>            : }</a>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span><span class="lineNoCov">          0 : inline void QHashData::hasShrunk()</span>
+<span class="lineNum">     114 </span>            : {
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 :     if (size &lt;= (numBuckets &gt;&gt; 3) &amp;&amp; numBits &gt; userNumBits) {</span>
+<span class="lineNum">     116 </span>            :         QT_TRY {
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :             rehash(qMax(int(numBits) - 2, int(userNumBits)));</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :         } QT_CATCH(const std::bad_alloc &amp;) {</span>
+<span class="lineNum">     119 </span>            :             // ignore bad allocs - shrinking shouldn't throw. rehash is exception safe.
+<span class="lineNum">     120 </span>            :         }
+<span class="lineNum">     121 </span>            :     }
+<a name="122"><span class="lineNum">     122 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 : inline QHashData::Node *QHashData::firstNode()</span>
+<span class="lineNum">     125 </span>            : {
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :     Node *e = reinterpret_cast&lt;Node *&gt;(this);</span>
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :     Node **bucket = buckets;</span>
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 :     int n = numBuckets;</span>
+<span class="lineNum">     129 </span><span class="lineNoCov">          0 :     while (n--) {</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :         if (*bucket != e)</span>
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 :             return *bucket;</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :         ++bucket;</span>
+<span class="lineNum">     133 </span>            :     }
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 :     return e;</span>
+<span class="lineNum">     135 </span>            : }
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span>            : struct QHashDummyValue
+<span class="lineNum">     138 </span>            : {
+<span class="lineNum">     139 </span>            : };
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : inline bool operator==(const QHashDummyValue &amp; /* v1 */, const QHashDummyValue &amp; /* v2 */)
+<span class="lineNum">     142 </span>            : {
+<span class="lineNum">     143 </span>            :     return true;
+<span class="lineNum">     144 </span>            : }
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            : Q_DECLARE_TYPEINFO(QHashDummyValue, Q_MOVABLE_TYPE | Q_DUMMY_TYPE);
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     149 </span>            : struct QHashNode
+<span class="lineNum">     150 </span>            : {
+<span class="lineNum">     151 </span>            :     QHashNode *next;
+<span class="lineNum">     152 </span>            :     const uint h;
+<span class="lineNum">     153 </span>            :     const Key key;
+<span class="lineNum">     154 </span>            :     T value;
+<span class="lineNum">     155 </span>            : 
+<span class="lineNum">     156 </span>            :     inline QHashNode(const Key &amp;key0, const T &amp;value0, uint hash, QHashNode *n)
+<span class="lineNum">     157 </span>            :         : next(n), h(hash), key(key0), value(value0) {}
+<span class="lineNum">     158 </span>            :     inline bool same_key(uint h0, const Key &amp;key0) const { return h0 == h &amp;&amp; key0 == key; }
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : private:
+<span class="lineNum">     161 </span>            :     Q_DISABLE_COPY(QHashNode)
+<span class="lineNum">     162 </span>            : };
+<span class="lineNum">     163 </span>            : 
+<a name="164"><span class="lineNum">     164 </span>            : // Specialize for QHashDummyValue in order to save some memory</a>
+<span class="lineNum">     165 </span>            : template &lt;class Key&gt;
+<span class="lineNum">     166 </span><span class="lineNoCov">          0 : struct QHashNode&lt;Key, QHashDummyValue&gt;</span>
+<span class="lineNum">     167 </span>            : {
+<span class="lineNum">     168 </span>            :     union {
+<span class="lineNum">     169 </span>            :         QHashNode *next;
+<span class="lineNum">     170 </span>            :         QHashDummyValue value;
+<span class="lineNum">     171 </span>            :     };
+<span class="lineNum">     172 </span>            :     const uint h;
+<a name="173"><span class="lineNum">     173 </span>            :     const Key key;</a>
+<span class="lineNum">     174 </span>            : 
+<a name="175"><span class="lineNum">     175 </span><span class="lineNoCov">          0 :     inline QHashNode(const Key &amp;key0, const QHashDummyValue &amp;, uint hash, QHashNode *n)</span></a>
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :         : next(n), h(hash), key(key0) {}</span>
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :     inline bool same_key(uint h0, const Key &amp;key0) const { return h0 == h &amp;&amp; key0 == key; }</span>
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : private:
+<span class="lineNum">     180 </span>            :     Q_DISABLE_COPY(QHashNode)
+<span class="lineNum">     181 </span>            : };
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : #if 0
+<span class="lineNum">     185 </span>            : // ###
+<span class="lineNum">     186 </span>            : // The introduction of the QHash random seed breaks this optimization, as it
+<span class="lineNum">     187 </span>            : // relies on qHash(int i) = i. If the hash value is salted, then the hash
+<span class="lineNum">     188 </span>            : // table becomes corrupted.
+<span class="lineNum">     189 </span>            : //
+<span class="lineNum">     190 </span>            : // A bit more research about whether it makes sense or not to salt integer
+<span class="lineNum">     191 </span>            : // keys (and in general keys whose hash value is easy to invert)
+<span class="lineNum">     192 </span>            : // is needed, or about how keep this optimization and the seed (f.i. by
+<span class="lineNum">     193 </span>            : // specializing QHash for integer values, and re-apply the seed during lookup).
+<span class="lineNum">     194 </span>            : //
+<span class="lineNum">     195 </span>            : // Be aware that such changes can easily be binary incompatible, and therefore
+<span class="lineNum">     196 </span>            : // cannot be made during the Qt 5 lifetime.
+<span class="lineNum">     197 </span>            : #define Q_HASH_DECLARE_INT_NODES(key_type) \
+<span class="lineNum">     198 </span>            :     template &lt;class T&gt; \
+<span class="lineNum">     199 </span>            :     struct QHashDummyNode&lt;key_type, T&gt; { \
+<span class="lineNum">     200 </span>            :         QHashDummyNode *next; \
+<span class="lineNum">     201 </span>            :         union { uint h; key_type key; }; \
+<span class="lineNum">     202 </span>            : \
+<span class="lineNum">     203 </span>            :         inline QHashDummyNode(key_type /* key0 */) {} \
+<span class="lineNum">     204 </span>            :     }; \
+<span class="lineNum">     205 </span>            : \
+<span class="lineNum">     206 </span>            :     template &lt;class T&gt; \
+<span class="lineNum">     207 </span>            :     struct QHashNode&lt;key_type, T&gt; { \
+<span class="lineNum">     208 </span>            :         QHashNode *next; \
+<span class="lineNum">     209 </span>            :         union { uint h; key_type key; }; \
+<span class="lineNum">     210 </span>            :         T value; \
+<span class="lineNum">     211 </span>            : \
+<span class="lineNum">     212 </span>            :         inline QHashNode(key_type /* key0 */) {} \
+<span class="lineNum">     213 </span>            :         inline QHashNode(key_type /* key0 */, const T &amp;value0) : value(value0) {} \
+<span class="lineNum">     214 </span>            :         inline bool same_key(uint h0, key_type) const { return h0 == h; } \
+<span class="lineNum">     215 </span>            :     }
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span>            : #if defined(Q_BYTE_ORDER) &amp;&amp; Q_BYTE_ORDER == Q_LITTLE_ENDIAN
+<span class="lineNum">     218 </span>            : Q_HASH_DECLARE_INT_NODES(short);
+<span class="lineNum">     219 </span>            : Q_HASH_DECLARE_INT_NODES(ushort);
+<span class="lineNum">     220 </span>            : #endif
+<span class="lineNum">     221 </span>            : Q_HASH_DECLARE_INT_NODES(int);
+<span class="lineNum">     222 </span>            : Q_HASH_DECLARE_INT_NODES(uint);
+<span class="lineNum">     223 </span>            : #undef Q_HASH_DECLARE_INT_NODES
+<span class="lineNum">     224 </span>            : #endif // #if 0
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     227 </span>            : class QHash
+<span class="lineNum">     228 </span>            : {
+<span class="lineNum">     229 </span>            :     typedef QHashNode&lt;Key, T&gt; Node;
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span>            :     union {
+<span class="lineNum">     232 </span>            :         QHashData *d;
+<span class="lineNum">     233 </span>            :         QHashNode&lt;Key, T&gt; *e;
+<a name="234"><span class="lineNum">     234 </span>            :     };</a>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     static inline Node *concrete(QHashData::Node *node) {</span>
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :         return reinterpret_cast&lt;Node *&gt;(node);</span>
+<a name="238"><span class="lineNum">     238 </span>            :     }</a>
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span><span class="lineNoCov">          0 :     static inline int alignOfNode() { return qMax&lt;int&gt;(sizeof(void*), Q_ALIGNOF(Node)); }</span>
+<a name="241"><span class="lineNum">     241 </span>            : </a>
+<span class="lineNum">     242 </span>            : public:
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :     inline QHash() Q_DECL_NOTHROW : d(const_cast&lt;QHashData *&gt;(&amp;QHashData::shared_null)) { }</span>
+<span class="lineNum">     244 </span>            : #ifdef Q_COMPILER_INITIALIZER_LISTS
+<span class="lineNum">     245 </span>            :     inline QHash(std::initializer_list&lt;std::pair&lt;Key,T&gt; &gt; list)
+<span class="lineNum">     246 </span>            :         : d(const_cast&lt;QHashData *&gt;(&amp;QHashData::shared_null))
+<span class="lineNum">     247 </span>            :     {
+<span class="lineNum">     248 </span>            :         reserve(int(list.size()));
+<span class="lineNum">     249 </span>            :         for (typename std::initializer_list&lt;std::pair&lt;Key,T&gt; &gt;::const_iterator it = list.begin(); it != list.end(); ++it)
+<span class="lineNum">     250 </span>            :             insert(it-&gt;first, it-&gt;second);
+<a name="251"><span class="lineNum">     251 </span>            :     }</a>
+<a name="252"><span class="lineNum">     252 </span>            : #endif</a>
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 :     QHash(const QHash &amp;other) : d(other.d) { d-&gt;ref.ref(); if (!d-&gt;sharable) detach(); }</span>
+<span class="lineNum">     254 </span><span class="lineNoCov">          0 :     ~QHash() { if (!d-&gt;ref.deref()) freeData(d); }</span>
+<span class="lineNum">     255 </span>            : 
+<a name="256"><span class="lineNum">     256 </span>            :     QHash &amp;operator=(const QHash &amp;other);</a>
+<a name="257"><span class="lineNum">     257 </span>            : #ifdef Q_COMPILER_RVALUE_REFS</a>
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :     QHash(QHash &amp;&amp;other) Q_DECL_NOTHROW : d(other.d) { other.d = const_cast&lt;QHashData *&gt;(&amp;QHashData::shared_null); }</span>
+<span class="lineNum">     259 </span><span class="lineNoCov">          0 :     QHash &amp;operator=(QHash &amp;&amp;other) Q_DECL_NOTHROW</span>
+<a name="260"><span class="lineNum">     260 </span><span class="lineNoCov">          0 :     { QHash moved(std::move(other)); swap(moved); return *this; }</span></a>
+<span class="lineNum">     261 </span>            : #endif
+<span class="lineNum">     262 </span><span class="lineNoCov">          0 :     void swap(QHash &amp;other) Q_DECL_NOTHROW { qSwap(d, other.d); }</span>
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span>            :     bool operator==(const QHash &amp;other) const;
+<a name="265"><span class="lineNum">     265 </span>            :     bool operator!=(const QHash &amp;other) const { return !(*this == other); }</a>
+<span class="lineNum">     266 </span>            : 
+<a name="267"><span class="lineNum">     267 </span><span class="lineNoCov">          0 :     inline int size() const { return d-&gt;size; }</span></a>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span><span class="lineNoCov">          0 :     inline bool isEmpty() const { return d-&gt;size == 0; }</span>
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span>            :     inline int capacity() const { return d-&gt;numBuckets; }
+<span class="lineNum">     272 </span>            :     void reserve(int size);
+<a name="273"><span class="lineNum">     273 </span>            :     inline void squeeze() { reserve(1); }</a>
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :     inline void detach() { if (d-&gt;ref.isShared()) detach_helper(); }</span>
+<span class="lineNum">     276 </span>            :     inline bool isDetached() const { return !d-&gt;ref.isShared(); }
+<span class="lineNum">     277 </span>            : #if !defined(QT_NO_UNSHARABLE_CONTAINERS)
+<span class="lineNum">     278 </span>            :     inline void setSharable(bool sharable) { if (!sharable) detach(); if (d != &amp;QHashData::shared_null) d-&gt;sharable = sharable; }
+<span class="lineNum">     279 </span>            : #endif
+<span class="lineNum">     280 </span>            :     bool isSharedWith(const QHash &amp;other) const { return d == other.d; }
+<span class="lineNum">     281 </span>            : 
+<span class="lineNum">     282 </span>            :     void clear();
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            :     int remove(const Key &amp;key);
+<span class="lineNum">     285 </span>            :     T take(const Key &amp;key);
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span>            :     bool contains(const Key &amp;key) const;
+<span class="lineNum">     288 </span>            :     const Key key(const T &amp;value) const;
+<span class="lineNum">     289 </span>            :     const Key key(const T &amp;value, const Key &amp;defaultKey) const;
+<span class="lineNum">     290 </span>            :     const T value(const Key &amp;key) const;
+<span class="lineNum">     291 </span>            :     const T value(const Key &amp;key, const T &amp;defaultValue) const;
+<span class="lineNum">     292 </span>            :     T &amp;operator[](const Key &amp;key);
+<span class="lineNum">     293 </span>            :     const T operator[](const Key &amp;key) const;
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span>            :     QList&lt;Key&gt; uniqueKeys() const;
+<span class="lineNum">     296 </span>            :     QList&lt;Key&gt; keys() const;
+<span class="lineNum">     297 </span>            :     QList&lt;Key&gt; keys(const T &amp;value) const;
+<span class="lineNum">     298 </span>            :     QList&lt;T&gt; values() const;
+<span class="lineNum">     299 </span>            :     QList&lt;T&gt; values(const Key &amp;key) const;
+<span class="lineNum">     300 </span>            :     int count(const Key &amp;key) const;
+<span class="lineNum">     301 </span>            : 
+<span class="lineNum">     302 </span>            :     class const_iterator;
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            :     class iterator
+<span class="lineNum">     305 </span>            :     {
+<span class="lineNum">     306 </span>            :         friend class const_iterator;
+<span class="lineNum">     307 </span>            :         friend class QHash&lt;Key, T&gt;;
+<span class="lineNum">     308 </span>            :         friend class QSet&lt;Key&gt;;
+<span class="lineNum">     309 </span>            :         QHashData::Node *i;
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span>            :     public:
+<span class="lineNum">     312 </span>            :         typedef std::bidirectional_iterator_tag iterator_category;
+<span class="lineNum">     313 </span>            :         typedef qptrdiff difference_type;
+<span class="lineNum">     314 </span>            :         typedef T value_type;
+<span class="lineNum">     315 </span>            :         typedef T *pointer;
+<span class="lineNum">     316 </span>            :         typedef T &amp;reference;
+<a name="317"><span class="lineNum">     317 </span>            : </a>
+<span class="lineNum">     318 </span>            :         inline iterator() : i(Q_NULLPTR) { }
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 :         explicit inline iterator(void *node) : i(reinterpret_cast&lt;QHashData::Node *&gt;(node)) { }</span>
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            :         inline const Key &amp;key() const { return concrete(i)-&gt;key; }
+<span class="lineNum">     322 </span>            :         inline T &amp;value() const { return concrete(i)-&gt;value; }
+<span class="lineNum">     323 </span>            :         inline T &amp;operator*() const { return concrete(i)-&gt;value; }
+<span class="lineNum">     324 </span>            :         inline T *operator-&gt;() const { return &amp;concrete(i)-&gt;value; }
+<span class="lineNum">     325 </span>            :         inline bool operator==(const iterator &amp;o) const { return i == o.i; }
+<span class="lineNum">     326 </span>            :         inline bool operator!=(const iterator &amp;o) const { return i != o.i; }
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            :         inline iterator &amp;operator++() {
+<span class="lineNum">     329 </span>            :             i = QHashData::nextNode(i);
+<span class="lineNum">     330 </span>            :             return *this;
+<span class="lineNum">     331 </span>            :         }
+<span class="lineNum">     332 </span>            :         inline iterator operator++(int) {
+<span class="lineNum">     333 </span>            :             iterator r = *this;
+<span class="lineNum">     334 </span>            :             i = QHashData::nextNode(i);
+<span class="lineNum">     335 </span>            :             return r;
+<span class="lineNum">     336 </span>            :         }
+<span class="lineNum">     337 </span>            :         inline iterator &amp;operator--() {
+<span class="lineNum">     338 </span>            :             i = QHashData::previousNode(i);
+<span class="lineNum">     339 </span>            :             return *this;
+<span class="lineNum">     340 </span>            :         }
+<span class="lineNum">     341 </span>            :         inline iterator operator--(int) {
+<span class="lineNum">     342 </span>            :             iterator r = *this;
+<span class="lineNum">     343 </span>            :             i = QHashData::previousNode(i);
+<span class="lineNum">     344 </span>            :             return r;
+<span class="lineNum">     345 </span>            :         }
+<span class="lineNum">     346 </span>            :         inline iterator operator+(int j) const
+<span class="lineNum">     347 </span>            :         { iterator r = *this; if (j &gt; 0) while (j--) ++r; else while (j++) --r; return r; }
+<span class="lineNum">     348 </span>            :         inline iterator operator-(int j) const { return operator+(-j); }
+<span class="lineNum">     349 </span>            :         inline iterator &amp;operator+=(int j) { return *this = *this + j; }
+<span class="lineNum">     350 </span>            :         inline iterator &amp;operator-=(int j) { return *this = *this - j; }
+<span class="lineNum">     351 </span>            : 
+<span class="lineNum">     352 </span>            : #ifndef QT_STRICT_ITERATORS
+<span class="lineNum">     353 </span>            :     public:
+<span class="lineNum">     354 </span>            :         inline bool operator==(const const_iterator &amp;o) const
+<span class="lineNum">     355 </span>            :             { return i == o.i; }
+<span class="lineNum">     356 </span>            :         inline bool operator!=(const const_iterator &amp;o) const
+<span class="lineNum">     357 </span>            :             { return i != o.i; }
+<span class="lineNum">     358 </span>            : #endif
+<span class="lineNum">     359 </span>            :     };
+<span class="lineNum">     360 </span>            :     friend class iterator;
+<span class="lineNum">     361 </span>            : 
+<span class="lineNum">     362 </span>            :     class const_iterator
+<span class="lineNum">     363 </span>            :     {
+<span class="lineNum">     364 </span>            :         friend class iterator;
+<span class="lineNum">     365 </span>            :         friend class QHash&lt;Key, T&gt;;
+<span class="lineNum">     366 </span>            :         friend class QSet&lt;Key&gt;;
+<span class="lineNum">     367 </span>            :         QHashData::Node *i;
+<span class="lineNum">     368 </span>            : 
+<span class="lineNum">     369 </span>            :     public:
+<span class="lineNum">     370 </span>            :         typedef std::bidirectional_iterator_tag iterator_category;
+<span class="lineNum">     371 </span>            :         typedef qptrdiff difference_type;
+<span class="lineNum">     372 </span>            :         typedef T value_type;
+<span class="lineNum">     373 </span>            :         typedef const T *pointer;
+<span class="lineNum">     374 </span>            :         typedef const T &amp;reference;
+<a name="375"><span class="lineNum">     375 </span>            : </a>
+<span class="lineNum">     376 </span>            :         Q_DECL_CONSTEXPR inline const_iterator() : i(Q_NULLPTR) { }
+<span class="lineNum">     377 </span><span class="lineNoCov">          0 :         explicit inline const_iterator(void *node)</span>
+<span class="lineNum">     378 </span><span class="lineNoCov">          0 :             : i(reinterpret_cast&lt;QHashData::Node *&gt;(node)) { }</span>
+<span class="lineNum">     379 </span>            : #ifdef QT_STRICT_ITERATORS
+<span class="lineNum">     380 </span>            :         explicit inline const_iterator(const iterator &amp;o)
+<span class="lineNum">     381 </span>            : #else
+<span class="lineNum">     382 </span>            :         inline const_iterator(const iterator &amp;o)
+<span class="lineNum">     383 </span>            : #endif
+<a name="384"><span class="lineNum">     384 </span>            :         { i = o.i; }</a>
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span><span class="lineNoCov">          0 :         inline const Key &amp;key() const { return concrete(i)-&gt;key; }</span>
+<span class="lineNum">     387 </span>            :         inline const T &amp;value() const { return concrete(i)-&gt;value; }
+<span class="lineNum">     388 </span>            :         inline const T &amp;operator*() const { return concrete(i)-&gt;value; }
+<a name="389"><span class="lineNum">     389 </span>            :         inline const T *operator-&gt;() const { return &amp;concrete(i)-&gt;value; }</a>
+<span class="lineNum">     390 </span>            :         Q_DECL_CONSTEXPR inline bool operator==(const const_iterator &amp;o) const { return i == o.i; }
+<a name="391"><span class="lineNum">     391 </span><span class="lineNoCov">          0 :         Q_DECL_CONSTEXPR inline bool operator!=(const const_iterator &amp;o) const { return i != o.i; }</span></a>
+<span class="lineNum">     392 </span>            : 
+<span class="lineNum">     393 </span><span class="lineNoCov">          0 :         inline const_iterator &amp;operator++() {</span>
+<span class="lineNum">     394 </span><span class="lineNoCov">          0 :             i = QHashData::nextNode(i);</span>
+<span class="lineNum">     395 </span><span class="lineNoCov">          0 :             return *this;</span>
+<span class="lineNum">     396 </span>            :         }
+<span class="lineNum">     397 </span>            :         inline const_iterator operator++(int) {
+<span class="lineNum">     398 </span>            :             const_iterator r = *this;
+<span class="lineNum">     399 </span>            :             i = QHashData::nextNode(i);
+<a name="400"><span class="lineNum">     400 </span>            :             return r;</a>
+<span class="lineNum">     401 </span>            :         }
+<span class="lineNum">     402 </span><span class="lineNoCov">          0 :         inline const_iterator &amp;operator--() {</span>
+<span class="lineNum">     403 </span><span class="lineNoCov">          0 :             i = QHashData::previousNode(i);</span>
+<span class="lineNum">     404 </span><span class="lineNoCov">          0 :             return *this;</span>
+<span class="lineNum">     405 </span>            :         }
+<span class="lineNum">     406 </span>            :         inline const_iterator operator--(int) {
+<span class="lineNum">     407 </span>            :             const_iterator r = *this;
+<span class="lineNum">     408 </span>            :             i = QHashData::previousNode(i);
+<span class="lineNum">     409 </span>            :             return r;
+<span class="lineNum">     410 </span>            :         }
+<span class="lineNum">     411 </span>            :         inline const_iterator operator+(int j) const
+<span class="lineNum">     412 </span>            :         { const_iterator r = *this; if (j &gt; 0) while (j--) ++r; else while (j++) --r; return r; }
+<span class="lineNum">     413 </span>            :         inline const_iterator operator-(int j) const { return operator+(-j); }
+<span class="lineNum">     414 </span>            :         inline const_iterator &amp;operator+=(int j) { return *this = *this + j; }
+<span class="lineNum">     415 </span>            :         inline const_iterator &amp;operator-=(int j) { return *this = *this - j; }
+<span class="lineNum">     416 </span>            : 
+<span class="lineNum">     417 </span>            :         // ### Qt 5: not sure this is necessary anymore
+<span class="lineNum">     418 </span>            : #ifdef QT_STRICT_ITERATORS
+<span class="lineNum">     419 </span>            :     private:
+<span class="lineNum">     420 </span>            :         inline bool operator==(const iterator &amp;o) const { return operator==(const_iterator(o)); }
+<span class="lineNum">     421 </span>            :         inline bool operator!=(const iterator &amp;o) const { return operator!=(const_iterator(o)); }
+<span class="lineNum">     422 </span>            : #endif
+<span class="lineNum">     423 </span>            :     };
+<span class="lineNum">     424 </span>            :     friend class const_iterator;
+<span class="lineNum">     425 </span>            : 
+<span class="lineNum">     426 </span>            :     class key_iterator
+<span class="lineNum">     427 </span>            :     {
+<span class="lineNum">     428 </span>            :         const_iterator i;
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span>            :     public:
+<span class="lineNum">     431 </span>            :         typedef typename const_iterator::iterator_category iterator_category;
+<span class="lineNum">     432 </span>            :         typedef typename const_iterator::difference_type difference_type;
+<span class="lineNum">     433 </span>            :         typedef Key value_type;
+<span class="lineNum">     434 </span>            :         typedef const Key *pointer;
+<span class="lineNum">     435 </span>            :         typedef const Key &amp;reference;
+<span class="lineNum">     436 </span>            : 
+<span class="lineNum">     437 </span>            :         key_iterator() = default;
+<span class="lineNum">     438 </span>            :         explicit key_iterator(const_iterator o) : i(o) { }
+<span class="lineNum">     439 </span>            : 
+<span class="lineNum">     440 </span>            :         const Key &amp;operator*() const { return i.key(); }
+<span class="lineNum">     441 </span>            :         const Key *operator-&gt;() const { return &amp;i.key(); }
+<span class="lineNum">     442 </span>            :         bool operator==(key_iterator o) const { return i == o.i; }
+<span class="lineNum">     443 </span>            :         bool operator!=(key_iterator o) const { return i != o.i; }
+<span class="lineNum">     444 </span>            : 
+<span class="lineNum">     445 </span>            :         inline key_iterator &amp;operator++() { ++i; return *this; }
+<span class="lineNum">     446 </span>            :         inline key_iterator operator++(int) { return key_iterator(i++);}
+<span class="lineNum">     447 </span>            :         inline key_iterator &amp;operator--() { --i; return *this; }
+<span class="lineNum">     448 </span>            :         inline key_iterator operator--(int) { return key_iterator(i--); }
+<span class="lineNum">     449 </span>            :         const_iterator base() const { return i; }
+<span class="lineNum">     450 </span>            :     };
+<span class="lineNum">     451 </span>            : 
+<span class="lineNum">     452 </span>            :     typedef QKeyValueIterator&lt;const Key&amp;, const T&amp;, const_iterator&gt; const_key_value_iterator;
+<span class="lineNum">     453 </span>            :     typedef QKeyValueIterator&lt;const Key&amp;, T&amp;, iterator&gt; key_value_iterator;
+<span class="lineNum">     454 </span>            : 
+<a name="455"><span class="lineNum">     455 </span>            :     // STL style</a>
+<span class="lineNum">     456 </span>            :     inline iterator begin() { detach(); return iterator(d-&gt;firstNode()); }
+<a name="457"><span class="lineNum">     457 </span><span class="lineNoCov">          0 :     inline const_iterator begin() const { return const_iterator(d-&gt;firstNode()); }</span></a>
+<span class="lineNum">     458 </span>            :     inline const_iterator cbegin() const { return const_iterator(d-&gt;firstNode()); }
+<a name="459"><span class="lineNum">     459 </span><span class="lineNoCov">          0 :     inline const_iterator constBegin() const { return const_iterator(d-&gt;firstNode()); }</span></a>
+<span class="lineNum">     460 </span>            :     inline iterator end() { detach(); return iterator(e); }
+<a name="461"><span class="lineNum">     461 </span><span class="lineNoCov">          0 :     inline const_iterator end() const { return const_iterator(e); }</span></a>
+<span class="lineNum">     462 </span>            :     inline const_iterator cend() const { return const_iterator(e); }
+<span class="lineNum">     463 </span><span class="lineNoCov">          0 :     inline const_iterator constEnd() const { return const_iterator(e); }</span>
+<span class="lineNum">     464 </span>            :     inline key_iterator keyBegin() const { return key_iterator(begin()); }
+<span class="lineNum">     465 </span>            :     inline key_iterator keyEnd() const { return key_iterator(end()); }
+<span class="lineNum">     466 </span>            :     inline key_value_iterator keyValueBegin() { return key_value_iterator(begin()); }
+<span class="lineNum">     467 </span>            :     inline key_value_iterator keyValueEnd() { return key_value_iterator(end()); }
+<span class="lineNum">     468 </span>            :     inline const_key_value_iterator keyValueBegin() const { return const_key_value_iterator(begin()); }
+<span class="lineNum">     469 </span>            :     inline const_key_value_iterator constKeyValueBegin() const { return const_key_value_iterator(begin()); }
+<span class="lineNum">     470 </span>            :     inline const_key_value_iterator keyValueEnd() const { return const_key_value_iterator(end()); }
+<span class="lineNum">     471 </span>            :     inline const_key_value_iterator constKeyValueEnd() const { return const_key_value_iterator(end()); }
+<span class="lineNum">     472 </span>            : 
+<span class="lineNum">     473 </span>            :     QPair&lt;iterator, iterator&gt; equal_range(const Key &amp;key);
+<span class="lineNum">     474 </span>            :     QPair&lt;const_iterator, const_iterator&gt; equal_range(const Key &amp;key) const Q_DECL_NOTHROW;
+<span class="lineNum">     475 </span>            :     iterator erase(iterator it) { return erase(const_iterator(it.i)); }
+<span class="lineNum">     476 </span>            :     iterator erase(const_iterator it);
+<span class="lineNum">     477 </span>            : 
+<span class="lineNum">     478 </span>            :     // more Qt
+<span class="lineNum">     479 </span>            :     typedef iterator Iterator;
+<span class="lineNum">     480 </span>            :     typedef const_iterator ConstIterator;
+<span class="lineNum">     481 </span>            :     inline int count() const { return d-&gt;size; }
+<span class="lineNum">     482 </span>            :     iterator find(const Key &amp;key);
+<span class="lineNum">     483 </span>            :     const_iterator find(const Key &amp;key) const;
+<span class="lineNum">     484 </span>            :     const_iterator constFind(const Key &amp;key) const;
+<span class="lineNum">     485 </span>            :     iterator insert(const Key &amp;key, const T &amp;value);
+<span class="lineNum">     486 </span>            :     iterator insertMulti(const Key &amp;key, const T &amp;value);
+<span class="lineNum">     487 </span>            :     QHash &amp;unite(const QHash &amp;other);
+<span class="lineNum">     488 </span>            : 
+<span class="lineNum">     489 </span>            :     // STL compatibility
+<span class="lineNum">     490 </span>            :     typedef T mapped_type;
+<span class="lineNum">     491 </span>            :     typedef Key key_type;
+<span class="lineNum">     492 </span>            :     typedef qptrdiff difference_type;
+<span class="lineNum">     493 </span>            :     typedef int size_type;
+<span class="lineNum">     494 </span>            : 
+<span class="lineNum">     495 </span>            :     inline bool empty() const { return isEmpty(); }
+<span class="lineNum">     496 </span>            : 
+<span class="lineNum">     497 </span>            : #ifdef QT_QHASH_DEBUG
+<span class="lineNum">     498 </span>            :     inline void dump() const { d-&gt;dump(); }
+<span class="lineNum">     499 </span>            :     inline void checkSanity() const { d-&gt;checkSanity(); }
+<span class="lineNum">     500 </span>            : #endif
+<span class="lineNum">     501 </span>            : 
+<span class="lineNum">     502 </span>            : private:
+<span class="lineNum">     503 </span>            :     void detach_helper();
+<span class="lineNum">     504 </span>            :     void freeData(QHashData *d);
+<span class="lineNum">     505 </span>            :     Node **findNode(const Key &amp;key, uint *hp = Q_NULLPTR) const;
+<span class="lineNum">     506 </span>            :     Node **findNode(const Key &amp;key, uint h) const;
+<span class="lineNum">     507 </span>            :     Node *createNode(uint h, const Key &amp;key, const T &amp;value, Node **nextNode);
+<span class="lineNum">     508 </span>            :     void deleteNode(Node *node);
+<span class="lineNum">     509 </span>            :     static void deleteNode2(QHashData::Node *node);
+<span class="lineNum">     510 </span>            : 
+<span class="lineNum">     511 </span>            :     static void duplicateNode(QHashData::Node *originalNode, void *newNode);
+<span class="lineNum">     512 </span>            : 
+<span class="lineNum">     513 </span>            :     bool isValidIterator(const iterator &amp;it) const Q_DECL_NOTHROW
+<span class="lineNum">     514 </span>            :     { return isValidNode(it.i); }
+<span class="lineNum">     515 </span>            :     bool isValidIterator(const const_iterator &amp;it) const Q_DECL_NOTHROW
+<span class="lineNum">     516 </span>            :     { return isValidNode(it.i); }
+<span class="lineNum">     517 </span>            :     bool isValidNode(QHashData::Node *node) const Q_DECL_NOTHROW
+<span class="lineNum">     518 </span>            :     {
+<span class="lineNum">     519 </span>            : #if defined(QT_DEBUG) &amp;&amp; !defined(Q_HASH_NO_ITERATOR_DEBUG)
+<span class="lineNum">     520 </span>            :         while (node-&gt;next)
+<span class="lineNum">     521 </span>            :             node = node-&gt;next;
+<span class="lineNum">     522 </span>            :         return (static_cast&lt;void *&gt;(node) == d);
+<span class="lineNum">     523 </span>            : #else
+<span class="lineNum">     524 </span>            :         Q_UNUSED(node);
+<span class="lineNum">     525 </span>            :         return true;
+<span class="lineNum">     526 </span>            : #endif
+<span class="lineNum">     527 </span>            :     }
+<span class="lineNum">     528 </span>            :     friend class QSet&lt;Key&gt;;
+<span class="lineNum">     529 </span>            : };
+<span class="lineNum">     530 </span>            : 
+<a name="531"><span class="lineNum">     531 </span>            : </a>
+<span class="lineNum">     532 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     533 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QHash&lt;Key, T&gt;::deleteNode(Node *node)</span>
+<span class="lineNum">     534 </span>            : {
+<span class="lineNum">     535 </span><span class="lineNoCov">          0 :     deleteNode2(reinterpret_cast&lt;QHashData::Node*&gt;(node));</span>
+<span class="lineNum">     536 </span><span class="lineNoCov">          0 :     d-&gt;freeNode(node);</span>
+<span class="lineNum">     537 </span><span class="lineNoCov">          0 : }</span>
+<a name="538"><span class="lineNum">     538 </span>            : </a>
+<span class="lineNum">     539 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     540 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QHash&lt;Key, T&gt;::deleteNode2(QHashData::Node *node)</span>
+<span class="lineNum">     541 </span>            : {
+<span class="lineNum">     542 </span>            : #ifdef Q_CC_BOR
+<span class="lineNum">     543 </span>            :     concrete(node)-&gt;~QHashNode&lt;Key, T&gt;();
+<span class="lineNum">     544 </span>            : #else
+<span class="lineNum">     545 </span><span class="lineNoCov">          0 :     concrete(node)-&gt;~Node();</span>
+<span class="lineNum">     546 </span>            : #endif
+<span class="lineNum">     547 </span><span class="lineNoCov">          0 : }</span>
+<a name="548"><span class="lineNum">     548 </span>            : </a>
+<span class="lineNum">     549 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     550 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QHash&lt;Key, T&gt;::duplicateNode(QHashData::Node *node, void *newNode)</span>
+<span class="lineNum">     551 </span>            : {
+<span class="lineNum">     552 </span><span class="lineNoCov">          0 :     Node *concreteNode = concrete(node);</span>
+<span class="lineNum">     553 </span><span class="lineNoCov">          0 :     new (newNode) Node(concreteNode-&gt;key, concreteNode-&gt;value, concreteNode-&gt;h, Q_NULLPTR);</span>
+<span class="lineNum">     554 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     555 </span>            : 
+<a name="556"><span class="lineNum">     556 </span>            : template &lt;class Key, class T&gt;</a>
+<span class="lineNum">     557 </span>            : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::Node *
+<span class="lineNum">     558 </span><span class="lineNoCov">          0 : QHash&lt;Key, T&gt;::createNode(uint ah, const Key &amp;akey, const T &amp;avalue, Node **anextNode)</span>
+<span class="lineNum">     559 </span>            : {
+<span class="lineNum">     560 </span><span class="lineNoCov">          0 :     Node *node = new (d-&gt;allocateNode(alignOfNode())) Node(akey, avalue, ah, *anextNode);</span>
+<span class="lineNum">     561 </span><span class="lineNoCov">          0 :     *anextNode = node;</span>
+<span class="lineNum">     562 </span><span class="lineNoCov">          0 :     ++d-&gt;size;</span>
+<span class="lineNum">     563 </span><span class="lineNoCov">          0 :     return node;</span>
+<span class="lineNum">     564 </span>            : }
+<span class="lineNum">     565 </span>            : 
+<span class="lineNum">     566 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     567 </span>            : Q_INLINE_TEMPLATE QHash&lt;Key, T&gt; &amp;QHash&lt;Key, T&gt;::unite(const QHash &amp;other)
+<span class="lineNum">     568 </span>            : {
+<span class="lineNum">     569 </span>            :     if (d == &amp;QHashData::shared_null) {
+<span class="lineNum">     570 </span>            :         *this = other;
+<span class="lineNum">     571 </span>            :     } else {
+<span class="lineNum">     572 </span>            :         QHash copy(other);
+<span class="lineNum">     573 </span>            :         const_iterator it = copy.constEnd();
+<span class="lineNum">     574 </span>            :         while (it != copy.constBegin()) {
+<span class="lineNum">     575 </span>            :             --it;
+<span class="lineNum">     576 </span>            :             insertMulti(it.key(), it.value());
+<span class="lineNum">     577 </span>            :         }
+<span class="lineNum">     578 </span>            :     }
+<span class="lineNum">     579 </span>            :     return *this;
+<span class="lineNum">     580 </span>            : }
+<a name="581"><span class="lineNum">     581 </span>            : </a>
+<span class="lineNum">     582 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     583 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QHash&lt;Key, T&gt;::freeData(QHashData *x)</span>
+<span class="lineNum">     584 </span>            : {
+<span class="lineNum">     585 </span><span class="lineNoCov">          0 :     x-&gt;free_helper(deleteNode2);</span>
+<span class="lineNum">     586 </span><span class="lineNoCov">          0 : }</span>
+<a name="587"><span class="lineNum">     587 </span>            : </a>
+<span class="lineNum">     588 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     589 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QHash&lt;Key, T&gt;::clear()</span>
+<span class="lineNum">     590 </span>            : {
+<span class="lineNum">     591 </span><span class="lineNoCov">          0 :     *this = QHash();</span>
+<span class="lineNum">     592 </span><span class="lineNoCov">          0 : }</span>
+<a name="593"><span class="lineNum">     593 </span>            : </a>
+<span class="lineNum">     594 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     595 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE void QHash&lt;Key, T&gt;::detach_helper()</span>
+<span class="lineNum">     596 </span>            : {
+<span class="lineNum">     597 </span><span class="lineNoCov">          0 :     QHashData *x = d-&gt;detach_helper(duplicateNode, deleteNode2, sizeof(Node), alignOfNode());</span>
+<span class="lineNum">     598 </span><span class="lineNoCov">          0 :     if (!d-&gt;ref.deref())</span>
+<span class="lineNum">     599 </span><span class="lineNoCov">          0 :         freeData(d);</span>
+<span class="lineNum">     600 </span><span class="lineNoCov">          0 :     d = x;</span>
+<span class="lineNum">     601 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     602 </span>            : 
+<span class="lineNum">     603 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     604 </span>            : Q_INLINE_TEMPLATE QHash&lt;Key, T&gt; &amp;QHash&lt;Key, T&gt;::operator=(const QHash &amp;other)
+<span class="lineNum">     605 </span>            : {
+<span class="lineNum">     606 </span>            :     if (d != other.d) {
+<span class="lineNum">     607 </span>            :         QHashData *o = other.d;
+<span class="lineNum">     608 </span>            :         o-&gt;ref.ref();
+<span class="lineNum">     609 </span>            :         if (!d-&gt;ref.deref())
+<span class="lineNum">     610 </span>            :             freeData(d);
+<span class="lineNum">     611 </span>            :         d = o;
+<span class="lineNum">     612 </span>            :         if (!d-&gt;sharable)
+<span class="lineNum">     613 </span>            :             detach_helper();
+<span class="lineNum">     614 </span>            :     }
+<span class="lineNum">     615 </span>            :     return *this;
+<span class="lineNum">     616 </span>            : }
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     619 </span>            : Q_INLINE_TEMPLATE const T QHash&lt;Key, T&gt;::value(const Key &amp;akey) const
+<span class="lineNum">     620 </span>            : {
+<span class="lineNum">     621 </span>            :     Node *node;
+<span class="lineNum">     622 </span>            :     if (d-&gt;size == 0 || (node = *findNode(akey)) == e) {
+<span class="lineNum">     623 </span>            :         return T();
+<span class="lineNum">     624 </span>            :     } else {
+<span class="lineNum">     625 </span>            :         return node-&gt;value;
+<span class="lineNum">     626 </span>            :     }
+<span class="lineNum">     627 </span>            : }
+<span class="lineNum">     628 </span>            : 
+<span class="lineNum">     629 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     630 </span>            : Q_INLINE_TEMPLATE const T QHash&lt;Key, T&gt;::value(const Key &amp;akey, const T &amp;adefaultValue) const
+<span class="lineNum">     631 </span>            : {
+<span class="lineNum">     632 </span>            :     Node *node;
+<span class="lineNum">     633 </span>            :     if (d-&gt;size == 0 || (node = *findNode(akey)) == e) {
+<span class="lineNum">     634 </span>            :         return adefaultValue;
+<span class="lineNum">     635 </span>            :     } else {
+<span class="lineNum">     636 </span>            :         return node-&gt;value;
+<span class="lineNum">     637 </span>            :     }
+<span class="lineNum">     638 </span>            : }
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     641 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;Key&gt; QHash&lt;Key, T&gt;::uniqueKeys() const
+<span class="lineNum">     642 </span>            : {
+<span class="lineNum">     643 </span>            :     QList&lt;Key&gt; res;
+<span class="lineNum">     644 </span>            :     res.reserve(size()); // May be too much, but assume short lifetime
+<span class="lineNum">     645 </span>            :     const_iterator i = begin();
+<span class="lineNum">     646 </span>            :     if (i != end()) {
+<span class="lineNum">     647 </span>            :         for (;;) {
+<span class="lineNum">     648 </span>            :             const Key &amp;aKey = i.key();
+<span class="lineNum">     649 </span>            :             res.append(aKey);
+<span class="lineNum">     650 </span>            :             do {
+<span class="lineNum">     651 </span>            :                 if (++i == end())
+<span class="lineNum">     652 </span>            :                     goto break_out_of_outer_loop;
+<span class="lineNum">     653 </span>            :             } while (aKey == i.key());
+<span class="lineNum">     654 </span>            :         }
+<span class="lineNum">     655 </span>            :     }
+<span class="lineNum">     656 </span>            : break_out_of_outer_loop:
+<span class="lineNum">     657 </span>            :     return res;
+<span class="lineNum">     658 </span>            : }
+<span class="lineNum">     659 </span>            : 
+<span class="lineNum">     660 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     661 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;Key&gt; QHash&lt;Key, T&gt;::keys() const
+<span class="lineNum">     662 </span>            : {
+<span class="lineNum">     663 </span>            :     QList&lt;Key&gt; res;
+<span class="lineNum">     664 </span>            :     res.reserve(size());
+<span class="lineNum">     665 </span>            :     const_iterator i = begin();
+<span class="lineNum">     666 </span>            :     while (i != end()) {
+<span class="lineNum">     667 </span>            :         res.append(i.key());
+<span class="lineNum">     668 </span>            :         ++i;
+<span class="lineNum">     669 </span>            :     }
+<span class="lineNum">     670 </span>            :     return res;
+<span class="lineNum">     671 </span>            : }
+<span class="lineNum">     672 </span>            : 
+<span class="lineNum">     673 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     674 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;Key&gt; QHash&lt;Key, T&gt;::keys(const T &amp;avalue) const
+<span class="lineNum">     675 </span>            : {
+<span class="lineNum">     676 </span>            :     QList&lt;Key&gt; res;
+<span class="lineNum">     677 </span>            :     const_iterator i = begin();
+<span class="lineNum">     678 </span>            :     while (i != end()) {
+<span class="lineNum">     679 </span>            :         if (i.value() == avalue)
+<span class="lineNum">     680 </span>            :             res.append(i.key());
+<span class="lineNum">     681 </span>            :         ++i;
+<span class="lineNum">     682 </span>            :     }
+<span class="lineNum">     683 </span>            :     return res;
+<span class="lineNum">     684 </span>            : }
+<span class="lineNum">     685 </span>            : 
+<span class="lineNum">     686 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     687 </span>            : Q_OUTOFLINE_TEMPLATE const Key QHash&lt;Key, T&gt;::key(const T &amp;avalue) const
+<span class="lineNum">     688 </span>            : {
+<span class="lineNum">     689 </span>            :     return key(avalue, Key());
+<span class="lineNum">     690 </span>            : }
+<span class="lineNum">     691 </span>            : 
+<span class="lineNum">     692 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     693 </span>            : Q_OUTOFLINE_TEMPLATE const Key QHash&lt;Key, T&gt;::key(const T &amp;avalue, const Key &amp;defaultValue) const
+<span class="lineNum">     694 </span>            : {
+<span class="lineNum">     695 </span>            :     const_iterator i = begin();
+<span class="lineNum">     696 </span>            :     while (i != end()) {
+<span class="lineNum">     697 </span>            :         if (i.value() == avalue)
+<span class="lineNum">     698 </span>            :             return i.key();
+<span class="lineNum">     699 </span>            :         ++i;
+<span class="lineNum">     700 </span>            :     }
+<span class="lineNum">     701 </span>            : 
+<span class="lineNum">     702 </span>            :     return defaultValue;
+<span class="lineNum">     703 </span>            : }
+<span class="lineNum">     704 </span>            : 
+<span class="lineNum">     705 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     706 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt; QHash&lt;Key, T&gt;::values() const
+<span class="lineNum">     707 </span>            : {
+<span class="lineNum">     708 </span>            :     QList&lt;T&gt; res;
+<span class="lineNum">     709 </span>            :     res.reserve(size());
+<span class="lineNum">     710 </span>            :     const_iterator i = begin();
+<span class="lineNum">     711 </span>            :     while (i != end()) {
+<span class="lineNum">     712 </span>            :         res.append(i.value());
+<span class="lineNum">     713 </span>            :         ++i;
+<span class="lineNum">     714 </span>            :     }
+<span class="lineNum">     715 </span>            :     return res;
+<span class="lineNum">     716 </span>            : }
+<span class="lineNum">     717 </span>            : 
+<span class="lineNum">     718 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     719 </span>            : Q_OUTOFLINE_TEMPLATE QList&lt;T&gt; QHash&lt;Key, T&gt;::values(const Key &amp;akey) const
+<span class="lineNum">     720 </span>            : {
+<span class="lineNum">     721 </span>            :     QList&lt;T&gt; res;
+<span class="lineNum">     722 </span>            :     Node *node = *findNode(akey);
+<span class="lineNum">     723 </span>            :     if (node != e) {
+<span class="lineNum">     724 </span>            :         do {
+<span class="lineNum">     725 </span>            :             res.append(node-&gt;value);
+<span class="lineNum">     726 </span>            :         } while ((node = node-&gt;next) != e &amp;&amp; node-&gt;key == akey);
+<span class="lineNum">     727 </span>            :     }
+<span class="lineNum">     728 </span>            :     return res;
+<span class="lineNum">     729 </span>            : }
+<span class="lineNum">     730 </span>            : 
+<span class="lineNum">     731 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     732 </span>            : Q_OUTOFLINE_TEMPLATE int QHash&lt;Key, T&gt;::count(const Key &amp;akey) const
+<span class="lineNum">     733 </span>            : {
+<span class="lineNum">     734 </span>            :     int cnt = 0;
+<span class="lineNum">     735 </span>            :     Node *node = *findNode(akey);
+<span class="lineNum">     736 </span>            :     if (node != e) {
+<span class="lineNum">     737 </span>            :         do {
+<span class="lineNum">     738 </span>            :             ++cnt;
+<span class="lineNum">     739 </span>            :         } while ((node = node-&gt;next) != e &amp;&amp; node-&gt;key == akey);
+<span class="lineNum">     740 </span>            :     }
+<span class="lineNum">     741 </span>            :     return cnt;
+<span class="lineNum">     742 </span>            : }
+<span class="lineNum">     743 </span>            : 
+<span class="lineNum">     744 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     745 </span>            : Q_INLINE_TEMPLATE const T QHash&lt;Key, T&gt;::operator[](const Key &amp;akey) const
+<span class="lineNum">     746 </span>            : {
+<span class="lineNum">     747 </span>            :     return value(akey);
+<span class="lineNum">     748 </span>            : }
+<span class="lineNum">     749 </span>            : 
+<span class="lineNum">     750 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     751 </span>            : Q_INLINE_TEMPLATE T &amp;QHash&lt;Key, T&gt;::operator[](const Key &amp;akey)
+<span class="lineNum">     752 </span>            : {
+<span class="lineNum">     753 </span>            :     detach();
+<span class="lineNum">     754 </span>            : 
+<span class="lineNum">     755 </span>            :     uint h;
+<span class="lineNum">     756 </span>            :     Node **node = findNode(akey, &amp;h);
+<span class="lineNum">     757 </span>            :     if (*node == e) {
+<span class="lineNum">     758 </span>            :         if (d-&gt;willGrow())
+<span class="lineNum">     759 </span>            :             node = findNode(akey, h);
+<span class="lineNum">     760 </span>            :         return createNode(h, akey, T(), node)-&gt;value;
+<span class="lineNum">     761 </span>            :     }
+<span class="lineNum">     762 </span>            :     return (*node)-&gt;value;
+<span class="lineNum">     763 </span>            : }
+<a name="764"><span class="lineNum">     764 </span>            : </a>
+<span class="lineNum">     765 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     766 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::iterator QHash&lt;Key, T&gt;::insert(const Key &amp;akey,</span>
+<span class="lineNum">     767 </span>            :                                                                          const T &amp;avalue)
+<span class="lineNum">     768 </span>            : {
+<span class="lineNum">     769 </span><span class="lineNoCov">          0 :     detach();</span>
+<span class="lineNum">     770 </span>            : 
+<span class="lineNum">     771 </span>            :     uint h;
+<span class="lineNum">     772 </span><span class="lineNoCov">          0 :     Node **node = findNode(akey, &amp;h);</span>
+<span class="lineNum">     773 </span><span class="lineNoCov">          0 :     if (*node == e) {</span>
+<span class="lineNum">     774 </span><span class="lineNoCov">          0 :         if (d-&gt;willGrow())</span>
+<span class="lineNum">     775 </span><span class="lineNoCov">          0 :             node = findNode(akey, h);</span>
+<span class="lineNum">     776 </span><span class="lineNoCov">          0 :         return iterator(createNode(h, akey, avalue, node));</span>
+<span class="lineNum">     777 </span>            :     }
+<span class="lineNum">     778 </span>            : 
+<span class="lineNum">     779 </span>            :     if (!std::is_same&lt;T, QHashDummyValue&gt;::value)
+<span class="lineNum">     780 </span>            :         (*node)-&gt;value = avalue;
+<span class="lineNum">     781 </span><span class="lineNoCov">          0 :     return iterator(*node);</span>
+<span class="lineNum">     782 </span>            : }
+<span class="lineNum">     783 </span>            : 
+<span class="lineNum">     784 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     785 </span>            : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::iterator QHash&lt;Key, T&gt;::insertMulti(const Key &amp;akey,
+<span class="lineNum">     786 </span>            :                                                                               const T &amp;avalue)
+<span class="lineNum">     787 </span>            : {
+<span class="lineNum">     788 </span>            :     detach();
+<span class="lineNum">     789 </span>            :     d-&gt;willGrow();
+<span class="lineNum">     790 </span>            : 
+<span class="lineNum">     791 </span>            :     uint h;
+<span class="lineNum">     792 </span>            :     Node **nextNode = findNode(akey, &amp;h);
+<span class="lineNum">     793 </span>            :     return iterator(createNode(h, akey, avalue, nextNode));
+<span class="lineNum">     794 </span>            : }
+<a name="795"><span class="lineNum">     795 </span>            : </a>
+<span class="lineNum">     796 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     797 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE int QHash&lt;Key, T&gt;::remove(const Key &amp;akey)</span>
+<span class="lineNum">     798 </span>            : {
+<span class="lineNum">     799 </span><span class="lineNoCov">          0 :     if (isEmpty()) // prevents detaching shared null</span>
+<span class="lineNum">     800 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">     801 </span><span class="lineNoCov">          0 :     detach();</span>
+<span class="lineNum">     802 </span>            : 
+<span class="lineNum">     803 </span><span class="lineNoCov">          0 :     int oldSize = d-&gt;size;</span>
+<span class="lineNum">     804 </span><span class="lineNoCov">          0 :     Node **node = findNode(akey);</span>
+<span class="lineNum">     805 </span><span class="lineNoCov">          0 :     if (*node != e) {</span>
+<span class="lineNum">     806 </span><span class="lineNoCov">          0 :         bool deleteNext = true;</span>
+<span class="lineNum">     807 </span><span class="lineNoCov">          0 :         do {</span>
+<span class="lineNum">     808 </span><span class="lineNoCov">          0 :             Node *next = (*node)-&gt;next;</span>
+<span class="lineNum">     809 </span><span class="lineNoCov">          0 :             deleteNext = (next != e &amp;&amp; next-&gt;key == (*node)-&gt;key);</span>
+<span class="lineNum">     810 </span><span class="lineNoCov">          0 :             deleteNode(*node);</span>
+<span class="lineNum">     811 </span><span class="lineNoCov">          0 :             *node = next;</span>
+<span class="lineNum">     812 </span><span class="lineNoCov">          0 :             --d-&gt;size;</span>
+<span class="lineNum">     813 </span>            :         } while (deleteNext);
+<span class="lineNum">     814 </span><span class="lineNoCov">          0 :         d-&gt;hasShrunk();</span>
+<span class="lineNum">     815 </span>            :     }
+<span class="lineNum">     816 </span><span class="lineNoCov">          0 :     return oldSize - d-&gt;size;</span>
+<span class="lineNum">     817 </span>            : }
+<span class="lineNum">     818 </span>            : 
+<span class="lineNum">     819 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     820 </span>            : Q_OUTOFLINE_TEMPLATE T QHash&lt;Key, T&gt;::take(const Key &amp;akey)
+<span class="lineNum">     821 </span>            : {
+<span class="lineNum">     822 </span>            :     if (isEmpty()) // prevents detaching shared null
+<span class="lineNum">     823 </span>            :         return T();
+<span class="lineNum">     824 </span>            :     detach();
+<span class="lineNum">     825 </span>            : 
+<span class="lineNum">     826 </span>            :     Node **node = findNode(akey);
+<span class="lineNum">     827 </span>            :     if (*node != e) {
+<span class="lineNum">     828 </span>            :         T t = std::move((*node)-&gt;value);
+<span class="lineNum">     829 </span>            :         Node *next = (*node)-&gt;next;
+<span class="lineNum">     830 </span>            :         deleteNode(*node);
+<span class="lineNum">     831 </span>            :         *node = next;
+<span class="lineNum">     832 </span>            :         --d-&gt;size;
+<span class="lineNum">     833 </span>            :         d-&gt;hasShrunk();
+<span class="lineNum">     834 </span>            :         return t;
+<span class="lineNum">     835 </span>            :     }
+<span class="lineNum">     836 </span>            :     return T();
+<span class="lineNum">     837 </span>            : }
+<span class="lineNum">     838 </span>            : 
+<span class="lineNum">     839 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     840 </span>            : Q_OUTOFLINE_TEMPLATE typename QHash&lt;Key, T&gt;::iterator QHash&lt;Key, T&gt;::erase(const_iterator it)
+<span class="lineNum">     841 </span>            : {
+<span class="lineNum">     842 </span>            :     Q_ASSERT_X(isValidIterator(it), &quot;QHash::erase&quot;, &quot;The specified iterator argument 'it' is invalid&quot;);
+<span class="lineNum">     843 </span>            : 
+<span class="lineNum">     844 </span>            :     if (it == const_iterator(e))
+<span class="lineNum">     845 </span>            :         return iterator(it.i);
+<span class="lineNum">     846 </span>            : 
+<span class="lineNum">     847 </span>            :     if (d-&gt;ref.isShared()) {
+<span class="lineNum">     848 </span>            :         // save 'it' across the detach:
+<span class="lineNum">     849 </span>            :         int bucketNum = (it.i-&gt;h % d-&gt;numBuckets);
+<span class="lineNum">     850 </span>            :         const_iterator bucketIterator(*(d-&gt;buckets + bucketNum));
+<span class="lineNum">     851 </span>            :         int stepsFromBucketStartToIte = 0;
+<span class="lineNum">     852 </span>            :         while (bucketIterator != it) {
+<span class="lineNum">     853 </span>            :             ++stepsFromBucketStartToIte;
+<span class="lineNum">     854 </span>            :             ++bucketIterator;
+<span class="lineNum">     855 </span>            :         }
+<span class="lineNum">     856 </span>            :         detach();
+<span class="lineNum">     857 </span>            :         it = const_iterator(*(d-&gt;buckets + bucketNum));
+<span class="lineNum">     858 </span>            :         while (stepsFromBucketStartToIte &gt; 0) {
+<span class="lineNum">     859 </span>            :             --stepsFromBucketStartToIte;
+<span class="lineNum">     860 </span>            :             ++it;
+<span class="lineNum">     861 </span>            :         }
+<span class="lineNum">     862 </span>            :     }
+<span class="lineNum">     863 </span>            : 
+<span class="lineNum">     864 </span>            :     iterator ret(it.i);
+<span class="lineNum">     865 </span>            :     ++ret;
+<span class="lineNum">     866 </span>            : 
+<span class="lineNum">     867 </span>            :     Node *node = concrete(it.i);
+<span class="lineNum">     868 </span>            :     Node **node_ptr = reinterpret_cast&lt;Node **&gt;(&amp;d-&gt;buckets[node-&gt;h % d-&gt;numBuckets]);
+<span class="lineNum">     869 </span>            :     while (*node_ptr != node)
+<span class="lineNum">     870 </span>            :         node_ptr = &amp;(*node_ptr)-&gt;next;
+<span class="lineNum">     871 </span>            :     *node_ptr = node-&gt;next;
+<span class="lineNum">     872 </span>            :     deleteNode(node);
+<span class="lineNum">     873 </span>            :     --d-&gt;size;
+<span class="lineNum">     874 </span>            :     return ret;
+<span class="lineNum">     875 </span>            : }
+<a name="876"><span class="lineNum">     876 </span>            : </a>
+<span class="lineNum">     877 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     878 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE void QHash&lt;Key, T&gt;::reserve(int asize)</span>
+<span class="lineNum">     879 </span>            : {
+<span class="lineNum">     880 </span><span class="lineNoCov">          0 :     detach();</span>
+<span class="lineNum">     881 </span><span class="lineNoCov">          0 :     d-&gt;rehash(-qMax(asize, 1));</span>
+<span class="lineNum">     882 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     883 </span>            : 
+<span class="lineNum">     884 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     885 </span>            : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::const_iterator QHash&lt;Key, T&gt;::find(const Key &amp;akey) const
+<span class="lineNum">     886 </span>            : {
+<span class="lineNum">     887 </span>            :     return const_iterator(*findNode(akey));
+<span class="lineNum">     888 </span>            : }
+<span class="lineNum">     889 </span>            : 
+<span class="lineNum">     890 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     891 </span>            : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::const_iterator QHash&lt;Key, T&gt;::constFind(const Key &amp;akey) const
+<span class="lineNum">     892 </span>            : {
+<span class="lineNum">     893 </span>            :     return const_iterator(*findNode(akey));
+<span class="lineNum">     894 </span>            : }
+<span class="lineNum">     895 </span>            : 
+<span class="lineNum">     896 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     897 </span>            : Q_INLINE_TEMPLATE typename QHash&lt;Key, T&gt;::iterator QHash&lt;Key, T&gt;::find(const Key &amp;akey)
+<span class="lineNum">     898 </span>            : {
+<span class="lineNum">     899 </span>            :     detach();
+<span class="lineNum">     900 </span>            :     return iterator(*findNode(akey));
+<span class="lineNum">     901 </span>            : }
+<a name="902"><span class="lineNum">     902 </span>            : </a>
+<span class="lineNum">     903 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     904 </span><span class="lineNoCov">          0 : Q_INLINE_TEMPLATE bool QHash&lt;Key, T&gt;::contains(const Key &amp;akey) const</span>
+<span class="lineNum">     905 </span>            : {
+<span class="lineNum">     906 </span><span class="lineNoCov">          0 :     return *findNode(akey) != e;</span>
+<span class="lineNum">     907 </span>            : }
+<a name="908"><span class="lineNum">     908 </span>            : </a>
+<span class="lineNum">     909 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     910 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE typename QHash&lt;Key, T&gt;::Node **QHash&lt;Key, T&gt;::findNode(const Key &amp;akey, uint h) const</span>
+<span class="lineNum">     911 </span>            : {
+<span class="lineNum">     912 </span>            :     Node **node;
+<span class="lineNum">     913 </span>            : 
+<span class="lineNum">     914 </span><span class="lineNoCov">          0 :     if (d-&gt;numBuckets) {</span>
+<span class="lineNum">     915 </span><span class="lineNoCov">          0 :         node = reinterpret_cast&lt;Node **&gt;(&amp;d-&gt;buckets[h % d-&gt;numBuckets]);</span>
+<span class="lineNum">     916 </span>            :         Q_ASSERT(*node == e || (*node)-&gt;next);
+<span class="lineNum">     917 </span><span class="lineNoCov">          0 :         while (*node != e &amp;&amp; !(*node)-&gt;same_key(h, akey))</span>
+<span class="lineNum">     918 </span><span class="lineNoCov">          0 :             node = &amp;(*node)-&gt;next;</span>
+<span class="lineNum">     919 </span>            :     } else {
+<span class="lineNum">     920 </span><span class="lineNoCov">          0 :         node = const_cast&lt;Node **&gt;(reinterpret_cast&lt;const Node * const *&gt;(&amp;e));</span>
+<span class="lineNum">     921 </span>            :     }
+<span class="lineNum">     922 </span><span class="lineNoCov">          0 :     return node;</span>
+<span class="lineNum">     923 </span>            : }
+<a name="924"><span class="lineNum">     924 </span>            : </a>
+<span class="lineNum">     925 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     926 </span><span class="lineNoCov">          0 : Q_OUTOFLINE_TEMPLATE typename QHash&lt;Key, T&gt;::Node **QHash&lt;Key, T&gt;::findNode(const Key &amp;akey,</span>
+<span class="lineNum">     927 </span>            :                                                                             uint *ahp) const
+<span class="lineNum">     928 </span>            : {
+<span class="lineNum">     929 </span><span class="lineNoCov">          0 :     uint h = 0;</span>
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span><span class="lineNoCov">          0 :     if (d-&gt;numBuckets || ahp) {</span>
+<span class="lineNum">     932 </span><span class="lineNoCov">          0 :         h = qHash(akey, d-&gt;seed);</span>
+<span class="lineNum">     933 </span><span class="lineNoCov">          0 :         if (ahp)</span>
+<span class="lineNum">     934 </span><span class="lineNoCov">          0 :             *ahp = h;</span>
+<span class="lineNum">     935 </span>            :     }
+<span class="lineNum">     936 </span><span class="lineNoCov">          0 :     return findNode(akey, h);</span>
+<span class="lineNum">     937 </span>            : }
+<span class="lineNum">     938 </span>            : 
+<span class="lineNum">     939 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     940 </span>            : Q_OUTOFLINE_TEMPLATE bool QHash&lt;Key, T&gt;::operator==(const QHash &amp;other) const
+<span class="lineNum">     941 </span>            : {
+<span class="lineNum">     942 </span>            :     if (size() != other.size())
+<span class="lineNum">     943 </span>            :         return false;
+<span class="lineNum">     944 </span>            :     if (d == other.d)
+<span class="lineNum">     945 </span>            :         return true;
+<span class="lineNum">     946 </span>            : 
+<span class="lineNum">     947 </span>            :     const_iterator it = begin();
+<span class="lineNum">     948 </span>            : 
+<span class="lineNum">     949 </span>            :     while (it != end()) {
+<span class="lineNum">     950 </span>            :         // Build two equal ranges for i.key(); one for *this and one for other.
+<span class="lineNum">     951 </span>            :         // For *this we can avoid a lookup via equal_range, as we know the beginning of the range.
+<span class="lineNum">     952 </span>            :         auto thisEqualRangeEnd = it;
+<span class="lineNum">     953 </span>            :         while (thisEqualRangeEnd != end() &amp;&amp; it.key() == thisEqualRangeEnd.key())
+<span class="lineNum">     954 </span>            :             ++thisEqualRangeEnd;
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            :         const auto otherEqualRange = other.equal_range(it.key());
+<span class="lineNum">     957 </span>            : 
+<span class="lineNum">     958 </span>            :         if (std::distance(it, thisEqualRangeEnd) != std::distance(otherEqualRange.first, otherEqualRange.second))
+<span class="lineNum">     959 </span>            :             return false;
+<span class="lineNum">     960 </span>            : 
+<span class="lineNum">     961 </span>            :         // Keys in the ranges are equal by construction; this checks only the values.
+<span class="lineNum">     962 </span>            :         //
+<span class="lineNum">     963 </span>            :         // When using the 3-arg std::is_permutation, MSVC will emit warning C4996,
+<span class="lineNum">     964 </span>            :         // passing an unchecked iterator to a Standard Library algorithm. We don't
+<span class="lineNum">     965 </span>            :         // want to suppress the warning, and we can't use stdext::make_checked_array_iterator
+<span class="lineNum">     966 </span>            :         // because QHash::(const_)iterator does not work with size_t and thus will
+<span class="lineNum">     967 </span>            :         // emit more warnings. Use the 4-arg std::is_permutation instead (which
+<span class="lineNum">     968 </span>            :         // is supported since MSVC 2015).
+<span class="lineNum">     969 </span>            :         //
+<span class="lineNum">     970 </span>            :         // ### Qt 6: if C++14 library support is a mandated minimum, remove the ifdef for MSVC.
+<span class="lineNum">     971 </span>            :         if (!std::is_permutation(it, thisEqualRangeEnd, otherEqualRange.first
+<span class="lineNum">     972 </span>            : #if defined(Q_CC_MSVC) &amp;&amp; _MSC_VER &gt;= 1900
+<span class="lineNum">     973 </span>            :                                  , otherEqualRange.second
+<span class="lineNum">     974 </span>            : #endif
+<span class="lineNum">     975 </span>            :                                  )) {
+<span class="lineNum">     976 </span>            :             return false;
+<span class="lineNum">     977 </span>            :         }
+<span class="lineNum">     978 </span>            : 
+<span class="lineNum">     979 </span>            :         it = thisEqualRangeEnd;
+<span class="lineNum">     980 </span>            :     }
+<span class="lineNum">     981 </span>            : 
+<span class="lineNum">     982 </span>            :     return true;
+<span class="lineNum">     983 </span>            : }
+<span class="lineNum">     984 </span>            : 
+<span class="lineNum">     985 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     986 </span>            : QPair&lt;typename QHash&lt;Key, T&gt;::iterator, typename QHash&lt;Key, T&gt;::iterator&gt; QHash&lt;Key, T&gt;::equal_range(const Key &amp;akey)
+<span class="lineNum">     987 </span>            : {
+<span class="lineNum">     988 </span>            :     detach();
+<span class="lineNum">     989 </span>            :     auto pair = qAsConst(*this).equal_range(akey);
+<span class="lineNum">     990 </span>            :     return qMakePair(iterator(pair.first.i), iterator(pair.second.i));
+<span class="lineNum">     991 </span>            : }
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">     994 </span>            : QPair&lt;typename QHash&lt;Key, T&gt;::const_iterator, typename QHash&lt;Key, T&gt;::const_iterator&gt; QHash&lt;Key, T&gt;::equal_range(const Key &amp;akey) const Q_DECL_NOTHROW
+<span class="lineNum">     995 </span>            : {
+<span class="lineNum">     996 </span>            :     Node *node = *findNode(akey);
+<span class="lineNum">     997 </span>            :     const_iterator firstIt = const_iterator(node);
+<span class="lineNum">     998 </span>            : 
+<span class="lineNum">     999 </span>            :     if (node != e) {
+<span class="lineNum">    1000 </span>            :         // equal keys must hash to the same value and so they all
+<span class="lineNum">    1001 </span>            :         // end up in the same bucket. So we can use node-&gt;next,
+<span class="lineNum">    1002 </span>            :         // which only works within a bucket, instead of (out-of-line)
+<span class="lineNum">    1003 </span>            :         // QHashData::nextNode()
+<span class="lineNum">    1004 </span>            :         while (node-&gt;next != e &amp;&amp; node-&gt;next-&gt;key == akey)
+<span class="lineNum">    1005 </span>            :             node = node-&gt;next;
+<span class="lineNum">    1006 </span>            : 
+<span class="lineNum">    1007 </span>            :         // 'node' may be the last node in the bucket. To produce the end iterator, we'd
+<span class="lineNum">    1008 </span>            :         // need to enter the next bucket in this case, so we need to use
+<span class="lineNum">    1009 </span>            :         // QHashData::nextNode() here, which, unlike node-&gt;next above, can move between
+<span class="lineNum">    1010 </span>            :         // buckets.
+<span class="lineNum">    1011 </span>            :         node = concrete(QHashData::nextNode(reinterpret_cast&lt;QHashData::Node *&gt;(node)));
+<span class="lineNum">    1012 </span>            :     }
+<span class="lineNum">    1013 </span>            : 
+<span class="lineNum">    1014 </span>            :     return qMakePair(firstIt, const_iterator(node));
+<span class="lineNum">    1015 </span>            : }
+<span class="lineNum">    1016 </span>            : 
+<span class="lineNum">    1017 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1018 </span>            : class QMultiHash : public QHash&lt;Key, T&gt;
+<span class="lineNum">    1019 </span>            : {
+<span class="lineNum">    1020 </span>            : public:
+<span class="lineNum">    1021 </span>            :     QMultiHash() Q_DECL_NOTHROW {}
+<span class="lineNum">    1022 </span>            : #ifdef Q_COMPILER_INITIALIZER_LISTS
+<span class="lineNum">    1023 </span>            :     inline QMultiHash(std::initializer_list&lt;std::pair&lt;Key,T&gt; &gt; list)
+<span class="lineNum">    1024 </span>            :     {
+<span class="lineNum">    1025 </span>            :         this-&gt;reserve(int(list.size()));
+<span class="lineNum">    1026 </span>            :         for (typename std::initializer_list&lt;std::pair&lt;Key,T&gt; &gt;::const_iterator it = list.begin(); it != list.end(); ++it)
+<span class="lineNum">    1027 </span>            :             insert(it-&gt;first, it-&gt;second);
+<span class="lineNum">    1028 </span>            :     }
+<span class="lineNum">    1029 </span>            : #endif
+<span class="lineNum">    1030 </span>            :     // compiler-generated copy/move ctors/assignment operators are fine!
+<span class="lineNum">    1031 </span>            :     // compiler-generated destructor is fine!
+<span class="lineNum">    1032 </span>            : 
+<span class="lineNum">    1033 </span>            :     QMultiHash(const QHash&lt;Key, T&gt; &amp;other) : QHash&lt;Key, T&gt;(other) {}
+<span class="lineNum">    1034 </span>            : #ifdef Q_COMPILER_RVALUE_REFS
+<span class="lineNum">    1035 </span>            :     QMultiHash(QHash&lt;Key, T&gt; &amp;&amp;other) Q_DECL_NOTHROW : QHash&lt;Key, T&gt;(std::move(other)) {}
+<span class="lineNum">    1036 </span>            : #endif
+<span class="lineNum">    1037 </span>            :     void swap(QMultiHash &amp;other) Q_DECL_NOTHROW { QHash&lt;Key, T&gt;::swap(other); } // prevent QMultiHash&lt;-&gt;QHash swaps
+<span class="lineNum">    1038 </span>            : 
+<span class="lineNum">    1039 </span>            :     inline typename QHash&lt;Key, T&gt;::iterator replace(const Key &amp;key, const T &amp;value)
+<span class="lineNum">    1040 </span>            :     { return QHash&lt;Key, T&gt;::insert(key, value); }
+<span class="lineNum">    1041 </span>            : 
+<span class="lineNum">    1042 </span>            :     inline typename QHash&lt;Key, T&gt;::iterator insert(const Key &amp;key, const T &amp;value)
+<span class="lineNum">    1043 </span>            :     { return QHash&lt;Key, T&gt;::insertMulti(key, value); }
+<span class="lineNum">    1044 </span>            : 
+<span class="lineNum">    1045 </span>            :     inline QMultiHash &amp;operator+=(const QMultiHash &amp;other)
+<span class="lineNum">    1046 </span>            :     { this-&gt;unite(other); return *this; }
+<span class="lineNum">    1047 </span>            :     inline QMultiHash operator+(const QMultiHash &amp;other) const
+<span class="lineNum">    1048 </span>            :     { QMultiHash result = *this; result += other; return result; }
+<span class="lineNum">    1049 </span>            : 
+<span class="lineNum">    1050 </span>            :     using QHash&lt;Key, T&gt;::contains;
+<span class="lineNum">    1051 </span>            :     using QHash&lt;Key, T&gt;::remove;
+<span class="lineNum">    1052 </span>            :     using QHash&lt;Key, T&gt;::count;
+<span class="lineNum">    1053 </span>            :     using QHash&lt;Key, T&gt;::find;
+<span class="lineNum">    1054 </span>            :     using QHash&lt;Key, T&gt;::constFind;
+<span class="lineNum">    1055 </span>            : 
+<span class="lineNum">    1056 </span>            :     bool contains(const Key &amp;key, const T &amp;value) const;
+<span class="lineNum">    1057 </span>            : 
+<span class="lineNum">    1058 </span>            :     int remove(const Key &amp;key, const T &amp;value);
+<span class="lineNum">    1059 </span>            : 
+<span class="lineNum">    1060 </span>            :     int count(const Key &amp;key, const T &amp;value) const;
+<span class="lineNum">    1061 </span>            : 
+<span class="lineNum">    1062 </span>            :     typename QHash&lt;Key, T&gt;::iterator find(const Key &amp;key, const T &amp;value) {
+<span class="lineNum">    1063 </span>            :         typename QHash&lt;Key, T&gt;::iterator i(find(key));
+<span class="lineNum">    1064 </span>            :         typename QHash&lt;Key, T&gt;::iterator end(this-&gt;end());
+<span class="lineNum">    1065 </span>            :         while (i != end &amp;&amp; i.key() == key) {
+<span class="lineNum">    1066 </span>            :             if (i.value() == value)
+<span class="lineNum">    1067 </span>            :                 return i;
+<span class="lineNum">    1068 </span>            :             ++i;
+<span class="lineNum">    1069 </span>            :         }
+<span class="lineNum">    1070 </span>            :         return end;
+<span class="lineNum">    1071 </span>            :     }
+<span class="lineNum">    1072 </span>            :     typename QHash&lt;Key, T&gt;::const_iterator find(const Key &amp;key, const T &amp;value) const {
+<span class="lineNum">    1073 </span>            :         typename QHash&lt;Key, T&gt;::const_iterator i(constFind(key));
+<span class="lineNum">    1074 </span>            :         typename QHash&lt;Key, T&gt;::const_iterator end(QHash&lt;Key, T&gt;::constEnd());
+<span class="lineNum">    1075 </span>            :         while (i != end &amp;&amp; i.key() == key) {
+<span class="lineNum">    1076 </span>            :             if (i.value() == value)
+<span class="lineNum">    1077 </span>            :                 return i;
+<span class="lineNum">    1078 </span>            :             ++i;
+<span class="lineNum">    1079 </span>            :         }
+<span class="lineNum">    1080 </span>            :         return end;
+<span class="lineNum">    1081 </span>            :     }
+<span class="lineNum">    1082 </span>            :     typename QHash&lt;Key, T&gt;::const_iterator constFind(const Key &amp;key, const T &amp;value) const
+<span class="lineNum">    1083 </span>            :         { return find(key, value); }
+<span class="lineNum">    1084 </span>            : private:
+<span class="lineNum">    1085 </span>            :     T &amp;operator[](const Key &amp;key);
+<span class="lineNum">    1086 </span>            :     const T operator[](const Key &amp;key) const;
+<span class="lineNum">    1087 </span>            : };
+<span class="lineNum">    1088 </span>            : 
+<span class="lineNum">    1089 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1090 </span>            : Q_INLINE_TEMPLATE bool QMultiHash&lt;Key, T&gt;::contains(const Key &amp;key, const T &amp;value) const
+<span class="lineNum">    1091 </span>            : {
+<span class="lineNum">    1092 </span>            :     return constFind(key, value) != QHash&lt;Key, T&gt;::constEnd();
+<span class="lineNum">    1093 </span>            : }
+<span class="lineNum">    1094 </span>            : 
+<span class="lineNum">    1095 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1096 </span>            : Q_INLINE_TEMPLATE int QMultiHash&lt;Key, T&gt;::remove(const Key &amp;key, const T &amp;value)
+<span class="lineNum">    1097 </span>            : {
+<span class="lineNum">    1098 </span>            :     int n = 0;
+<span class="lineNum">    1099 </span>            :     typename QHash&lt;Key, T&gt;::iterator i(find(key));
+<span class="lineNum">    1100 </span>            :     typename QHash&lt;Key, T&gt;::iterator end(QHash&lt;Key, T&gt;::end());
+<span class="lineNum">    1101 </span>            :     while (i != end &amp;&amp; i.key() == key) {
+<span class="lineNum">    1102 </span>            :         if (i.value() == value) {
+<span class="lineNum">    1103 </span>            :             i = this-&gt;erase(i);
+<span class="lineNum">    1104 </span>            :             ++n;
+<span class="lineNum">    1105 </span>            :         } else {
+<span class="lineNum">    1106 </span>            :             ++i;
+<span class="lineNum">    1107 </span>            :         }
+<span class="lineNum">    1108 </span>            :     }
+<span class="lineNum">    1109 </span>            :     return n;
+<span class="lineNum">    1110 </span>            : }
+<span class="lineNum">    1111 </span>            : 
+<span class="lineNum">    1112 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1113 </span>            : Q_INLINE_TEMPLATE int QMultiHash&lt;Key, T&gt;::count(const Key &amp;key, const T &amp;value) const
+<span class="lineNum">    1114 </span>            : {
+<span class="lineNum">    1115 </span>            :     int n = 0;
+<span class="lineNum">    1116 </span>            :     typename QHash&lt;Key, T&gt;::const_iterator i(constFind(key));
+<span class="lineNum">    1117 </span>            :     typename QHash&lt;Key, T&gt;::const_iterator end(QHash&lt;Key, T&gt;::constEnd());
+<span class="lineNum">    1118 </span>            :     while (i != end &amp;&amp; i.key() == key) {
+<span class="lineNum">    1119 </span>            :         if (i.value() == value)
+<span class="lineNum">    1120 </span>            :             ++n;
+<span class="lineNum">    1121 </span>            :         ++i;
+<span class="lineNum">    1122 </span>            :     }
+<span class="lineNum">    1123 </span>            :     return n;
+<span class="lineNum">    1124 </span>            : }
+<span class="lineNum">    1125 </span>            : 
+<span class="lineNum">    1126 </span>            : Q_DECLARE_ASSOCIATIVE_ITERATOR(Hash)
+<span class="lineNum">    1127 </span>            : Q_DECLARE_MUTABLE_ASSOCIATIVE_ITERATOR(Hash)
+<span class="lineNum">    1128 </span>            : 
+<span class="lineNum">    1129 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1130 </span>            : uint qHash(const QHash&lt;Key, T&gt; &amp;key, uint seed = 0)
+<span class="lineNum">    1131 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(qHash(std::declval&lt;Key&amp;&gt;())) &amp;&amp; noexcept(qHash(std::declval&lt;T&amp;&gt;())))
+<span class="lineNum">    1132 </span>            : {
+<span class="lineNum">    1133 </span>            :     QtPrivate::QHashCombineCommutative hash;
+<span class="lineNum">    1134 </span>            :     for (auto it = key.begin(), end = key.end(); it != end; ++it) {
+<span class="lineNum">    1135 </span>            :         const Key &amp;k = it.key();
+<span class="lineNum">    1136 </span>            :         const T   &amp;v = it.value();
+<span class="lineNum">    1137 </span>            :         seed = hash(seed, std::pair&lt;const Key&amp;, const T&amp;&gt;(k, v));
+<span class="lineNum">    1138 </span>            :     }
+<span class="lineNum">    1139 </span>            :     return seed;
+<span class="lineNum">    1140 </span>            : }
+<span class="lineNum">    1141 </span>            : 
+<span class="lineNum">    1142 </span>            : template &lt;class Key, class T&gt;
+<span class="lineNum">    1143 </span>            : inline uint qHash(const QMultiHash&lt;Key, T&gt; &amp;key, uint seed = 0)
+<span class="lineNum">    1144 </span>            :     Q_DECL_NOEXCEPT_EXPR(noexcept(qHash(std::declval&lt;Key&amp;&gt;())) &amp;&amp; noexcept(qHash(std::declval&lt;T&amp;&gt;())))
+<span class="lineNum">    1145 </span>            : {
+<span class="lineNum">    1146 </span>            :     const QHash&lt;Key, T&gt; &amp;key2 = key;
+<span class="lineNum">    1147 </span>            :     return qHash(key2, seed);
+<span class="lineNum">    1148 </span>            : }
+<span class="lineNum">    1149 </span>            : 
+<span class="lineNum">    1150 </span>            : QT_END_NAMESPACE
+<span class="lineNum">    1151 </span>            : 
+<span class="lineNum">    1152 </span>            : #if defined(Q_CC_MSVC)
+<span class="lineNum">    1153 </span>            : #pragma warning( pop )
+<span class="lineNum">    1154 </span>            : #endif
+<span class="lineNum">    1155 </span>            : 
+<span class="lineNum">    1156 </span>            : #endif // QHASH_H
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

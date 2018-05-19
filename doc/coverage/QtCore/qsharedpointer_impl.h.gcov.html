@@ -1,0 +1,1079 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - QtCore/qsharedpointer_impl.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">QtCore</a> - qsharedpointer_impl.h<span style="font-size: 80%;"> (source / <a href="qsharedpointer_impl.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">38</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntryHi">95.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2018-05-18 14:17:48</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /****************************************************************************</a>
+<span class="lineNum">       2 </span>            : **
+<span class="lineNum">       3 </span>            : ** Copyright (C) 2016 The Qt Company Ltd.
+<span class="lineNum">       4 </span>            : ** Copyright (C) 2016 Intel Corporation.
+<span class="lineNum">       5 </span>            : ** Contact: https://www.qt.io/licensing/
+<span class="lineNum">       6 </span>            : **
+<span class="lineNum">       7 </span>            : ** This file is part of the QtCore module of the Qt Toolkit.
+<span class="lineNum">       8 </span>            : **
+<span class="lineNum">       9 </span>            : ** $QT_BEGIN_LICENSE:LGPL$
+<span class="lineNum">      10 </span>            : ** Commercial License Usage
+<span class="lineNum">      11 </span>            : ** Licensees holding valid commercial Qt licenses may use this file in
+<span class="lineNum">      12 </span>            : ** accordance with the commercial license agreement provided with the
+<span class="lineNum">      13 </span>            : ** Software or, alternatively, in accordance with the terms contained in
+<span class="lineNum">      14 </span>            : ** a written agreement between you and The Qt Company. For licensing terms
+<span class="lineNum">      15 </span>            : ** and conditions see https://www.qt.io/terms-conditions. For further
+<span class="lineNum">      16 </span>            : ** information use the contact form at https://www.qt.io/contact-us.
+<span class="lineNum">      17 </span>            : **
+<span class="lineNum">      18 </span>            : ** GNU Lesser General Public License Usage
+<span class="lineNum">      19 </span>            : ** Alternatively, this file may be used under the terms of the GNU Lesser
+<span class="lineNum">      20 </span>            : ** General Public License version 3 as published by the Free Software
+<span class="lineNum">      21 </span>            : ** Foundation and appearing in the file LICENSE.LGPL3 included in the
+<span class="lineNum">      22 </span>            : ** packaging of this file. Please review the following information to
+<span class="lineNum">      23 </span>            : ** ensure the GNU Lesser General Public License version 3 requirements
+<span class="lineNum">      24 </span>            : ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+<span class="lineNum">      25 </span>            : **
+<span class="lineNum">      26 </span>            : ** GNU General Public License Usage
+<span class="lineNum">      27 </span>            : ** Alternatively, this file may be used under the terms of the GNU
+<span class="lineNum">      28 </span>            : ** General Public License version 2.0 or (at your option) the GNU General
+<span class="lineNum">      29 </span>            : ** Public license version 3 or any later version approved by the KDE Free
+<span class="lineNum">      30 </span>            : ** Qt Foundation. The licenses are as published by the Free Software
+<span class="lineNum">      31 </span>            : ** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+<span class="lineNum">      32 </span>            : ** included in the packaging of this file. Please review the following
+<span class="lineNum">      33 </span>            : ** information to ensure the GNU General Public License requirements will
+<span class="lineNum">      34 </span>            : ** be met: https://www.gnu.org/licenses/gpl-2.0.html and
+<span class="lineNum">      35 </span>            : ** https://www.gnu.org/licenses/gpl-3.0.html.
+<span class="lineNum">      36 </span>            : **
+<span class="lineNum">      37 </span>            : ** $QT_END_LICENSE$
+<span class="lineNum">      38 </span>            : **
+<span class="lineNum">      39 </span>            : ****************************************************************************/
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : #ifndef Q_QDOC
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : #ifndef QSHAREDPOINTER_H
+<span class="lineNum">      44 </span>            : #error Do not include qsharedpointer_impl.h directly
+<span class="lineNum">      45 </span>            : #endif
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : #if 0
+<span class="lineNum">      48 </span>            : #pragma qt_sync_skip_header_check
+<span class="lineNum">      49 </span>            : #pragma qt_sync_stop_processing
+<span class="lineNum">      50 </span>            : #endif
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : #if 0
+<span class="lineNum">      53 </span>            : // These macros are duplicated here to make syncqt not complain a about
+<span class="lineNum">      54 </span>            : // this header, as we have a &quot;qt_sync_stop_processing&quot; below, which in turn
+<span class="lineNum">      55 </span>            : // is here because this file contains a template mess and duplicates the
+<span class="lineNum">      56 </span>            : // classes found in qsharedpointer.h
+<span class="lineNum">      57 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">      58 </span>            : QT_END_NAMESPACE
+<span class="lineNum">      59 </span>            : #pragma qt_sync_stop_processing
+<span class="lineNum">      60 </span>            : #endif
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : #include &lt;new&gt;
+<span class="lineNum">      63 </span>            : #include &lt;QtCore/qatomic.h&gt;
+<span class="lineNum">      64 </span>            : #include &lt;QtCore/qobject.h&gt;    // for qobject_cast
+<span class="lineNum">      65 </span>            : #if QT_DEPRECATED_SINCE(5, 6)
+<span class="lineNum">      66 </span>            : #include &lt;QtCore/qhash.h&gt;
+<span class="lineNum">      67 </span>            : #endif
+<span class="lineNum">      68 </span>            : #include &lt;QtCore/qhashfunctions.h&gt;
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : // Macro QSHAREDPOINTER_VERIFY_AUTO_CAST
+<span class="lineNum">      74 </span>            : //  generates a compiler error if the following construct isn't valid:
+<span class="lineNum">      75 </span>            : //    T *ptr1;
+<span class="lineNum">      76 </span>            : //    X *ptr2 = ptr1;
+<span class="lineNum">      77 </span>            : //
+<span class="lineNum">      78 </span>            : #ifdef QT_NO_DEBUG
+<span class="lineNum">      79 </span>            : # define QSHAREDPOINTER_VERIFY_AUTO_CAST(T, X)          qt_noop()
+<span class="lineNum">      80 </span>            : #else
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : template&lt;typename T&gt; inline void qt_sharedpointer_cast_check(T *) { }
+<span class="lineNum">      83 </span>            : # define QSHAREDPOINTER_VERIFY_AUTO_CAST(T, X)          \
+<span class="lineNum">      84 </span>            :     qt_sharedpointer_cast_check&lt;T&gt;(static_cast&lt;X *&gt;(0))
+<span class="lineNum">      85 </span>            : #endif
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : //
+<span class="lineNum">      88 </span>            : // forward declarations
+<span class="lineNum">      89 </span>            : //
+<span class="lineNum">      90 </span>            : template &lt;class T&gt; class QWeakPointer;
+<span class="lineNum">      91 </span>            : template &lt;class T&gt; class QSharedPointer;
+<span class="lineNum">      92 </span>            : template &lt;class T&gt; class QEnableSharedFromThis;
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : class QVariant;
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">      97 </span>            : QSharedPointer&lt;X&gt; qSharedPointerCast(const QSharedPointer&lt;T&gt; &amp;ptr);
+<span class="lineNum">      98 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">      99 </span>            : QSharedPointer&lt;X&gt; qSharedPointerDynamicCast(const QSharedPointer&lt;T&gt; &amp;ptr);
+<span class="lineNum">     100 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     101 </span>            : QSharedPointer&lt;X&gt; qSharedPointerConstCast(const QSharedPointer&lt;T&gt; &amp;ptr);
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     104 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     105 </span>            : QSharedPointer&lt;X&gt; qSharedPointerObjectCast(const QSharedPointer&lt;T&gt; &amp;ptr);
+<span class="lineNum">     106 </span>            : #endif
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            : namespace QtSharedPointer {
+<span class="lineNum">     109 </span>            :     template &lt;class T&gt; class ExternalRefCount;
+<span class="lineNum">     110 </span>            : 
+<span class="lineNum">     111 </span>            :     template &lt;class X, class Y&gt; QSharedPointer&lt;X&gt; copyAndSetPointer(X * ptr, const QSharedPointer&lt;Y&gt; &amp;src);
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :     // used in debug mode to verify the reuse of pointers
+<span class="lineNum">     114 </span>            :     Q_CORE_EXPORT void internalSafetyCheckAdd(const void *, const volatile void *);
+<span class="lineNum">     115 </span>            :     Q_CORE_EXPORT void internalSafetyCheckRemove(const void *);
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            :     template &lt;class T, typename Klass, typename RetVal&gt;
+<span class="lineNum">     118 </span>            :     inline void executeDeleter(T *t, RetVal (Klass:: *memberDeleter)())
+<span class="lineNum">     119 </span>            :     { (t-&gt;*memberDeleter)(); }
+<span class="lineNum">     120 </span>            :     template &lt;class T, typename Deleter&gt;
+<span class="lineNum">     121 </span>            :     inline void executeDeleter(T *t, Deleter d)
+<span class="lineNum">     122 </span>            :     { d(t); }
+<span class="lineNum">     123 </span>            :     struct NormalDeleter {};
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span>            :     // this uses partial template specialization
+<span class="lineNum">     126 </span>            :     template &lt;class T&gt; struct RemovePointer;
+<span class="lineNum">     127 </span>            :     template &lt;class T&gt; struct RemovePointer&lt;T *&gt; { typedef T Type; };
+<span class="lineNum">     128 </span>            :     template &lt;class T&gt; struct RemovePointer&lt;QSharedPointer&lt;T&gt; &gt; { typedef T Type; };
+<span class="lineNum">     129 </span>            :     template &lt;class T&gt; struct RemovePointer&lt;QWeakPointer&lt;T&gt; &gt; { typedef T Type; };
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span>            :     // This class is the d-pointer of QSharedPointer and QWeakPointer.
+<span class="lineNum">     132 </span>            :     //
+<span class="lineNum">     133 </span>            :     // It is a reference-counted reference counter. &quot;strongref&quot; is the inner
+<span class="lineNum">     134 </span>            :     // reference counter, and it tracks the lifetime of the pointer itself.
+<span class="lineNum">     135 </span>            :     // &quot;weakref&quot; is the outer reference counter and it tracks the lifetime of
+<span class="lineNum">     136 </span>            :     // the ExternalRefCountData object.
+<span class="lineNum">     137 </span>            :     //
+<span class="lineNum">     138 </span>            :     // The deleter is stored in the destroyer member and is always a pointer to
+<span class="lineNum">     139 </span>            :     // a static function in ExternalRefCountWithCustomDeleter or in
+<span class="lineNum">     140 </span>            :     // ExternalRefCountWithContiguousData
+<span class="lineNum">     141 </span>            :     struct ExternalRefCountData
+<span class="lineNum">     142 </span>            :     {
+<span class="lineNum">     143 </span>            :         typedef void (*DestroyerFn)(ExternalRefCountData *);
+<span class="lineNum">     144 </span>            :         QBasicAtomicInt weakref;
+<span class="lineNum">     145 </span>            :         QBasicAtomicInt strongref;
+<a name="146"><span class="lineNum">     146 </span>            :         DestroyerFn destroyer;</a>
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span><span class="lineCov">          1 :         inline ExternalRefCountData(DestroyerFn d)</span>
+<span class="lineNum">     149 </span><span class="lineCov">          1 :             : destroyer(d)</span>
+<span class="lineNum">     150 </span>            :         {
+<span class="lineNum">     151 </span><span class="lineCov">          1 :             strongref.store(1);</span>
+<span class="lineNum">     152 </span><span class="lineCov">          1 :             weakref.store(1);</span>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">          1 :         }</span></a>
+<span class="lineNum">     154 </span>            :         inline ExternalRefCountData(Qt::Initialization) { }
+<a name="155"><span class="lineNum">     155 </span><span class="lineCov">          1 :         ~ExternalRefCountData() { Q_ASSERT(!weakref.load()); Q_ASSERT(strongref.load() &lt;= 0); }</span></a>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span><span class="lineCov">          1 :         void destroy() { destroyer(this); }</span>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     160 </span>            :         Q_CORE_EXPORT static ExternalRefCountData *getAndRef(const QObject *);
+<span class="lineNum">     161 </span>            :         Q_CORE_EXPORT void setQObjectShared(const QObject *, bool enable);
+<span class="lineNum">     162 </span>            :         Q_CORE_EXPORT void checkQObjectShared(const QObject *);
+<a name="163"><span class="lineNum">     163 </span>            : #endif</a>
+<span class="lineNum">     164 </span>            :         inline void checkQObjectShared(...) { }
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">          1 :         inline void setQObjectShared(...) { }</span></a>
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span><span class="lineCov">          1 :         inline void operator delete(void *ptr) { ::operator delete(ptr); }</span>
+<span class="lineNum">     168 </span>            :         inline void operator delete(void *, void *) { }
+<span class="lineNum">     169 </span>            :     };
+<span class="lineNum">     170 </span>            :     // sizeof(ExternalRefCountData) = 12 (32-bit) / 16 (64-bit)
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span>            :     template &lt;class T, typename Deleter&gt;
+<span class="lineNum">     173 </span>            :     struct CustomDeleter
+<span class="lineNum">     174 </span>            :     {
+<span class="lineNum">     175 </span>            :         Deleter deleter;
+<span class="lineNum">     176 </span>            :         T *ptr;
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            :         CustomDeleter(T *p, Deleter d) : deleter(d), ptr(p) {}
+<span class="lineNum">     179 </span>            :         void execute() { executeDeleter(ptr, deleter); }
+<span class="lineNum">     180 </span>            :     };
+<span class="lineNum">     181 </span>            :     // sizeof(CustomDeleter) = sizeof(Deleter) + sizeof(void*) + padding
+<span class="lineNum">     182 </span>            :     // for Deleter = stateless functor: 8 (32-bit) / 16 (64-bit) due to padding
+<span class="lineNum">     183 </span>            :     // for Deleter = function pointer:  8 (32-bit) / 16 (64-bit)
+<span class="lineNum">     184 </span>            :     // for Deleter = PMF: 12 (32-bit) / 24 (64-bit)  (GCC)
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            :     // This specialization of CustomDeleter for a deleter of type NormalDeleter
+<span class="lineNum">     187 </span>            :     // is an optimization: instead of storing a pointer to a function that does
+<span class="lineNum">     188 </span>            :     // the deleting, we simply delete the pointer ourselves.
+<span class="lineNum">     189 </span>            :     template &lt;class T&gt;
+<span class="lineNum">     190 </span>            :     struct CustomDeleter&lt;T, NormalDeleter&gt;
+<span class="lineNum">     191 </span>            :     {
+<a name="192"><span class="lineNum">     192 </span>            :         T *ptr;</a>
+<a name="193"><span class="lineNum">     193 </span>            : </a>
+<span class="lineNum">     194 </span><span class="lineCov">          1 :         CustomDeleter(T *p, NormalDeleter) : ptr(p) {}</span>
+<span class="lineNum">     195 </span><span class="lineCov">          1 :         void execute() { delete ptr; }</span>
+<span class="lineNum">     196 </span>            :     };
+<span class="lineNum">     197 </span>            :     // sizeof(CustomDeleter specialization) = sizeof(void*)
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            :     // This class extends ExternalRefCountData and implements
+<span class="lineNum">     200 </span>            :     // the static function that deletes the object. The pointer and the
+<span class="lineNum">     201 </span>            :     // custom deleter are kept in the &quot;extra&quot; member so we can construct
+<span class="lineNum">     202 </span>            :     // and destruct it independently of the full structure.
+<span class="lineNum">     203 </span>            :     template &lt;class T, typename Deleter&gt;
+<span class="lineNum">     204 </span>            :     struct ExternalRefCountWithCustomDeleter: public ExternalRefCountData
+<span class="lineNum">     205 </span>            :     {
+<span class="lineNum">     206 </span>            :         typedef ExternalRefCountWithCustomDeleter Self;
+<span class="lineNum">     207 </span>            :         typedef ExternalRefCountData BaseClass;
+<a name="208"><span class="lineNum">     208 </span>            :         CustomDeleter&lt;T, Deleter&gt; extra;</a>
+<span class="lineNum">     209 </span>            : 
+<span class="lineNum">     210 </span><span class="lineCov">          1 :         static inline void deleter(ExternalRefCountData *self)</span>
+<span class="lineNum">     211 </span>            :         {
+<span class="lineNum">     212 </span><span class="lineCov">          1 :             Self *realself = static_cast&lt;Self *&gt;(self);</span>
+<span class="lineNum">     213 </span><span class="lineCov">          1 :             realself-&gt;extra.execute();</span>
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            :             // delete the deleter too
+<span class="lineNum">     216 </span>            :             realself-&gt;extra.~CustomDeleter&lt;T, Deleter&gt;();
+<span class="lineNum">     217 </span><span class="lineCov">          1 :         }</span>
+<span class="lineNum">     218 </span>            :         static void safetyCheckDeleter(ExternalRefCountData *self)
+<span class="lineNum">     219 </span>            :         {
+<span class="lineNum">     220 </span>            :             internalSafetyCheckRemove(self);
+<span class="lineNum">     221 </span>            :             deleter(self);
+<a name="222"><span class="lineNum">     222 </span>            :         }</a>
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span><span class="lineCov">          1 :         static inline Self *create(T *ptr, Deleter userDeleter, DestroyerFn actualDeleter)</span>
+<span class="lineNum">     225 </span>            :         {
+<span class="lineNum">     226 </span><span class="lineCov">          1 :             Self *d = static_cast&lt;Self *&gt;(::operator new(sizeof(Self)));</span>
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span>            :             // initialize the two sub-objects
+<span class="lineNum">     229 </span><span class="lineCov">          1 :             new (&amp;d-&gt;extra) CustomDeleter&lt;T, Deleter&gt;(ptr, userDeleter);</span>
+<span class="lineNum">     230 </span><span class="lineCov">          1 :             new (d) BaseClass(actualDeleter); // can't throw</span>
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span><span class="lineCov">          1 :             return d;</span>
+<span class="lineNum">     233 </span>            :         }
+<span class="lineNum">     234 </span>            :     private:
+<span class="lineNum">     235 </span>            :         // prevent construction
+<span class="lineNum">     236 </span>            :         ExternalRefCountWithCustomDeleter() Q_DECL_EQ_DELETE;
+<span class="lineNum">     237 </span>            :         ~ExternalRefCountWithCustomDeleter() Q_DECL_EQ_DELETE;
+<span class="lineNum">     238 </span>            :         Q_DISABLE_COPY(ExternalRefCountWithCustomDeleter)
+<span class="lineNum">     239 </span>            :     };
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span>            :     // This class extends ExternalRefCountData and adds a &quot;T&quot;
+<span class="lineNum">     242 </span>            :     // member. That way, when the create() function is called, we allocate
+<span class="lineNum">     243 </span>            :     // memory for both QSharedPointer's d-pointer and the actual object being
+<span class="lineNum">     244 </span>            :     // tracked.
+<span class="lineNum">     245 </span>            :     template &lt;class T&gt;
+<span class="lineNum">     246 </span>            :     struct ExternalRefCountWithContiguousData: public ExternalRefCountData
+<span class="lineNum">     247 </span>            :     {
+<span class="lineNum">     248 </span>            :         typedef ExternalRefCountData Parent;
+<span class="lineNum">     249 </span>            :         T data;
+<span class="lineNum">     250 </span>            : 
+<span class="lineNum">     251 </span>            :         static void deleter(ExternalRefCountData *self)
+<span class="lineNum">     252 </span>            :         {
+<span class="lineNum">     253 </span>            :             ExternalRefCountWithContiguousData *that =
+<span class="lineNum">     254 </span>            :                     static_cast&lt;ExternalRefCountWithContiguousData *&gt;(self);
+<span class="lineNum">     255 </span>            :             that-&gt;data.~T();
+<span class="lineNum">     256 </span>            :             Q_UNUSED(that); // MSVC warns if T has a trivial destructor
+<span class="lineNum">     257 </span>            :         }
+<span class="lineNum">     258 </span>            :         static void safetyCheckDeleter(ExternalRefCountData *self)
+<span class="lineNum">     259 </span>            :         {
+<span class="lineNum">     260 </span>            :             internalSafetyCheckRemove(self);
+<span class="lineNum">     261 </span>            :             deleter(self);
+<span class="lineNum">     262 </span>            :         }
+<span class="lineNum">     263 </span>            :         static void noDeleter(ExternalRefCountData *) { }
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span>            :         static inline ExternalRefCountData *create(T **ptr, DestroyerFn destroy)
+<span class="lineNum">     266 </span>            :         {
+<span class="lineNum">     267 </span>            :             ExternalRefCountWithContiguousData *d =
+<span class="lineNum">     268 </span>            :                 static_cast&lt;ExternalRefCountWithContiguousData *&gt;(::operator new(sizeof(ExternalRefCountWithContiguousData)));
+<span class="lineNum">     269 </span>            : 
+<span class="lineNum">     270 </span>            :             // initialize the d-pointer sub-object
+<span class="lineNum">     271 </span>            :             // leave d-&gt;data uninitialized
+<span class="lineNum">     272 </span>            :             new (d) Parent(destroy); // can't throw
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span>            :             *ptr = &amp;d-&gt;data;
+<span class="lineNum">     275 </span>            :             return d;
+<span class="lineNum">     276 </span>            :         }
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span>            :     private:
+<span class="lineNum">     279 </span>            :         // prevent construction
+<span class="lineNum">     280 </span>            :         ExternalRefCountWithContiguousData() Q_DECL_EQ_DELETE;
+<span class="lineNum">     281 </span>            :         ~ExternalRefCountWithContiguousData() Q_DECL_EQ_DELETE;
+<span class="lineNum">     282 </span>            :         Q_DISABLE_COPY(ExternalRefCountWithContiguousData)
+<span class="lineNum">     283 </span>            :     };
+<span class="lineNum">     284 </span>            : 
+<span class="lineNum">     285 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     286 </span>            :     Q_CORE_EXPORT QWeakPointer&lt;QObject&gt; weakPointerFromVariant_internal(const QVariant &amp;variant);
+<span class="lineNum">     287 </span>            :     Q_CORE_EXPORT QSharedPointer&lt;QObject&gt; sharedPointerFromVariant_internal(const QVariant &amp;variant);
+<span class="lineNum">     288 </span>            : #endif
+<span class="lineNum">     289 </span>            : } // namespace QtSharedPointer
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span>            : template &lt;class T&gt; class QSharedPointer
+<span class="lineNum">     292 </span>            : {
+<span class="lineNum">     293 </span>            :     typedef T *QSharedPointer:: *RestrictedBool;
+<span class="lineNum">     294 </span>            :     typedef QtSharedPointer::ExternalRefCountData Data;
+<span class="lineNum">     295 </span>            : public:
+<span class="lineNum">     296 </span>            :     typedef T Type;
+<span class="lineNum">     297 </span>            :     typedef T element_type;
+<span class="lineNum">     298 </span>            :     typedef T value_type;
+<span class="lineNum">     299 </span>            :     typedef value_type *pointer;
+<span class="lineNum">     300 </span>            :     typedef const value_type *const_pointer;
+<span class="lineNum">     301 </span>            :     typedef value_type &amp;reference;
+<span class="lineNum">     302 </span>            :     typedef const value_type &amp;const_reference;
+<span class="lineNum">     303 </span>            :     typedef qptrdiff difference_type;
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span>            :     T *data() const Q_DECL_NOTHROW { return value; }
+<span class="lineNum">     306 </span>            :     bool isNull() const Q_DECL_NOTHROW { return !data(); }
+<span class="lineNum">     307 </span>            :     operator RestrictedBool() const Q_DECL_NOTHROW { return isNull() ? Q_NULLPTR : &amp;QSharedPointer::value; }
+<span class="lineNum">     308 </span>            :     bool operator !() const Q_DECL_NOTHROW { return isNull(); }
+<span class="lineNum">     309 </span>            :     T &amp;operator*() const { return *data(); }
+<span class="lineNum">     310 </span>            :     T *operator-&gt;() const Q_DECL_NOTHROW { return data(); }
+<a name="311"><span class="lineNum">     311 </span>            : </a>
+<span class="lineNum">     312 </span>            :     Q_DECL_CONSTEXPR QSharedPointer() Q_DECL_NOTHROW : value(nullptr), d(nullptr) { }
+<span class="lineNum">     313 </span><span class="lineCov">          1 :     ~QSharedPointer() { deref(); }</span>
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span>            :     Q_DECL_CONSTEXPR QSharedPointer(std::nullptr_t) Q_DECL_NOTHROW : value(nullptr), d(nullptr) { }
+<a name="316"><span class="lineNum">     316 </span>            : </a>
+<span class="lineNum">     317 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     318 </span><span class="lineCov">          1 :     inline explicit QSharedPointer(X *ptr) : value(ptr) // noexcept</span>
+<span class="lineNum">     319 </span><span class="lineCov">          1 :     { internalConstruct(ptr, QtSharedPointer::NormalDeleter()); }</span>
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            :     template &lt;class X, typename Deleter&gt;
+<span class="lineNum">     322 </span>            :     inline QSharedPointer(X *ptr, Deleter deleter) : value(ptr) // throws
+<span class="lineNum">     323 </span>            :     { internalConstruct(ptr, deleter); }
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span>            :     template &lt;typename Deleter&gt;
+<span class="lineNum">     326 </span>            :     QSharedPointer(std::nullptr_t, Deleter) : value(nullptr), d(nullptr) { }
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            :     QSharedPointer(const QSharedPointer &amp;other) Q_DECL_NOTHROW : value(other.value), d(other.d)
+<span class="lineNum">     329 </span>            :     { if (d) ref(); }
+<span class="lineNum">     330 </span>            :     QSharedPointer &amp;operator=(const QSharedPointer &amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     331 </span>            :     {
+<span class="lineNum">     332 </span>            :         QSharedPointer copy(other);
+<span class="lineNum">     333 </span>            :         swap(copy);
+<span class="lineNum">     334 </span>            :         return *this;
+<span class="lineNum">     335 </span>            :     }
+<span class="lineNum">     336 </span>            : #ifdef Q_COMPILER_RVALUE_REFS
+<span class="lineNum">     337 </span>            :     QSharedPointer(QSharedPointer &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     338 </span>            :         : value(other.value), d(other.d)
+<span class="lineNum">     339 </span>            :     {
+<span class="lineNum">     340 </span>            :         other.d = Q_NULLPTR;
+<span class="lineNum">     341 </span>            :         other.value = Q_NULLPTR;
+<span class="lineNum">     342 </span>            :     }
+<span class="lineNum">     343 </span>            :     QSharedPointer &amp;operator=(QSharedPointer &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     344 </span>            :     {
+<span class="lineNum">     345 </span>            :         QSharedPointer moved(std::move(other));
+<span class="lineNum">     346 </span>            :         swap(moved);
+<span class="lineNum">     347 </span>            :         return *this;
+<span class="lineNum">     348 </span>            :     }
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     351 </span>            :     QSharedPointer(QSharedPointer&lt;X&gt; &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     352 </span>            :         : value(other.value), d(other.d)
+<span class="lineNum">     353 </span>            :     {
+<span class="lineNum">     354 </span>            :         other.d = Q_NULLPTR;
+<span class="lineNum">     355 </span>            :         other.value = Q_NULLPTR;
+<span class="lineNum">     356 </span>            :     }
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     359 </span>            :     QSharedPointer &amp;operator=(QSharedPointer&lt;X&gt; &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     360 </span>            :     {
+<span class="lineNum">     361 </span>            :         QSharedPointer moved(std::move(other));
+<span class="lineNum">     362 </span>            :         swap(moved);
+<span class="lineNum">     363 </span>            :         return *this;
+<span class="lineNum">     364 </span>            :     }
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span>            : #endif
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     369 </span>            :     QSharedPointer(const QSharedPointer&lt;X&gt; &amp;other) Q_DECL_NOTHROW : value(other.value), d(other.d)
+<span class="lineNum">     370 </span>            :     { if (d) ref(); }
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     373 </span>            :     inline QSharedPointer &amp;operator=(const QSharedPointer&lt;X&gt; &amp;other)
+<span class="lineNum">     374 </span>            :     {
+<span class="lineNum">     375 </span>            :         QSharedPointer copy(other);
+<span class="lineNum">     376 </span>            :         swap(copy);
+<span class="lineNum">     377 </span>            :         return *this;
+<span class="lineNum">     378 </span>            :     }
+<span class="lineNum">     379 </span>            : 
+<span class="lineNum">     380 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     381 </span>            :     inline QSharedPointer(const QWeakPointer&lt;X&gt; &amp;other) : value(Q_NULLPTR), d(Q_NULLPTR)
+<span class="lineNum">     382 </span>            :     { *this = other; }
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     385 </span>            :     inline QSharedPointer&lt;T&gt; &amp;operator=(const QWeakPointer&lt;X&gt; &amp;other)
+<span class="lineNum">     386 </span>            :     { internalSet(other.d, other.value); return *this; }
+<span class="lineNum">     387 </span>            : 
+<span class="lineNum">     388 </span>            :     inline void swap(QSharedPointer &amp;other)
+<span class="lineNum">     389 </span>            :     { this-&gt;internalSwap(other); }
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span>            :     inline void reset() { clear(); }
+<span class="lineNum">     392 </span>            :     inline void reset(T *t)
+<span class="lineNum">     393 </span>            :     { QSharedPointer copy(t); swap(copy); }
+<span class="lineNum">     394 </span>            :     template &lt;typename Deleter&gt;
+<span class="lineNum">     395 </span>            :     inline void reset(T *t, Deleter deleter)
+<span class="lineNum">     396 </span>            :     { QSharedPointer copy(t, deleter); swap(copy); }
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     399 </span>            :     QSharedPointer&lt;X&gt; staticCast() const
+<span class="lineNum">     400 </span>            :     {
+<span class="lineNum">     401 </span>            :         return qSharedPointerCast&lt;X, T&gt;(*this);
+<span class="lineNum">     402 </span>            :     }
+<span class="lineNum">     403 </span>            : 
+<span class="lineNum">     404 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     405 </span>            :     QSharedPointer&lt;X&gt; dynamicCast() const
+<span class="lineNum">     406 </span>            :     {
+<span class="lineNum">     407 </span>            :         return qSharedPointerDynamicCast&lt;X, T&gt;(*this);
+<span class="lineNum">     408 </span>            :     }
+<span class="lineNum">     409 </span>            : 
+<span class="lineNum">     410 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     411 </span>            :     QSharedPointer&lt;X&gt; constCast() const
+<span class="lineNum">     412 </span>            :     {
+<span class="lineNum">     413 </span>            :         return qSharedPointerConstCast&lt;X, T&gt;(*this);
+<span class="lineNum">     414 </span>            :     }
+<span class="lineNum">     415 </span>            : 
+<span class="lineNum">     416 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     417 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     418 </span>            :     QSharedPointer&lt;X&gt; objectCast() const
+<span class="lineNum">     419 </span>            :     {
+<span class="lineNum">     420 </span>            :         return qSharedPointerObjectCast&lt;X, T&gt;(*this);
+<span class="lineNum">     421 </span>            :     }
+<span class="lineNum">     422 </span>            : #endif
+<span class="lineNum">     423 </span>            : 
+<span class="lineNum">     424 </span>            :     inline void clear() { QSharedPointer copy; swap(copy); }
+<span class="lineNum">     425 </span>            : 
+<span class="lineNum">     426 </span>            :     QWeakPointer&lt;T&gt; toWeakRef() const;
+<span class="lineNum">     427 </span>            : 
+<span class="lineNum">     428 </span>            :     template &lt;typename... Args&gt;
+<span class="lineNum">     429 </span>            :     static QSharedPointer create(Args &amp;&amp; ...arguments)
+<span class="lineNum">     430 </span>            :     {
+<span class="lineNum">     431 </span>            :         typedef QtSharedPointer::ExternalRefCountWithContiguousData&lt;T&gt; Private;
+<span class="lineNum">     432 </span>            : # ifdef QT_SHAREDPOINTER_TRACK_POINTERS
+<span class="lineNum">     433 </span>            :         typename Private::DestroyerFn destroy = &amp;Private::safetyCheckDeleter;
+<span class="lineNum">     434 </span>            : # else
+<span class="lineNum">     435 </span>            :         typename Private::DestroyerFn destroy = &amp;Private::deleter;
+<span class="lineNum">     436 </span>            : # endif
+<span class="lineNum">     437 </span>            :         typename Private::DestroyerFn noDestroy = &amp;Private::noDeleter;
+<span class="lineNum">     438 </span>            :         QSharedPointer result(Qt::Uninitialized);
+<span class="lineNum">     439 </span>            :         result.d = Private::create(&amp;result.value, noDestroy);
+<span class="lineNum">     440 </span>            : 
+<span class="lineNum">     441 </span>            :         // now initialize the data
+<span class="lineNum">     442 </span>            :         new (result.data()) T(std::forward&lt;Args&gt;(arguments)...);
+<span class="lineNum">     443 </span>            :         result.d-&gt;destroyer = destroy;
+<span class="lineNum">     444 </span>            :         result.d-&gt;setQObjectShared(result.value, true);
+<span class="lineNum">     445 </span>            : # ifdef QT_SHAREDPOINTER_TRACK_POINTERS
+<span class="lineNum">     446 </span>            :         internalSafetyCheckAdd(result.d, result.value);
+<span class="lineNum">     447 </span>            : # endif
+<span class="lineNum">     448 </span>            :         result.enableSharedFromThis(result.data());
+<span class="lineNum">     449 </span>            :         return result;
+<span class="lineNum">     450 </span>            :     }
+<span class="lineNum">     451 </span>            : 
+<span class="lineNum">     452 </span>            : private:
+<a name="453"><span class="lineNum">     453 </span>            :     explicit QSharedPointer(Qt::Initialization) {}</a>
+<span class="lineNum">     454 </span>            : 
+<a name="455"><span class="lineNum">     455 </span><span class="lineCov">          1 :     void deref() Q_DECL_NOTHROW</span></a>
+<span class="lineNum">     456 </span><span class="lineCov">          1 :     { deref(d); }</span>
+<span class="lineNum">     457 </span><span class="lineCov">          1 :     static void deref(Data *dd) Q_DECL_NOTHROW</span>
+<span class="lineNum">     458 </span>            :     {
+<span class="lineNum">     459 </span><span class="lineCov">          1 :         if (!dd) return;</span>
+<span class="lineNum">     460 </span><span class="lineCov">          1 :         if (!dd-&gt;strongref.deref()) {</span>
+<span class="lineNum">     461 </span><span class="lineCov">          1 :             dd-&gt;destroy();</span>
+<span class="lineNum">     462 </span>            :         }
+<span class="lineNum">     463 </span><span class="lineCov">          1 :         if (!dd-&gt;weakref.deref())</span>
+<span class="lineNum">     464 </span><span class="lineCov">          1 :             delete dd;</span>
+<span class="lineNum">     465 </span>            :     }
+<span class="lineNum">     466 </span>            : 
+<span class="lineNum">     467 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     468 </span>            :     inline void enableSharedFromThis(const QEnableSharedFromThis&lt;X&gt; *ptr)
+<span class="lineNum">     469 </span>            :     {
+<span class="lineNum">     470 </span>            :         ptr-&gt;initializeFromSharedPointer(constCast&lt;typename std::remove_cv&lt;T&gt;::type&gt;());
+<a name="471"><span class="lineNum">     471 </span>            :     }</a>
+<span class="lineNum">     472 </span>            : 
+<span class="lineNum">     473 </span><span class="lineCov">          1 :     inline void enableSharedFromThis(...) {}</span>
+<a name="474"><span class="lineNum">     474 </span>            : </a>
+<span class="lineNum">     475 </span>            :     template &lt;typename X, typename Deleter&gt;
+<span class="lineNum">     476 </span><span class="lineCov">          1 :     inline void internalConstruct(X *ptr, Deleter deleter)</span>
+<span class="lineNum">     477 </span>            :     {
+<span class="lineNum">     478 </span><span class="lineCov">          1 :         if (!ptr) {</span>
+<span class="lineNum">     479 </span><span class="lineNoCov">          0 :             d = Q_NULLPTR;</span>
+<span class="lineNum">     480 </span><span class="lineNoCov">          0 :             return;</span>
+<span class="lineNum">     481 </span>            :         }
+<span class="lineNum">     482 </span>            : 
+<span class="lineNum">     483 </span>            :         typedef QtSharedPointer::ExternalRefCountWithCustomDeleter&lt;X, Deleter&gt; Private;
+<span class="lineNum">     484 </span>            : # ifdef QT_SHAREDPOINTER_TRACK_POINTERS
+<span class="lineNum">     485 </span>            :         typename Private::DestroyerFn actualDeleter = &amp;Private::safetyCheckDeleter;
+<span class="lineNum">     486 </span>            : # else
+<span class="lineNum">     487 </span><span class="lineCov">          1 :         typename Private::DestroyerFn actualDeleter = &amp;Private::deleter;</span>
+<span class="lineNum">     488 </span>            : # endif
+<span class="lineNum">     489 </span><span class="lineCov">          1 :         d = Private::create(ptr, deleter, actualDeleter);</span>
+<span class="lineNum">     490 </span>            : 
+<span class="lineNum">     491 </span>            : #ifdef QT_SHAREDPOINTER_TRACK_POINTERS
+<span class="lineNum">     492 </span>            :         internalSafetyCheckAdd(d, ptr);
+<span class="lineNum">     493 </span>            : #endif
+<span class="lineNum">     494 </span><span class="lineCov">          1 :         d-&gt;setQObjectShared(ptr, true);</span>
+<span class="lineNum">     495 </span><span class="lineCov">          1 :         enableSharedFromThis(ptr);</span>
+<span class="lineNum">     496 </span>            :     }
+<span class="lineNum">     497 </span>            : 
+<span class="lineNum">     498 </span>            :     void internalSwap(QSharedPointer &amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     499 </span>            :     {
+<span class="lineNum">     500 </span>            :         qSwap(d, other.d);
+<span class="lineNum">     501 </span>            :         qSwap(this-&gt;value, other.value);
+<span class="lineNum">     502 </span>            :     }
+<span class="lineNum">     503 </span>            : 
+<span class="lineNum">     504 </span>            : #if defined(Q_NO_TEMPLATE_FRIENDS)
+<span class="lineNum">     505 </span>            : public:
+<span class="lineNum">     506 </span>            : #else
+<span class="lineNum">     507 </span>            :     template &lt;class X&gt; friend class QSharedPointer;
+<span class="lineNum">     508 </span>            :     template &lt;class X&gt; friend class QWeakPointer;
+<span class="lineNum">     509 </span>            :     template &lt;class X, class Y&gt; friend QSharedPointer&lt;X&gt; QtSharedPointer::copyAndSetPointer(X * ptr, const QSharedPointer&lt;Y&gt; &amp;src);
+<span class="lineNum">     510 </span>            : #endif
+<span class="lineNum">     511 </span>            :     void ref() const Q_DECL_NOTHROW { d-&gt;weakref.ref(); d-&gt;strongref.ref(); }
+<span class="lineNum">     512 </span>            : 
+<span class="lineNum">     513 </span>            :     inline void internalSet(Data *o, T *actual)
+<span class="lineNum">     514 </span>            :     {
+<span class="lineNum">     515 </span>            :         if (o) {
+<span class="lineNum">     516 </span>            :             // increase the strongref, but never up from zero
+<span class="lineNum">     517 </span>            :             // or less (-1 is used by QWeakPointer on untracked QObject)
+<span class="lineNum">     518 </span>            :             int tmp = o-&gt;strongref.load();
+<span class="lineNum">     519 </span>            :             while (tmp &gt; 0) {
+<span class="lineNum">     520 </span>            :                 // try to increment from &quot;tmp&quot; to &quot;tmp + 1&quot;
+<span class="lineNum">     521 </span>            :                 if (o-&gt;strongref.testAndSetRelaxed(tmp, tmp + 1))
+<span class="lineNum">     522 </span>            :                     break;   // succeeded
+<span class="lineNum">     523 </span>            :                 tmp = o-&gt;strongref.load();  // failed, try again
+<span class="lineNum">     524 </span>            :             }
+<span class="lineNum">     525 </span>            : 
+<span class="lineNum">     526 </span>            :             if (tmp &gt; 0) {
+<span class="lineNum">     527 </span>            :                 o-&gt;weakref.ref();
+<span class="lineNum">     528 </span>            :             } else {
+<span class="lineNum">     529 </span>            :                 o-&gt;checkQObjectShared(actual);
+<span class="lineNum">     530 </span>            :                 o = Q_NULLPTR;
+<span class="lineNum">     531 </span>            :             }
+<span class="lineNum">     532 </span>            :         }
+<span class="lineNum">     533 </span>            : 
+<span class="lineNum">     534 </span>            :         qSwap(d, o);
+<span class="lineNum">     535 </span>            :         qSwap(this-&gt;value, actual);
+<span class="lineNum">     536 </span>            :         if (!d || d-&gt;strongref.load() == 0)
+<span class="lineNum">     537 </span>            :             this-&gt;value = Q_NULLPTR;
+<span class="lineNum">     538 </span>            : 
+<span class="lineNum">     539 </span>            :         // dereference saved data
+<span class="lineNum">     540 </span>            :         deref(o);
+<span class="lineNum">     541 </span>            :     }
+<span class="lineNum">     542 </span>            : 
+<span class="lineNum">     543 </span>            :     Type *value;
+<span class="lineNum">     544 </span>            :     Data *d;
+<span class="lineNum">     545 </span>            : };
+<span class="lineNum">     546 </span>            : 
+<span class="lineNum">     547 </span>            : template &lt;class T&gt;
+<span class="lineNum">     548 </span>            : class QWeakPointer
+<span class="lineNum">     549 </span>            : {
+<span class="lineNum">     550 </span>            :     typedef T *QWeakPointer:: *RestrictedBool;
+<span class="lineNum">     551 </span>            :     typedef QtSharedPointer::ExternalRefCountData Data;
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span>            : public:
+<span class="lineNum">     554 </span>            :     typedef T element_type;
+<span class="lineNum">     555 </span>            :     typedef T value_type;
+<span class="lineNum">     556 </span>            :     typedef value_type *pointer;
+<span class="lineNum">     557 </span>            :     typedef const value_type *const_pointer;
+<span class="lineNum">     558 </span>            :     typedef value_type &amp;reference;
+<span class="lineNum">     559 </span>            :     typedef const value_type &amp;const_reference;
+<span class="lineNum">     560 </span>            :     typedef qptrdiff difference_type;
+<span class="lineNum">     561 </span>            : 
+<span class="lineNum">     562 </span>            :     bool isNull() const Q_DECL_NOTHROW { return d == Q_NULLPTR || d-&gt;strongref.load() == 0 || value == Q_NULLPTR; }
+<span class="lineNum">     563 </span>            :     operator RestrictedBool() const Q_DECL_NOTHROW { return isNull() ? Q_NULLPTR : &amp;QWeakPointer::value; }
+<span class="lineNum">     564 </span>            :     bool operator !() const Q_DECL_NOTHROW { return isNull(); }
+<span class="lineNum">     565 </span>            :     T *data() const Q_DECL_NOTHROW { return d == Q_NULLPTR || d-&gt;strongref.load() == 0 ? Q_NULLPTR : value; }
+<span class="lineNum">     566 </span>            : 
+<span class="lineNum">     567 </span>            :     inline QWeakPointer() Q_DECL_NOTHROW : d(Q_NULLPTR), value(Q_NULLPTR) { }
+<span class="lineNum">     568 </span>            :     inline ~QWeakPointer() { if (d &amp;&amp; !d-&gt;weakref.deref()) delete d; }
+<span class="lineNum">     569 </span>            : 
+<span class="lineNum">     570 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     571 </span>            :     // special constructor that is enabled only if X derives from QObject
+<span class="lineNum">     572 </span>            : #if QT_DEPRECATED_SINCE(5, 0)
+<span class="lineNum">     573 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     574 </span>            :     QT_DEPRECATED inline QWeakPointer(X *ptr) : d(ptr ? Data::getAndRef(ptr) : Q_NULLPTR), value(ptr)
+<span class="lineNum">     575 </span>            :     { }
+<span class="lineNum">     576 </span>            : #endif
+<span class="lineNum">     577 </span>            : #endif
+<span class="lineNum">     578 </span>            : 
+<span class="lineNum">     579 </span>            : #if QT_DEPRECATED_SINCE(5, 0)
+<span class="lineNum">     580 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     581 </span>            :     QT_DEPRECATED inline QWeakPointer &amp;operator=(X *ptr)
+<span class="lineNum">     582 </span>            :     { return *this = QWeakPointer(ptr); }
+<span class="lineNum">     583 </span>            : #endif
+<span class="lineNum">     584 </span>            : 
+<span class="lineNum">     585 </span>            :     QWeakPointer(const QWeakPointer &amp;other) Q_DECL_NOTHROW : d(other.d), value(other.value)
+<span class="lineNum">     586 </span>            :     { if (d) d-&gt;weakref.ref(); }
+<span class="lineNum">     587 </span>            : #ifdef Q_COMPILER_RVALUE_REFS
+<span class="lineNum">     588 </span>            :     QWeakPointer(QWeakPointer &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     589 </span>            :         : d(other.d), value(other.value)
+<span class="lineNum">     590 </span>            :     {
+<span class="lineNum">     591 </span>            :         other.d = Q_NULLPTR;
+<span class="lineNum">     592 </span>            :         other.value = Q_NULLPTR;
+<span class="lineNum">     593 </span>            :     }
+<span class="lineNum">     594 </span>            :     QWeakPointer &amp;operator=(QWeakPointer &amp;&amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     595 </span>            :     { QWeakPointer moved(std::move(other)); swap(moved); return *this; }
+<span class="lineNum">     596 </span>            : #endif
+<span class="lineNum">     597 </span>            :     QWeakPointer &amp;operator=(const QWeakPointer &amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     598 </span>            :     {
+<span class="lineNum">     599 </span>            :         QWeakPointer copy(other);
+<span class="lineNum">     600 </span>            :         swap(copy);
+<span class="lineNum">     601 </span>            :         return *this;
+<span class="lineNum">     602 </span>            :     }
+<span class="lineNum">     603 </span>            : 
+<span class="lineNum">     604 </span>            :     void swap(QWeakPointer &amp;other) Q_DECL_NOTHROW
+<span class="lineNum">     605 </span>            :     {
+<span class="lineNum">     606 </span>            :         qSwap(this-&gt;d, other.d);
+<span class="lineNum">     607 </span>            :         qSwap(this-&gt;value, other.value);
+<span class="lineNum">     608 </span>            :     }
+<span class="lineNum">     609 </span>            : 
+<span class="lineNum">     610 </span>            :     inline QWeakPointer(const QSharedPointer&lt;T&gt; &amp;o) : d(o.d), value(o.data())
+<span class="lineNum">     611 </span>            :     { if (d) d-&gt;weakref.ref();}
+<span class="lineNum">     612 </span>            :     inline QWeakPointer &amp;operator=(const QSharedPointer&lt;T&gt; &amp;o)
+<span class="lineNum">     613 </span>            :     {
+<span class="lineNum">     614 </span>            :         internalSet(o.d, o.value);
+<span class="lineNum">     615 </span>            :         return *this;
+<span class="lineNum">     616 </span>            :     }
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     619 </span>            :     inline QWeakPointer(const QWeakPointer&lt;X&gt; &amp;o) : d(Q_NULLPTR), value(Q_NULLPTR)
+<span class="lineNum">     620 </span>            :     { *this = o; }
+<span class="lineNum">     621 </span>            : 
+<span class="lineNum">     622 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     623 </span>            :     inline QWeakPointer &amp;operator=(const QWeakPointer&lt;X&gt; &amp;o)
+<span class="lineNum">     624 </span>            :     {
+<span class="lineNum">     625 </span>            :         // conversion between X and T could require access to the virtual table
+<span class="lineNum">     626 </span>            :         // so force the operation to go through QSharedPointer
+<span class="lineNum">     627 </span>            :         *this = o.toStrongRef();
+<span class="lineNum">     628 </span>            :         return *this;
+<span class="lineNum">     629 </span>            :     }
+<span class="lineNum">     630 </span>            : 
+<span class="lineNum">     631 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     632 </span>            :     bool operator==(const QWeakPointer&lt;X&gt; &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     633 </span>            :     { return d == o.d &amp;&amp; value == static_cast&lt;const T *&gt;(o.value); }
+<span class="lineNum">     634 </span>            : 
+<span class="lineNum">     635 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     636 </span>            :     bool operator!=(const QWeakPointer&lt;X&gt; &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     637 </span>            :     { return !(*this == o); }
+<span class="lineNum">     638 </span>            : 
+<span class="lineNum">     639 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     640 </span>            :     inline QWeakPointer(const QSharedPointer&lt;X&gt; &amp;o) : d(Q_NULLPTR), value(Q_NULLPTR)
+<span class="lineNum">     641 </span>            :     { *this = o; }
+<span class="lineNum">     642 </span>            : 
+<span class="lineNum">     643 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     644 </span>            :     inline QWeakPointer &amp;operator=(const QSharedPointer&lt;X&gt; &amp;o)
+<span class="lineNum">     645 </span>            :     {
+<span class="lineNum">     646 </span>            :         QSHAREDPOINTER_VERIFY_AUTO_CAST(T, X); // if you get an error in this line, the cast is invalid
+<span class="lineNum">     647 </span>            :         internalSet(o.d, o.data());
+<span class="lineNum">     648 </span>            :         return *this;
+<span class="lineNum">     649 </span>            :     }
+<span class="lineNum">     650 </span>            : 
+<span class="lineNum">     651 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     652 </span>            :     bool operator==(const QSharedPointer&lt;X&gt; &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     653 </span>            :     { return d == o.d; }
+<span class="lineNum">     654 </span>            : 
+<span class="lineNum">     655 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     656 </span>            :     bool operator!=(const QSharedPointer&lt;X&gt; &amp;o) const Q_DECL_NOTHROW
+<span class="lineNum">     657 </span>            :     { return !(*this == o); }
+<span class="lineNum">     658 </span>            : 
+<span class="lineNum">     659 </span>            :     inline void clear() { *this = QWeakPointer(); }
+<span class="lineNum">     660 </span>            : 
+<span class="lineNum">     661 </span>            :     inline QSharedPointer&lt;T&gt; toStrongRef() const { return QSharedPointer&lt;T&gt;(*this); }
+<span class="lineNum">     662 </span>            :     // std::weak_ptr compatibility:
+<span class="lineNum">     663 </span>            :     inline QSharedPointer&lt;T&gt; lock() const { return toStrongRef(); }
+<span class="lineNum">     664 </span>            : 
+<span class="lineNum">     665 </span>            : #if defined(QWEAKPOINTER_ENABLE_ARROW)
+<span class="lineNum">     666 </span>            :     inline T *operator-&gt;() const { return data(); }
+<span class="lineNum">     667 </span>            : #endif
+<span class="lineNum">     668 </span>            : 
+<span class="lineNum">     669 </span>            : private:
+<span class="lineNum">     670 </span>            : 
+<span class="lineNum">     671 </span>            : #if defined(Q_NO_TEMPLATE_FRIENDS)
+<span class="lineNum">     672 </span>            : public:
+<span class="lineNum">     673 </span>            : #else
+<span class="lineNum">     674 </span>            :     template &lt;class X&gt; friend class QSharedPointer;
+<span class="lineNum">     675 </span>            :     template &lt;class X&gt; friend class QPointer;
+<span class="lineNum">     676 </span>            : #endif
+<span class="lineNum">     677 </span>            : 
+<span class="lineNum">     678 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     679 </span>            :     inline QWeakPointer &amp;assign(X *ptr)
+<span class="lineNum">     680 </span>            :     { return *this = QWeakPointer&lt;X&gt;(ptr, true); }
+<span class="lineNum">     681 </span>            : 
+<span class="lineNum">     682 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     683 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     684 </span>            :     inline QWeakPointer(X *ptr, bool) : d(ptr ? Data::getAndRef(ptr) : Q_NULLPTR), value(ptr)
+<span class="lineNum">     685 </span>            :     { }
+<span class="lineNum">     686 </span>            : #endif
+<span class="lineNum">     687 </span>            : 
+<span class="lineNum">     688 </span>            :     inline void internalSet(Data *o, T *actual)
+<span class="lineNum">     689 </span>            :     {
+<span class="lineNum">     690 </span>            :         if (d == o) return;
+<span class="lineNum">     691 </span>            :         if (o)
+<span class="lineNum">     692 </span>            :             o-&gt;weakref.ref();
+<span class="lineNum">     693 </span>            :         if (d &amp;&amp; !d-&gt;weakref.deref())
+<span class="lineNum">     694 </span>            :             delete d;
+<span class="lineNum">     695 </span>            :         d = o;
+<span class="lineNum">     696 </span>            :         value = actual;
+<span class="lineNum">     697 </span>            :     }
+<span class="lineNum">     698 </span>            : 
+<span class="lineNum">     699 </span>            :     Data *d;
+<span class="lineNum">     700 </span>            :     T *value;
+<span class="lineNum">     701 </span>            : };
+<span class="lineNum">     702 </span>            : 
+<span class="lineNum">     703 </span>            : template &lt;class T&gt;
+<span class="lineNum">     704 </span>            : class QEnableSharedFromThis
+<span class="lineNum">     705 </span>            : {
+<span class="lineNum">     706 </span>            : protected:
+<span class="lineNum">     707 </span>            : #ifdef Q_COMPILER_DEFAULT_MEMBERS
+<span class="lineNum">     708 </span>            :     QEnableSharedFromThis() = default;
+<span class="lineNum">     709 </span>            : #else
+<span class="lineNum">     710 </span>            :     Q_DECL_CONSTEXPR QEnableSharedFromThis() {}
+<span class="lineNum">     711 </span>            : #endif
+<span class="lineNum">     712 </span>            :     QEnableSharedFromThis(const QEnableSharedFromThis &amp;) {}
+<span class="lineNum">     713 </span>            :     QEnableSharedFromThis &amp;operator=(const QEnableSharedFromThis &amp;) { return *this; }
+<span class="lineNum">     714 </span>            : 
+<span class="lineNum">     715 </span>            : public:
+<span class="lineNum">     716 </span>            :     inline QSharedPointer&lt;T&gt; sharedFromThis() { return QSharedPointer&lt;T&gt;(weakPointer); }
+<span class="lineNum">     717 </span>            :     inline QSharedPointer&lt;const T&gt; sharedFromThis() const { return QSharedPointer&lt;const T&gt;(weakPointer); }
+<span class="lineNum">     718 </span>            : 
+<span class="lineNum">     719 </span>            : #ifndef Q_NO_TEMPLATE_FRIENDS
+<span class="lineNum">     720 </span>            : private:
+<span class="lineNum">     721 </span>            :     template &lt;class X&gt; friend class QSharedPointer;
+<span class="lineNum">     722 </span>            : #else
+<span class="lineNum">     723 </span>            : public:
+<span class="lineNum">     724 </span>            : #endif
+<span class="lineNum">     725 </span>            :     template &lt;class X&gt;
+<span class="lineNum">     726 </span>            :     inline void initializeFromSharedPointer(const QSharedPointer&lt;X&gt; &amp;ptr) const
+<span class="lineNum">     727 </span>            :     {
+<span class="lineNum">     728 </span>            :         weakPointer = ptr;
+<span class="lineNum">     729 </span>            :     }
+<span class="lineNum">     730 </span>            : 
+<span class="lineNum">     731 </span>            :     mutable QWeakPointer&lt;T&gt; weakPointer;
+<span class="lineNum">     732 </span>            : };
+<span class="lineNum">     733 </span>            : 
+<span class="lineNum">     734 </span>            : //
+<span class="lineNum">     735 </span>            : // operator== and operator!=
+<span class="lineNum">     736 </span>            : //
+<span class="lineNum">     737 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     738 </span>            : bool operator==(const QSharedPointer&lt;T&gt; &amp;ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     739 </span>            : {
+<span class="lineNum">     740 </span>            :     return ptr1.data() == ptr2.data();
+<span class="lineNum">     741 </span>            : }
+<span class="lineNum">     742 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     743 </span>            : bool operator!=(const QSharedPointer&lt;T&gt; &amp;ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     744 </span>            : {
+<span class="lineNum">     745 </span>            :     return ptr1.data() != ptr2.data();
+<span class="lineNum">     746 </span>            : }
+<span class="lineNum">     747 </span>            : 
+<span class="lineNum">     748 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     749 </span>            : bool operator==(const QSharedPointer&lt;T&gt; &amp;ptr1, const X *ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     750 </span>            : {
+<span class="lineNum">     751 </span>            :     return ptr1.data() == ptr2;
+<span class="lineNum">     752 </span>            : }
+<span class="lineNum">     753 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     754 </span>            : bool operator==(const T *ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     755 </span>            : {
+<span class="lineNum">     756 </span>            :     return ptr1 == ptr2.data();
+<span class="lineNum">     757 </span>            : }
+<span class="lineNum">     758 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     759 </span>            : bool operator!=(const QSharedPointer&lt;T&gt; &amp;ptr1, const X *ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     760 </span>            : {
+<span class="lineNum">     761 </span>            :     return !(ptr1 == ptr2);
+<span class="lineNum">     762 </span>            : }
+<span class="lineNum">     763 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     764 </span>            : bool operator!=(const T *ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     765 </span>            : {
+<span class="lineNum">     766 </span>            :     return !(ptr2 == ptr1);
+<span class="lineNum">     767 </span>            : }
+<span class="lineNum">     768 </span>            : 
+<span class="lineNum">     769 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     770 </span>            : bool operator==(const QSharedPointer&lt;T&gt; &amp;ptr1, const QWeakPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     771 </span>            : {
+<span class="lineNum">     772 </span>            :     return ptr2 == ptr1;
+<span class="lineNum">     773 </span>            : }
+<span class="lineNum">     774 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     775 </span>            : bool operator!=(const QSharedPointer&lt;T&gt; &amp;ptr1, const QWeakPointer&lt;X&gt; &amp;ptr2) Q_DECL_NOTHROW
+<span class="lineNum">     776 </span>            : {
+<span class="lineNum">     777 </span>            :     return ptr2 != ptr1;
+<span class="lineNum">     778 </span>            : }
+<span class="lineNum">     779 </span>            : 
+<span class="lineNum">     780 </span>            : template&lt;class T&gt;
+<span class="lineNum">     781 </span>            : inline bool operator==(const QSharedPointer&lt;T&gt; &amp;lhs, std::nullptr_t) Q_DECL_NOTHROW
+<span class="lineNum">     782 </span>            : {
+<span class="lineNum">     783 </span>            :     return lhs.isNull();
+<span class="lineNum">     784 </span>            : }
+<span class="lineNum">     785 </span>            : 
+<span class="lineNum">     786 </span>            : template&lt;class T&gt;
+<span class="lineNum">     787 </span>            : inline bool operator!=(const QSharedPointer&lt;T&gt; &amp;lhs, std::nullptr_t) Q_DECL_NOTHROW
+<span class="lineNum">     788 </span>            : {
+<span class="lineNum">     789 </span>            :     return !lhs.isNull();
+<span class="lineNum">     790 </span>            : }
+<span class="lineNum">     791 </span>            : 
+<span class="lineNum">     792 </span>            : template&lt;class T&gt;
+<span class="lineNum">     793 </span>            : inline bool operator==(std::nullptr_t, const QSharedPointer&lt;T&gt; &amp;rhs) Q_DECL_NOTHROW
+<span class="lineNum">     794 </span>            : {
+<span class="lineNum">     795 </span>            :     return rhs.isNull();
+<span class="lineNum">     796 </span>            : }
+<span class="lineNum">     797 </span>            : 
+<span class="lineNum">     798 </span>            : template&lt;class T&gt;
+<span class="lineNum">     799 </span>            : inline bool operator!=(std::nullptr_t, const QSharedPointer&lt;T&gt; &amp;rhs) Q_DECL_NOTHROW
+<span class="lineNum">     800 </span>            : {
+<span class="lineNum">     801 </span>            :     return !rhs.isNull();
+<span class="lineNum">     802 </span>            : }
+<span class="lineNum">     803 </span>            : 
+<span class="lineNum">     804 </span>            : template&lt;class T&gt;
+<span class="lineNum">     805 </span>            : inline bool operator==(const QWeakPointer&lt;T&gt; &amp;lhs, std::nullptr_t) Q_DECL_NOTHROW
+<span class="lineNum">     806 </span>            : {
+<span class="lineNum">     807 </span>            :     return lhs.isNull();
+<span class="lineNum">     808 </span>            : }
+<span class="lineNum">     809 </span>            : 
+<span class="lineNum">     810 </span>            : template&lt;class T&gt;
+<span class="lineNum">     811 </span>            : inline bool operator!=(const QWeakPointer&lt;T&gt; &amp;lhs, std::nullptr_t) Q_DECL_NOTHROW
+<span class="lineNum">     812 </span>            : {
+<span class="lineNum">     813 </span>            :     return !lhs.isNull();
+<span class="lineNum">     814 </span>            : }
+<span class="lineNum">     815 </span>            : 
+<span class="lineNum">     816 </span>            : template&lt;class T&gt;
+<span class="lineNum">     817 </span>            : inline bool operator==(std::nullptr_t, const QWeakPointer&lt;T&gt; &amp;rhs) Q_DECL_NOTHROW
+<span class="lineNum">     818 </span>            : {
+<span class="lineNum">     819 </span>            :     return rhs.isNull();
+<span class="lineNum">     820 </span>            : }
+<span class="lineNum">     821 </span>            : 
+<span class="lineNum">     822 </span>            : template&lt;class T&gt;
+<span class="lineNum">     823 </span>            : inline bool operator!=(std::nullptr_t, const QWeakPointer&lt;T&gt; &amp;rhs) Q_DECL_NOTHROW
+<span class="lineNum">     824 </span>            : {
+<span class="lineNum">     825 </span>            :     return !rhs.isNull();
+<span class="lineNum">     826 </span>            : }
+<span class="lineNum">     827 </span>            : 
+<span class="lineNum">     828 </span>            : //
+<span class="lineNum">     829 </span>            : // operator-
+<span class="lineNum">     830 </span>            : //
+<span class="lineNum">     831 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     832 </span>            : Q_INLINE_TEMPLATE typename QSharedPointer&lt;T&gt;::difference_type operator-(const QSharedPointer&lt;T&gt; &amp;ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2)
+<span class="lineNum">     833 </span>            : {
+<span class="lineNum">     834 </span>            :     return ptr1.data() - ptr2.data();
+<span class="lineNum">     835 </span>            : }
+<span class="lineNum">     836 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     837 </span>            : Q_INLINE_TEMPLATE typename QSharedPointer&lt;T&gt;::difference_type operator-(const QSharedPointer&lt;T&gt; &amp;ptr1, X *ptr2)
+<span class="lineNum">     838 </span>            : {
+<span class="lineNum">     839 </span>            :     return ptr1.data() - ptr2;
+<span class="lineNum">     840 </span>            : }
+<span class="lineNum">     841 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     842 </span>            : Q_INLINE_TEMPLATE typename QSharedPointer&lt;X&gt;::difference_type operator-(T *ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2)
+<span class="lineNum">     843 </span>            : {
+<span class="lineNum">     844 </span>            :     return ptr1 - ptr2.data();
+<span class="lineNum">     845 </span>            : }
+<span class="lineNum">     846 </span>            : 
+<span class="lineNum">     847 </span>            : //
+<span class="lineNum">     848 </span>            : // operator&lt;
+<span class="lineNum">     849 </span>            : //
+<span class="lineNum">     850 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     851 </span>            : Q_INLINE_TEMPLATE bool operator&lt;(const QSharedPointer&lt;T&gt; &amp;ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2)
+<span class="lineNum">     852 </span>            : {
+<span class="lineNum">     853 </span>            :     using CT = typename std::common_type&lt;T *, X *&gt;::type;
+<span class="lineNum">     854 </span>            :     return std::less&lt;CT&gt;()(ptr1.data(), ptr2.data());
+<span class="lineNum">     855 </span>            : }
+<span class="lineNum">     856 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     857 </span>            : Q_INLINE_TEMPLATE bool operator&lt;(const QSharedPointer&lt;T&gt; &amp;ptr1, X *ptr2)
+<span class="lineNum">     858 </span>            : {
+<span class="lineNum">     859 </span>            :     using CT = typename std::common_type&lt;T *, X *&gt;::type;
+<span class="lineNum">     860 </span>            :     return std::less&lt;CT&gt;()(ptr1.data(), ptr2);
+<span class="lineNum">     861 </span>            : }
+<span class="lineNum">     862 </span>            : template &lt;class T, class X&gt;
+<span class="lineNum">     863 </span>            : Q_INLINE_TEMPLATE bool operator&lt;(T *ptr1, const QSharedPointer&lt;X&gt; &amp;ptr2)
+<span class="lineNum">     864 </span>            : {
+<span class="lineNum">     865 </span>            :     using CT = typename std::common_type&lt;T *, X *&gt;::type;
+<span class="lineNum">     866 </span>            :     return std::less&lt;CT&gt;()(ptr1, ptr2.data());
+<span class="lineNum">     867 </span>            : }
+<span class="lineNum">     868 </span>            : 
+<span class="lineNum">     869 </span>            : //
+<span class="lineNum">     870 </span>            : // qHash
+<span class="lineNum">     871 </span>            : //
+<span class="lineNum">     872 </span>            : template &lt;class T&gt;
+<span class="lineNum">     873 </span>            : Q_INLINE_TEMPLATE uint qHash(const QSharedPointer&lt;T&gt; &amp;ptr, uint seed = 0)
+<span class="lineNum">     874 </span>            : {
+<span class="lineNum">     875 </span>            :     return QT_PREPEND_NAMESPACE(qHash)(ptr.data(), seed);
+<span class="lineNum">     876 </span>            : }
+<span class="lineNum">     877 </span>            : 
+<span class="lineNum">     878 </span>            : 
+<span class="lineNum">     879 </span>            : template &lt;class T&gt;
+<span class="lineNum">     880 </span>            : Q_INLINE_TEMPLATE QWeakPointer&lt;T&gt; QSharedPointer&lt;T&gt;::toWeakRef() const
+<span class="lineNum">     881 </span>            : {
+<span class="lineNum">     882 </span>            :     return QWeakPointer&lt;T&gt;(*this);
+<span class="lineNum">     883 </span>            : }
+<span class="lineNum">     884 </span>            : 
+<span class="lineNum">     885 </span>            : template &lt;class T&gt;
+<span class="lineNum">     886 </span>            : inline void qSwap(QSharedPointer&lt;T&gt; &amp;p1, QSharedPointer&lt;T&gt; &amp;p2)
+<span class="lineNum">     887 </span>            : {
+<span class="lineNum">     888 </span>            :     p1.swap(p2);
+<span class="lineNum">     889 </span>            : }
+<span class="lineNum">     890 </span>            : 
+<span class="lineNum">     891 </span>            : QT_END_NAMESPACE
+<span class="lineNum">     892 </span>            : namespace std {
+<span class="lineNum">     893 </span>            :     template &lt;class T&gt;
+<span class="lineNum">     894 </span>            :     inline void swap(QT_PREPEND_NAMESPACE(QSharedPointer)&lt;T&gt; &amp;p1, QT_PREPEND_NAMESPACE(QSharedPointer)&lt;T&gt; &amp;p2)
+<span class="lineNum">     895 </span>            :     { p1.swap(p2); }
+<span class="lineNum">     896 </span>            : }
+<span class="lineNum">     897 </span>            : QT_BEGIN_NAMESPACE
+<span class="lineNum">     898 </span>            : 
+<span class="lineNum">     899 </span>            : namespace QtSharedPointer {
+<span class="lineNum">     900 </span>            : // helper functions:
+<span class="lineNum">     901 </span>            :     template &lt;class X, class T&gt;
+<span class="lineNum">     902 </span>            :     Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; copyAndSetPointer(X *ptr, const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     903 </span>            :     {
+<span class="lineNum">     904 </span>            :         QSharedPointer&lt;X&gt; result;
+<span class="lineNum">     905 </span>            :         result.internalSet(src.d, ptr);
+<span class="lineNum">     906 </span>            :         return result;
+<span class="lineNum">     907 </span>            :     }
+<span class="lineNum">     908 </span>            : }
+<span class="lineNum">     909 </span>            : 
+<span class="lineNum">     910 </span>            : // cast operators
+<span class="lineNum">     911 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     912 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerCast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     913 </span>            : {
+<span class="lineNum">     914 </span>            :     X *ptr = static_cast&lt;X *&gt;(src.data()); // if you get an error in this line, the cast is invalid
+<span class="lineNum">     915 </span>            :     return QtSharedPointer::copyAndSetPointer(ptr, src);
+<span class="lineNum">     916 </span>            : }
+<span class="lineNum">     917 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     918 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerCast(const QWeakPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     919 </span>            : {
+<span class="lineNum">     920 </span>            :     return qSharedPointerCast&lt;X, T&gt;(src.toStrongRef());
+<span class="lineNum">     921 </span>            : }
+<span class="lineNum">     922 </span>            : 
+<span class="lineNum">     923 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     924 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerDynamicCast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     925 </span>            : {
+<span class="lineNum">     926 </span>            :     X *ptr = dynamic_cast&lt;X *&gt;(src.data()); // if you get an error in this line, the cast is invalid
+<span class="lineNum">     927 </span>            :     if (!ptr)
+<span class="lineNum">     928 </span>            :         return QSharedPointer&lt;X&gt;();
+<span class="lineNum">     929 </span>            :     return QtSharedPointer::copyAndSetPointer(ptr, src);
+<span class="lineNum">     930 </span>            : }
+<span class="lineNum">     931 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     932 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerDynamicCast(const QWeakPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     933 </span>            : {
+<span class="lineNum">     934 </span>            :     return qSharedPointerDynamicCast&lt;X, T&gt;(src.toStrongRef());
+<span class="lineNum">     935 </span>            : }
+<span class="lineNum">     936 </span>            : 
+<span class="lineNum">     937 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     938 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerConstCast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     939 </span>            : {
+<span class="lineNum">     940 </span>            :     X *ptr = const_cast&lt;X *&gt;(src.data()); // if you get an error in this line, the cast is invalid
+<span class="lineNum">     941 </span>            :     return QtSharedPointer::copyAndSetPointer(ptr, src);
+<span class="lineNum">     942 </span>            : }
+<span class="lineNum">     943 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     944 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerConstCast(const QWeakPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     945 </span>            : {
+<span class="lineNum">     946 </span>            :     return qSharedPointerConstCast&lt;X, T&gt;(src.toStrongRef());
+<span class="lineNum">     947 </span>            : }
+<span class="lineNum">     948 </span>            : 
+<span class="lineNum">     949 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     950 </span>            : Q_INLINE_TEMPLATE
+<span class="lineNum">     951 </span>            : QWeakPointer&lt;X&gt; qWeakPointerCast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     952 </span>            : {
+<span class="lineNum">     953 </span>            :     return qSharedPointerCast&lt;X, T&gt;(src).toWeakRef();
+<span class="lineNum">     954 </span>            : }
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : #ifndef QT_NO_QOBJECT
+<span class="lineNum">     957 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     958 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerObjectCast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     959 </span>            : {
+<span class="lineNum">     960 </span>            :     X *ptr = qobject_cast&lt;X *&gt;(src.data());
+<span class="lineNum">     961 </span>            :     return QtSharedPointer::copyAndSetPointer(ptr, src);
+<span class="lineNum">     962 </span>            : }
+<span class="lineNum">     963 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     964 </span>            : Q_INLINE_TEMPLATE QSharedPointer&lt;X&gt; qSharedPointerObjectCast(const QWeakPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     965 </span>            : {
+<span class="lineNum">     966 </span>            :     return qSharedPointerObjectCast&lt;X&gt;(src.toStrongRef());
+<span class="lineNum">     967 </span>            : }
+<span class="lineNum">     968 </span>            : 
+<span class="lineNum">     969 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     970 </span>            : inline QSharedPointer&lt;typename QtSharedPointer::RemovePointer&lt;X&gt;::Type&gt;
+<span class="lineNum">     971 </span>            : qobject_cast(const QSharedPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     972 </span>            : {
+<span class="lineNum">     973 </span>            :     return qSharedPointerObjectCast&lt;typename QtSharedPointer::RemovePointer&lt;X&gt;::Type, T&gt;(src);
+<span class="lineNum">     974 </span>            : }
+<span class="lineNum">     975 </span>            : template &lt;class X, class T&gt;
+<span class="lineNum">     976 </span>            : inline QSharedPointer&lt;typename QtSharedPointer::RemovePointer&lt;X&gt;::Type&gt;
+<span class="lineNum">     977 </span>            : qobject_cast(const QWeakPointer&lt;T&gt; &amp;src)
+<span class="lineNum">     978 </span>            : {
+<span class="lineNum">     979 </span>            :     return qSharedPointerObjectCast&lt;typename QtSharedPointer::RemovePointer&lt;X&gt;::Type, T&gt;(src);
+<span class="lineNum">     980 </span>            : }
+<span class="lineNum">     981 </span>            : 
+<span class="lineNum">     982 </span>            : template&lt;typename T&gt;
+<span class="lineNum">     983 </span>            : QWeakPointer&lt;typename std::enable_if&lt;QtPrivate::IsPointerToTypeDerivedFromQObject&lt;T*&gt;::Value, T&gt;::type&gt;
+<span class="lineNum">     984 </span>            : qWeakPointerFromVariant(const QVariant &amp;variant)
+<span class="lineNum">     985 </span>            : {
+<span class="lineNum">     986 </span>            :     return QWeakPointer&lt;T&gt;(qobject_cast&lt;T*&gt;(QtSharedPointer::weakPointerFromVariant_internal(variant).data()));
+<span class="lineNum">     987 </span>            : }
+<span class="lineNum">     988 </span>            : template&lt;typename T&gt;
+<span class="lineNum">     989 </span>            : QSharedPointer&lt;typename std::enable_if&lt;QtPrivate::IsPointerToTypeDerivedFromQObject&lt;T*&gt;::Value, T&gt;::type&gt;
+<span class="lineNum">     990 </span>            : qSharedPointerFromVariant(const QVariant &amp;variant)
+<span class="lineNum">     991 </span>            : {
+<span class="lineNum">     992 </span>            :     return qSharedPointerObjectCast&lt;T&gt;(QtSharedPointer::sharedPointerFromVariant_internal(variant));
+<span class="lineNum">     993 </span>            : }
+<span class="lineNum">     994 </span>            : 
+<span class="lineNum">     995 </span>            : #endif
+<span class="lineNum">     996 </span>            : 
+<span class="lineNum">     997 </span>            : template&lt;typename T&gt; Q_DECLARE_TYPEINFO_BODY(QWeakPointer&lt;T&gt;, Q_MOVABLE_TYPE);
+<span class="lineNum">     998 </span>            : template&lt;typename T&gt; Q_DECLARE_TYPEINFO_BODY(QSharedPointer&lt;T&gt;, Q_MOVABLE_TYPE);
+<span class="lineNum">     999 </span>            : 
+<span class="lineNum">    1000 </span>            : 
+<span class="lineNum">    1001 </span>            : QT_END_NAMESPACE
+<span class="lineNum">    1002 </span>            : 
+<span class="lineNum">    1003 </span>            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
